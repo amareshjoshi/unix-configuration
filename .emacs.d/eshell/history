@@ -1,0 +1,17 @@
+help
+alias
+alias ll ls -lF $1
+alias
+ll a*
+ll
+pwd
+cd /Users
+ll
+cd
+ll
+cd Library/texmf/
+man port
+aspell
+man ssh
+man -k cut
+man cut

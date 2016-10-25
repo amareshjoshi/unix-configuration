@@ -1,0 +1,30 @@
+;; Object decoder/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "decoder/"
+  :tables
+  (list
+    (semanticdb-table "decode.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("decode" function
+               (:documentation "
+    Takes a tagset string and expands the abbreviations.
+    
+    for example:
+    cortapapeles cortapapeles NCMN000
+    
+    NCMN000 -> Nombre-Común-Masculino-Invariable-0-0-0
+    "
+                :arguments 
+                  ( ("ts" variable nil (reparse-symbol function_parameters) [64 66]))                  )
+                nil [53 8274])
+            ("tagset" variable nil nil [8302 8320])
+            ("print" code nil nil [8419 8469]))          
+      :file "decode.py"
+      :pointmax 8480
+      :fsize 8508
+      :lastmodtime '(22257 44499 0 0)
+      :unmatched-syntax nil))
+  :file "!Users!joshia!Dropbox!00-tag!decoder!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

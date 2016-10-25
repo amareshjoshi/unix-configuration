@@ -1,0 +1,20 @@
+;; Object js/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "js/"
+  :tables
+  (list
+    (semanticdb-table "chProblem3.js"
+      :major-mode 'js-mode
+      :tags 
+        '( ("ruleList" function (:arguments 
+              ( ("results" variable nil (reparse-symbol FormalParameterList) [118 125]))              ) nil [100 501])
+            ("totalBytes" function (:arguments 
+              ( ("results" variable nil (reparse-symbol FormalParameterList) [639 646]))              ) nil [619 922]))          
+      :file "chProblem3.js"
+      :pointmax 3401
+      :fsize 3400
+      :lastmodtime '(21937 22065 0 0)
+      :unmatched-syntax '((VARIABLE 3364 . 3371) (PAREN_BLOCK 3375 . 3399) (VARIABLE 1035 . 1045) (BRACE_BLOCK 1048 . 3274) (SEMICOLON 3274 . 3275) (VARIABLE 3329 . 3336) (PAREN_BLOCK 3340 . 3362))))
+  :file "!Users!joshia!Dropbox!000-tutorials!udacity!javascript!frontend-nanodegree-resume!js!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

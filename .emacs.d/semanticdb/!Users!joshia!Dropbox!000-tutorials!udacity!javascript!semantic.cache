@@ -1,0 +1,17 @@
+;; Object javascript/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "javascript/"
+  :tables
+  (list
+    (semanticdb-table "quiz1.js"
+      :major-mode 'js-mode
+      :tags 
+        '( ("awesomeThoughts" variable (:default-value "\"I am Amaresh and I and AWESOME!\"") nil [15 71]))          
+      :file "quiz1.js"
+      :pointmax 110
+      :fsize 109
+      :lastmodtime '(21917 10363 0 0)
+      :unmatched-syntax '((VARIABLE 73 . 80) (PAREN_BLOCK 84 . 101))))
+  :file "!Users!joshia!Dropbox!000-tutorials!udacity!javascript!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
