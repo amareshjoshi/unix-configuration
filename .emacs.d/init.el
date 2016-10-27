@@ -145,8 +145,12 @@
 ;;
 ;; colors/themes
 ;;
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'zenburn t)
+;; emacs on clear.msu.edu is really old (ver 21) 
+;; so stick this in till it's upgraded
+(when (> emacs-major-version 22) 
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+  (load-theme 'zenburn t)
+)
 
 ;;
 ;; always split windows horizontally
