@@ -1,6 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
 ;;
-;; .emacs file for Amaresh Joshi
+;; portable ~/.emacs.d/init.el file for Amaresh Joshi
 ;;
 ;; should work across platforms (linux and mac)
 ;;
@@ -14,7 +14,6 @@
   (setq path (concat
                   "/Users/joshia/bin:/Library/TeX/texbin:"
                   "/opt/local/bin:/opt/local/sbin:"
-                  "/opt/local/racket/bin:"
                   "/bin:/usr/bin:"
                   "/sbin:/usr/sbin"))
   (setenv "PATH" path)
@@ -23,13 +22,9 @@
   (setq exec-path (append (split-string path ":"))) 
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
-  ;; need this, not sure why
-  (setq scheme-program-name "/opt/local/racket/bin/racket")
-  ;;
   ;; default font (for now)
-  ;;(set-default-font "Monospace-10")
   ;;(set-default-font "Monaco-14")
-  (set-default-font "Source Code Pro-14" t t)
+  ;;(set-default-font "Source Code Pro-14" t t)
   ;; key bindings
   ;;
   ;; values can be:
@@ -50,38 +45,20 @@
   ;;
   ;; for codeacademy courses that use python2
   (setq python-shell-interpreter "python2.7")
-  (setq TeX-output-view-style             ; default viewers for AUCTeX
-        '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
-          ))
   )
 
 (when (eq system-type 'gnu/linux) ;; linux specific settings
   ;; gnu/linux stuff
-  (set-default-font "Source Code Pro-11" t t)
+  ;;(set-default-font "Source Code Pro-11" t t)
   ;;
   ;; dired settings
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
-  ;; may not need this
-  (setq scheme-program-name "/usr/bin/racket")
-  ;;
-  (setq TeX-output-view-style             ; default viewers for AUCTeX
-        '(("^pdf$" "." "evince -f %o")
-          ("^html?$" "." "iceweasel %o")))
   )
 
 ;;
 ;; add my own elisp directory to the loadpath
 (add-to-list 'load-path "~/.emacs.d/lisp")
-
-;;
-;; package stuff
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa.org/packages/"))
-(package-initialize)
-(setq url-http-attempt-keepalives nil)
 
 ;;
 ;; utf-8 encoding
@@ -123,10 +100,10 @@
 ;;(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;;
-;; rainbow delimiters
+;; rainbow delimiters (someday)
 ;;
 ;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 
 ;;
@@ -137,8 +114,8 @@
 ;;
 ;; build and test RE's on the fly
 ;; https://masteringemacs.org/article/re-builder-interactive-regexp-builder
-(require 're-builder)
-(setq reb-re-syntax 'string)
+;;(require 're-builder)
+;;(setq reb-re-syntax 'string)
 
 ;;
 ;; font coloring
@@ -152,11 +129,6 @@
 (setq show-paren-delay 0
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
-
-;;
-;; graphical fill column indicator
-;; toggle with ``fci-mode''
-(require 'fill-column-indicator)
 
 ;;
 ;; clean and quiet startup
@@ -175,15 +147,6 @@
 ;;
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
-;;(load "color-theme-zenburn.el")
-;;(load "color-theme-twilight.el")
-;;(color-theme-zenburn)
-;;;;(color-theme-twilight)
-
-
-;;
-;; ????
-(load-file "~/.emacs.d/lisp/caml.el")
 
 ;;
 ;; always split windows horizontally
@@ -198,11 +161,9 @@
 ;; force emacs to insert tabs instead of spaces
 (setq-default indent-tabs-mode nil)
 
-
 ;;
 ;; set the title bar to show file name if available, buffer name otherwise
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-
 
 ;;
 ;; buffers with these names will open sepearte windows (frames)
@@ -317,14 +278,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org mode stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; eshell stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defmacro with-face (str &rest properties)
@@ -357,135 +310,21 @@
 ;; eshell stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;
-;;
-;; markdown
-;;
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; AUCTeX
-;;
-;;
-(setq TeX-engine 'xetex)                ; use xetex instead of latex
-(setq TeX-parse-self t)                 ; enable parsing on load
-(setq TeX-auto-save t)                  ; enable parsing on save
-(setq TeX-parse-self t)                 
-(setq-default TeX-master nil)           ; set up AUCTeX to deal with
-                                        ; multiple file documents.
-(setq LaTeX-biblatex-use-Biber t)       ; use biber by default
-(setq TeX-PDF-mode t)                   ; use pdflatex by default
-(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  (how are these different?)
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
-;; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
-(add-hook 'TeX-mode-hook 'LaTeX-math-mode)
-
-;;; RefTeX
-;; Turn on RefTeX for AUCTeX http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
-(require 'reftex)
-(add-hook 'TeX-mode-hook 'turn-on-reftex)
-(add-hook 'TeX-mode-hook 'flyspell-mode); Enable Flyspell mode for TeX modes such as AUCTeX. Highlights all misspelled words.
-
-;;
-;; temp fix.
-;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
-;;(require 'cl)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; clojure
-;;
-;;;;(setq inferior-lisp-program "java -cp /usr/local/clojure/clojure.jar clojure.main")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; scheme: racket/guile/chicken
-;; name files *.scm
-;; stick this in as needed:
-;; -*- geiser-scheme-implementation: guile -*-
-;; -*- geiser-scheme-implementation: racket -*-
-;; -*- geiser-scheme-implementation: chicken -*-
-;;
-;; probably don't need this
-;; quack
-(setq quack-default-program scheme-program-name)
-;; geiser
-(setq geiser-racket-binary scheme-program-name)
-
-
-;;
-;; paredit (tutotial: http://p.hagelb.org/paredit-outline)
-;;(autoload 'paredit-mode "paredit"
-;;  "Minor mode for pseudo-structurally editing Lisp code." t)
-;;(add-hook 'emacs-lisp-mode-hook       (lambda () (paredit-mode +1)))
-;;(add-hook 'lisp-mode-hook             (lambda () (paredit-mode +1)))
-;;(add-hook 'lisp-interaction-mode-hook (lambda () (paredit-mode +1)))
-;;(add-hook 'scheme-mode-hook           (lambda () (paredit-mode +1)))
-
-
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-    (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-    (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-    (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-    (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Robe (enhanced Ruby mode)
-;; start with
-;; M-x run-ruby
-;; or 
-;; M-x inf-ruby
-(add-hook 'ruby-mode-hook 'robe-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;
+;; ;;
+;; ;; markdown
+;; ;;
+;; (autoload 'markdown-mode "markdown-mode"
+;;   "Major mode for editing Markdown files" t)
+;; (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; unused or obsolete stuff.......
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;
-;;;; setup to print to franklin
-;;(setq lpr-switches '("-d lj4simx"))
-
-;;
-;; end of .emacs file
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (tuareg scala-mode robe rainbow-delimiters quack projectile php-mode perl6-mode paredit markdown-mode+ haskell-mode geiser flycheck fill-column-indicator cider auctex)))
- '(quack-programs
-   (quote
-    ("racket" "bigloo" "csi" "csi -hygienic" "gosh" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "mred -z" "mzscheme" "mzscheme -il r6rs" "mzscheme -il typed-scheme" "mzscheme -M errortrace" "mzscheme3m" "mzschemecgc" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
- '(safe-local-variable-values (quote ((TeX-master . t)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 
 
 
