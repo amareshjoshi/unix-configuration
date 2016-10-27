@@ -145,10 +145,9 @@
 ;;
 ;; colors/themes
 ;;
-;; themes only work with emacs24 or higher
-;; older emacs need to load the theme package manually
-;; so just skip it for now.
-(when (>= emacs-major-version 24) 
+;; emacs on clear.msu.edu is really old (ver 21) 
+;; so stick this in till it's upgraded
+(when (> emacs-major-version 22) 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
   (load-theme 'zenburn t)
 )
