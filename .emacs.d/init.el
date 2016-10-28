@@ -189,16 +189,6 @@
 (setq auto-save-list-file-prefix nil) 
 
 ;;
-;; aspell replaces ispell
-(setq-default ispell-program-name "aspell")
-;; Default dictionary. To change do M-x ispell-change-dictionary RET.
-(setq ispell-dictionary "english")
-
-;;
-;; turn on flyspell mode (shows errors as you type)
-(flyspell-mode)
-
-;;
 ;; enable the {up|down}case region commands
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
