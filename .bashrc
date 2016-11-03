@@ -74,16 +74,16 @@ reset="\[\033[0m\]"
 # in the prompt. set to 0 to only display the current folder
 PROMPT_DIRTRIM=2
 if [ "$color_prompt" = yes ]; then
-    PS1='${green}\u@\H${reset}:${blue}\w${reset} \!\$ '
+    PS1='${green}\u@$(cat /etc/hostname)${reset}:${blue}\w${reset} \!\$ '
 else
-    PS1='\u@\H:\w \!\$ '
+    PS1='\u@$(cat /etc/hostname):\w \!\$ '
 fi
 #unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\H: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@$(cat /etc/hostname): \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -255,9 +255,9 @@ source ~/.bash.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 
 if [ "$color_prompt" = yes ]; then
-    PS1="${green}\u@\H:${purple}\$(__git_ps1)${reset} \w \!$ "
+    PS1="${green}\u@$(cat /etc/hostname):${purple}\$(__git_ps1)${reset} \w \!$ "
 else
-    PS1="\u@\H:\$(__git_ps1) \w \!$ "
+    PS1="\u@$(cat /etc/hostname):\$(__git_ps1) \w \!$ "
 fi
 
 #

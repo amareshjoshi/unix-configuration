@@ -290,7 +290,9 @@
      user-login-name
      "@"
      ;;(with-face (concat "" (car (split-string (shell-command-to-string "hostname") "[.\n]"))) :foreground "green")
-     (car (split-string (shell-command-to-string "hostname") "[.\n]"))
+     ;; only first part of hostname (web1 of web1.dev.celta.msu.edu)
+     ;;(car (split-string (shell-command-to-string "hostname") "[.\n]"))
+     (shell-command-to-string "hostname")
      ": "
      ;;(with-face (concat (eshell/pwd) " ") :background header-bg)
      (with-face (concat (eshell/pwd) " ") :foreground "green")
