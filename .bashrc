@@ -137,7 +137,10 @@ case `uname -s` in
         export MANPATH=/opt/local/share/man:${MANPATH}
         #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
         export JAVA_HOME=`/usr/libexec/java_home`
-        export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+        #
+        # lab macs only have text emacs
+        #export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+        export EMACS='/usr/bin/emacs'
         # for X11 stuff (linux does it automatically)
         export DISPLAY=":0.0"
         #
