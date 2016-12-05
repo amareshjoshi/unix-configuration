@@ -211,10 +211,9 @@ PATH=${JAVA_HOME}/bin:${PATH}
 # Mac OS X (Darwin)
 if [ `uname -s` = "Darwin" ]; then
     echo "Mac OS stuff here"
-    ##
-    ## to use local copy of texlive
-    # TEXBIN=/Library/TeX/Distributions/Programs/texbin (used 2015.basic)
-    export TEXYEAR=2016
+    #
+    # MSU lab machines have TeX 2011 :-(
+    export TEXYEAR=2011
     export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-darwin
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
