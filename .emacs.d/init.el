@@ -145,13 +145,17 @@
 ;;
 ;; colors/themes
 ;;
-;; themes only work with emacs24 or higher
-;; older emacs need to load the theme package manually
-;; so just skip it for now.
+;; custom-theme only works with emacs24 or higher
 (when (>= emacs-major-version 24) 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
   (load-theme 'zenburn t)
-)
+  )
+;;
+;; older emacs need to load the color-theme (color NOT *custom*) package manually
+(when (<= emacs-major-version 23) 
+  (require 'color-theme)
+  (color-theme-gnome)
+  )
 
 ;;
 ;; always split windows horizontally
