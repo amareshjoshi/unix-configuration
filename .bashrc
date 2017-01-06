@@ -137,7 +137,10 @@ case `uname -s` in
         export MANPATH=/opt/local/share/man:${MANPATH}
         #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
         export JAVA_HOME=`/usr/libexec/java_home`
-        export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+        #
+        # lab macs only have text emacs
+        #export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+        export EMACS='/usr/bin/emacs'
         # for X11 stuff (linux does it automatically)
         export DISPLAY=":0.0"
         #
@@ -211,10 +214,9 @@ PATH=${JAVA_HOME}/bin:${PATH}
 # Mac OS X (Darwin)
 if [ `uname -s` = "Darwin" ]; then
     echo "Mac OS stuff here"
-    ##
-    ## to use local copy of texlive
-    # TEXBIN=/Library/TeX/Distributions/Programs/texbin (used 2015.basic)
-    export TEXYEAR=2016
+    #
+    # MSU lab machines have TeX 2011 :-(
+    export TEXYEAR=2011
     export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-darwin
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
