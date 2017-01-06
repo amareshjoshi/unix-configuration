@@ -150,7 +150,7 @@
 ;; so just skip it for now.
 (when (>= emacs-major-version 24) 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (load-theme 'zenburn t)
+  ;;(load-theme 'zenburn t)
 )
 
 ;;
