@@ -154,7 +154,10 @@
 ;; older emacs need to load the color-theme (color NOT *custom*) package manually
 (when (<= emacs-major-version 23) 
   (require 'color-theme)
-  (color-theme-gnome)
+                                        ; lighter theme
+  (color-theme-aalto-light)
+  ;;(color-theme-aalto-gnome)
+  ;;(color-theme-aalto-gnome2) ; dark green
   )
 
 ;;
