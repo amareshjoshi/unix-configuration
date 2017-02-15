@@ -2,7 +2,7 @@
 
 #
 # delete command history
-cp /dev/null > ~/.bash_history
+cat /dev/null > ~/.bash_history
 
 # when leaving the console clear the screen to increase privacy
 
