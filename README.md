@@ -3,6 +3,9 @@
 Includes the bash and emacs setup files.
 
 
+Testing how git branching and merge works.
+
+
 
 
 
