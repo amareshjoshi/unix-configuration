@@ -1,6 +1,10 @@
 #!/bin/bash
 
 #
+# change #2 to branch "test1"
+
+
+#
 # useful aliases and functions
 # sourced in in .bashrc
 
