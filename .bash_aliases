@@ -1,10 +1,6 @@
 #!/bin/bash
 
 #
-# change #2 to branch "test1"
-
-
-#
 # useful aliases and functions
 # sourced in in .bashrc
 
@@ -31,6 +27,17 @@ function lla { ls -lhaF ${@} | more ; }
 function isit { ps -ecf | grep ${@} | grep -v grep ; }
 
 function p { ${@} | more ; }
+
+#
+# attach to a running tmux, or run a new instance
+function tm {
+ if [[ `ps -a | grep tmux | wc -l` -gt 0 ]];  then
+    tmux attach
+else
+    tmux
+ fi
+}
+
 
 #
 # sets precision on dc
