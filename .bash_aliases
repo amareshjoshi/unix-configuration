@@ -31,7 +31,7 @@ function p { ${@} | more ; }
 #
 # attach to a running tmux, or run a new instance
 function tm {
-    if [ `ps -ecf | grep tmux | grep joshia | grep -v grep | wc -l` = "0" ];  then
+    if [ `ps -ecf | grep tmux | grep ${USER} | grep -v grep | wc -l` = "0" ];  then
         tmux
     else
         tmux attach
