@@ -159,6 +159,9 @@
   ;;(color-theme-aalto-gnome)
   ;;(color-theme-aalto-gnome2) ; dark green
   )
+;;
+;; red cursors are faster!
+(set-cursor-color "#ff0000")
 
 ;;
 ;; always split windows horizontally
