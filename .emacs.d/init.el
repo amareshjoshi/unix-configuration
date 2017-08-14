@@ -1,30 +1,54 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
 ;;
-;; portable ~/.emacs.d/init.el file for Amaresh Joshi
+;; .emacs file for Amaresh Joshi
 ;;
 ;; should work across platforms (linux and mac)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; elisp and packages
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; add my own elisp directory to the loadpath
+(add-to-list 'load-path "~/.emacs.d/lisp")
+;;
+;; load packages for emacs version >= 25
+(when (>= emacs-major-version 25) 
+  ;; 
+  (load "load-packages.el")
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; platform specific stuff (linux, apple, ...)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (eq system-type 'darwin) ;; mac specific settings
   ;;
   ;; set PATH and exec-path
   (setq path (concat
-                  "/Users/joshia/bin:/Library/TeX/texbin:"
-                  "/opt/local/bin:/opt/local/sbin:"
-                  "/bin:/usr/bin:"
-                  "/sbin:/usr/sbin"))
+              "/Users/joshia/bin:/Library/TeX/texbin:"
+              "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
+              ;; put GNU coreutils before BSD
+              "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
+              "/opt/local/racket/bin:"
+              "/bin:/usr/bin:"
+              "/sbin:/usr/sbin"))
   (setenv "PATH" path)
   ;;
   ;; exec-path is a list of directories
   (setq exec-path (append (split-string path ":"))) 
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
+  ;; need this, not sure why
+  (setq scheme-program-name "/opt/local/racket/bin/racket")
+  ;;
   ;; default font (for now)
+  ;;(set-default-font "Monospace-10")
   ;;(set-default-font "Monaco-14")
-  ;;(set-default-font "Source Code Pro-14" t t)
+  (set-default-font "Source Code Pro-14" t t)
   ;; key bindings
   ;;
   ;; values can be:
@@ -40,28 +64,40 @@
   (setq mac-right-command-modifier 'super)
   ;;
   ;; dired settings
-  ;; mac "ls" doesn't grok the --dired option
-  (setq dired-use-ls-dired nil)
+  ;; mac "ls" now groks --dired
+  (setq dired-use-ls-dired t)
   ;;
   ;; for codeacademy courses that use python2
   (setq python-shell-interpreter "python2.7")
+  (setq TeX-output-view-style             ; default viewers for AUCTeX
+        '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
+          ))
   )
 
 (when (eq system-type 'gnu/linux) ;; linux specific settings
   ;; gnu/linux stuff
-  ;;(set-default-font "Source Code Pro-11" t t)
+  ;;
+  ;; (set-default-font "Source Code Pro-11" t t)
+  ;; not sure why this needs only 1 arg with linux?
+  (set-default-font "Source Code Pro-11")
   ;;
   ;; dired settings
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
+  ;; may not need this
+  (setq scheme-program-name "/usr/bin/racket")
+  ;;
+  (setq TeX-output-view-style             ; default viewers for AUCTeX
+        '(("^pdf$" "." "evince -f %o")
+          ("^html?$" "." "iceweasel %o")))
   )
 
-;;
-;; add my own elisp directory to the loadpath
-(add-to-list 'load-path "~/.emacs.d/lisp")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; utf-8 encoding
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (set-language-environment "UTF-8") ;; also bound to: C-x RET l
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -78,14 +114,21 @@
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; terminal vs windows specific stuff 
+;; terminal vs gui, other
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (cond ((display-graphic-p)
        (menu-bar-mode t)
        ;;
        ;; get rid of scroll and tool bar
        (tool-bar-mode -1)
        (scroll-bar-mode -1)
+       ;;
+       ;; ruler mode
+       ;; doesn't work. needs to be turned on for each mode i think
+       ;;  (ruler-mode t)
        )
       ;;
       ;; terminal stuff
@@ -94,109 +137,16 @@
        )
 )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; answer just y/n to to yes/no question prompts
+;; startup settings
 ;;
-;;(defalias 'yes-or-no-p 'y-or-n-p)
-
-;;
-;; rainbow delimiters (someday)
-;;
-;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
-;;(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-
-;;
-;; improves display performance, maybe ...
-;; https://masteringemacs.org/article/improving-performance-emacs-display-engine
-(setq redisplay-dont-pause t)
-
-;;
-;; build and test RE's on the fly
-;; https://masteringemacs.org/article/re-builder-interactive-regexp-builder
-;;(require 're-builder)
-;;(setq reb-re-syntax 'string)
-
-;;
-;; font coloring
-(global-font-lock-mode t)
-;;
-;; and more coloring
-(setq font-lock-global-modes t)
-(setq font-lock-maximum-decoration t)
-
-;; also highlight parens
-(setq show-paren-delay 0
-      show-paren-style 'parenthesis)
-(show-paren-mode 1)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; clean and quiet startup
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message "the way is void...")
 (setq visible-bell nil)
-
-;;
-;; fix cut and paste in X
-;; see http://emacswiki.org/emacs/CopyAndPaste
-(setq x-select-enable-primary t)
-(setq x-select-enable-clipboard t)
-
-;;
-;; colors/themes
-;;
-;; custom-theme only works with emacs24 or higher
-(when (>= emacs-major-version 24) 
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  (load-theme 'zenburn t)
-  )
-;;
-;; older emacs need to load the color-theme (color NOT *custom*) package manually
-(when (<= emacs-major-version 23) 
-  (require 'color-theme)
-                                        ; lighter theme
-  (color-theme-aalto-light)
-  ;;(color-theme-aalto-gnome)
-  ;;(color-theme-aalto-gnome2) ; dark green
-  )
-;;
-;; red cursors are faster!
-(set-cursor-color "#ff0000")
-
-;;
-;; always split windows horizontally
-(setq split-height-threshold 80)
-(setq split-width-threshold nil)
-
-;;
-;; sigh ...
-(setq gnus-default-nntp-server "news.eternal-september.org")
-
-;;
-;; force emacs to insert tabs instead of spaces
-(setq-default indent-tabs-mode nil)
-
-;;
-;; set the title bar to show file name if available, buffer name otherwise
-(setq frame-title-format '(buffer-file-name "%f" ("%b")))
-
-;;
-;; buffers with these names will open sepearte windows (frames)
-;; under X
-(setq special-display-buffer-names
-      '("*Colors*" "*Faces*"))
-
-;;
-;;  make no backups
-(setq backup-inhibited t)
-(setq version-control ())
-(setq make-backup-files ())
-;;
-;; don't make #backups# if choose not to save a file
-;; also don't make 'dead' pointers if a session quits suddenly
-;;
-;; (doesn't work!)
-(setq auto-save-list-file-prefix nil) 
 
 ;;
 ;; enable the {up|down}case region commands
@@ -216,15 +166,158 @@
 (global-hl-line-mode t)
 
 ;;
-;; set global keymaps
+;; always split windows horizontally
+(setq split-height-threshold 80)
+(setq split-width-threshold nil)
+
 ;;
-;; toggle global line highlight mode (highlights the current line)
-(global-set-key "\M-h" 'global-hl-line-mode)
-(global-set-key "\M-." 'set-mark-command)
-;
-;;(global-set-key "\M-r" 'replace-regexp)
-;;(global-set-key "\M-s" 'replace-string)
-;;;                                     
+;; force emacs to insert tabs instead of spaces
+(setq-default indent-tabs-mode nil)
+;;
+;; display tab characters as caret-I
+;;(standard-display-ascii ?\t "^I")
+
+;;
+;; set the title bar to show file name if available, buffer name otherwise
+(setq frame-title-format '(buffer-file-name "%f" ("%b")))
+
+;;
+;; improves display performance, maybe ...
+;; https://masteringemacs.org/article/improving-performance-emacs-display-engine
+(setq redisplay-dont-pause t)
+
+;;
+;; buffers with these names will open sepearte windows (frames)
+;; under X
+(setq special-display-buffer-names
+      '("*Colors*" "*Faces*"))
+
+;;
+;;  make no backups
+(setq backup-inhibited t)
+(setq version-control ())
+(setq make-backup-files ())
+
+;;
+;; dired options
+(setq delete-by-moving-to-trash t)
+
+;;
+;; don't make #backups# if choose not to save a file
+;; also don't make 'dead' pointers if a session quits suddenly
+;;
+;; (doesn't work!)
+(setq auto-save-list-file-prefix nil) 
+
+;;
+;; fix cut and paste in X
+;; see http://emacswiki.org/emacs/CopyAndPaste
+(setq x-select-enable-primary t)
+(setq x-select-enable-clipboard t)
+;; Save whatever’s in the current (system) clipboard before
+;; replacing it with the Emacs’ text.
+;; https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; coloring
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-font-lock-mode t)
+;;
+;; and more coloring
+(setq font-lock-global-modes t)
+(setq font-lock-maximum-decoration t)
+
+;; also highlight parens
+(setq show-paren-delay 0
+      show-paren-style 'parenthesis)
+(show-paren-mode 1)
+;;
+;; rainbow delimiters
+;;
+;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;;
+;; colors/themes
+;;
+;; custom-theme only works with emacs24 or higher
+(when (>= emacs-major-version 24) 
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+  ;;(load-theme 'zenburn t)
+  
+  ;;(load-theme 'adwaita t)
+  ;;(load-theme 'deeper-blue t)
+  ;;(load-theme 'dichromacy t)
+  ;;(load-theme 'leuven t)
+  ;;(load-theme 'light-blue t)
+  ;;(load-theme 'manoj-dark t)
+  (load-theme 'misterioso t)
+  ;;(load-theme 'tango t)
+  ;;(load-theme 'tango-dark t)
+  ;;(load-theme 'tsdh-dark t)
+  ;;(load-theme 'tsdh-light t)
+  ;;(load-theme 'wheatgrass t)
+  ;;(load-theme 'whiteboard t)
+  ;;(load-theme 'wombat t)
+  ;;-----------------  
+  ;;(load "color-theme-zenburn.el")
+  ;;(load "color-theme-twilight.el")
+  ;;(color-theme-zenburn)
+  ;;(color-theme-twilight)
+  )
+;;
+;; older emacs need to load the color-theme (color NOT *custom*) package manually
+(when (<= emacs-major-version 23) 
+  (require 'color-theme)
+                                        ; lighter theme
+  (color-theme-aalto-light)
+  ;;(color-theme-aalto-gnome)
+  ;;(color-theme-aalto-gnome2) ; dark green
+  )
+;;
+;; red cursors are faster
+(set-cursor-color "#ff0000")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; spell check options
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; aspell replaces ispell
+(setq-default ispell-program-name "aspell")
+;; Default dictionary. To change do M-x ispell-change-dictionary RET.
+(setq ispell-dictionary "english")
+;;
+;; turn on flyspell mode (shows errors as you type)
+(flyspell-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; keymaps
+;;
+;; always use "kbd" to set keys (see Xah Emacs site)
+;;      (kbd "M-f") vs "\M-f"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; can use <fN> to define fuction keys
+;; on apple keyboard need to press "fn" to use function keys
+;; windows/apple-command key is super
+;;
+;; define a global or particular vkey map as follows:
+;;     (define-key global-map (kbd "M-.") 'set-mark-command)
+;;     (define-key text-mode-map (kbd "M-r") 'replace-regexp)
+;;
+(global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
+;;(global-set-key "\M-." 'set-mark-command)
+(global-set-key (kbd "C-M-z") 'ispell-word)
+
+;;
 (global-set-key (kbd "M-r" ) 'replace-regexp)
 (global-set-key (kbd "M-s" ) 'replace-string)
 ;;
@@ -233,10 +326,8 @@
 ;;
 ;; eshell and (r(ecursive))grep
 (global-set-key (kbd "<f2>" ) 'other-window) ;; avoid using f1
-(global-set-key (kbd "<f3>" ) 'eshell)
-(global-set-key (kbd "<f4>" ) 'grep)
-(global-set-key (kbd "<f5>" ) 'rgrep)
-;; windows key is super
+(global-set-key (kbd "<f3>" ) 'shell)
+(global-set-key (kbd "<f4>" ) 'eshell)
 (global-set-key (kbd "<s-f12>" ) 'a2ps-buffer)
 ;;
 ;; avoid printing by mistake in osX with command-p 
@@ -245,13 +336,12 @@
 ;;(global-set-key (kbd "S-p" ) 'shell)
 ;;(global-unset-key "\S-p")
 
-;;
-;; can also define a particular vkey map as follows:
-;(define-key global-map "\M-." 'set-mark-command)
-;(define-key text-mode-map "\M-r" 'replace-regexp)
-;;
-;; can use <fN> to define fuction keys
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; indentation
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; set indentation for perl-mode
 (setq perl-indent-level 4)
@@ -270,30 +360,66 @@
 
 ;; set indentation for python
 (setq python-indent-offset 4)
-;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;;     the string called when compile is called
+;; language specific packages and settings
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; the string called when compile is called
 (setq compile-command "make")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; language specific packages
+;; sigh ...
+(setq gnus-default-nntp-server "news.eternal-september.org")
+
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ????
+(load-file "~/.emacs.d/lisp/caml.el")
+
+;;
+;; answer just y/n to to yes/no question prompts
+;;
+;;(defalias 'yes-or-no-p 'y-or-n-p)
+
+;;
+;; build and test RE's on the fly
+;; https://masteringemacs.org/article/re-builder-interactive-regexp-builder
+(require 're-builder)
+(setq reb-re-syntax 'string)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; PHP stuff
+;; org mode stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'php-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; eshell stuff
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 (defmacro with-face (str &rest properties)
-    `(propertize ,str 'face (list ,@properties)))
-
+  `(propertize ,str 'face (list ,@properties)))
+;;
+;; we need to makr sure we don't add a extra separtor at the end
+(defun join (list &optional sep)
+  "Concatenate elements of a list into string with an optional separator."
+  (progn
+                                        ; default separator is space
+    (setq s (if sep sep " "))
+    ;; if the list is just 1 element return it
+    ;; else concatenate the car with the rest of the list
+    (if (= (length list) 1)
+        (car list)
+      (concat (car list) s (join (cdr list) s)))
+    )
+  )
+;;
 (defun arj-eshell-prompt ()
   (let ((header-bg "#333")
         )
@@ -306,9 +432,11 @@
      user-login-name
      "@"
      ;;(with-face (concat "" (car (split-string (shell-command-to-string "hostname") "[.\n]"))) :foreground "green")
-     ;; only first part of hostname (web1 of web1.dev.celta.msu.edu)
+     ;;
+     ;; just the host part of the fqdn
      ;;(car (split-string (shell-command-to-string "hostname") "[.\n]"))
-     (shell-command-to-string "hostname")
+     ;; fqdn, but trim the \n
+     (substring (shell-command-to-string "hostname") 0 -1)
      ": "
      ;;(with-face (concat (eshell/pwd) " ") :background header-bg)
      (with-face (concat (eshell/pwd) " ") :foreground "green")
@@ -319,19 +447,78 @@
 (setq eshell-prompt-function 'arj-eshell-prompt)
 (setq eshell-highlight-prompt nil)
 ;;(setq eshell-highlight-prompt 1)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; eshell stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;;
-;; ;;
-;; ;; markdown
-;; ;;
-;; (autoload 'markdown-mode "markdown-mode"
-;;   "Major mode for editing Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-;; (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; AUCTeX
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+(setq TeX-engine 'xetex)                ; use xetex instead of latex
+(setq TeX-parse-self t)                 ; enable parsing on load
+(setq TeX-auto-save t)                  ; enable parsing on save
+(setq TeX-save-query nil)               ; If non-nil, then query the user
+                                        ; before saving each file with TeX-save-document.
+(setq-default TeX-master nil)           ; set up AUCTeX to deal with
+                                        ; multiple file documents.
+(setq LaTeX-biblatex-use-Biber t)       ; use biber by default
+(setq TeX-PDF-mode t)                   ; use pdflatex by default
+(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  (how are these different?)
+(add-hook 'LaTeX-mode-hook
+          (lambda ()
+            (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
+;; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
+(add-hook 'TeX-mode-hook 'LaTeX-math-mode)
+
+;;; RefTeX
+;; Turn on RefTeX for AUCTeX http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
+(require 'reftex)
+(add-hook 'TeX-mode-hook 'turn-on-reftex)
+                                        ; Enable Flyspell mode for TeX modes such as AUCTeX. Highlights all misspelled words.
+(add-hook 'TeX-mode-hook 'flyspell-mode)
+                                        ; make reftex and auctex play nice together
+(setq reftex-plug-into-AUCTeX t)
+
+;;
+;; temp fix.
+;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
+;;(require 'cl)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; clojure
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;(setq inferior-lisp-program "java -cp /usr/local/clojure/clojure.jar clojure.main")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Robe (enhanced Ruby mode)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; start with
+;; M-x run-ruby
+;; or 
+;; M-x inf-ruby
+(add-hook 'ruby-mode-hook 'robe-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; PHP
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;(require 'php-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -339,8 +526,22 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;
+;;;; setup to print to franklin
+;;(setq lpr-switches '("-d lj4simx"))
 
+;;
+;; end of .emacs file
 
-
-
-
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
