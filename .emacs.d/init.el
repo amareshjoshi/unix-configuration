@@ -263,11 +263,6 @@
   ;;(load-theme 'wheatgrass t)
   ;;(load-theme 'whiteboard t)
   ;;(load-theme 'wombat t)
-  ;;-----------------  
-  ;;(load "color-theme-zenburn.el")
-  ;;(load "color-theme-twilight.el")
-  ;;(color-theme-zenburn)
-  ;;(color-theme-twilight)
   )
 ;;
 ;; older emacs need to load the color-theme (color NOT *custom*) package manually
