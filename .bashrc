@@ -132,26 +132,50 @@ case `uname -s` in
         #
         # for now (2016.09) leave /usr/local/bin out of the path)
         # until /usr/local is cleaned up of Homebrew cruft
-        ###export PATH="$HOME/bin":/opt/local/bin:/usr/local/bin:${PATH}
-        PATH="$HOME/bin":/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
+        ###export PATH="${HOME}/bin":/opt/local/bin:/usr/local/bin:${PATH}
+        PATH="${HOME}/bin":/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
+        #
+        # put GNU coreutils before BSD if it exists
+        if [ -f ~/.bash.d/.bash_aliases ]; then
+            PATH="${HOME}/bin":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
+        fi
         export MANPATH=/opt/local/share/man:${MANPATH}
         #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
         export JAVA_HOME=`/usr/libexec/java_home`
         #
-        # lab macs only have text emacs
-        #export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+        # MSU computer lab macs only have text emacs
         export EMACS='/usr/bin/emacs'
+        #
+        # but if MacPorts emacs exists use that 
+        if [ -f /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs ]; then
+            export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
+            export EMACS_BIN="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin"
+        fi
+        #
+        # perl6
+        export PERL6_HOME="/Applications/Rakudo"
+        PATH=${PERL6_HOME}/bin:${PATH}
         # for X11 stuff (linux does it automatically)
         export DISPLAY=":0.0"
         #
         # cancels out this function in /etc/bashrc
         function update_terminal_cwd { cat /dev/null ; }
         #
+        # bash completion from MacPorts
+        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+            . /opt/local/etc/profile.d/bash_completion.sh
+        fi
+        #
+        # MacPorts version of bash
+        if [ -f /opt/local/bin/bash ]; then
+            export SHELL="/opt/local/bin/bash"
+        fi
+        #
         # for emacs term and eshell
         export ESHELL="/opt/local/bin/bash"
         ;;
     Linux*|Solaris*)
-        PATH="$HOME/bin":/usr/local/bin:/usr/local/sbin:${PATH}
+        PATH="${HOME}/bin":/usr/local/bin:/usr/local/sbin:${PATH}
         # /usr/local/java -> whatever version of java you want 1.6,7,8
         export JAVA_HOME=/usr/local/java
         export EMACS=emacs
@@ -163,7 +187,7 @@ case `uname -s` in
         export ESHELL="/bin/bash"
         ;;
     *)
-        PATH="$HOME/bin":/usr/local/bin:/usr/local/sbin:${PATH}
+        PATH="${HOME}/bin":/usr/local/bin:/usr/local/sbin:${PATH}
         #
         # for emacs term and eshell
         export ESHELL="/bin/bash"
@@ -214,9 +238,14 @@ PATH=${JAVA_HOME}/bin:${PATH}
 # Mac OS X (Darwin)
 if [ `uname -s` = "Darwin" ]; then
     echo "Mac OS stuff here"
-    #
-    # MSU lab machines have TeX 2011 :-(
-    export TEXYEAR=2011
+    ##
+    ## to use local copy of texlive
+    # TEXBIN=/Library/TeX/Distributions/Programs/texbin (used 2015.basic)
+    export TEXYEAR=2016
+    # MSU lab machines have TeX 2011 (NEED to better test!)
+    if [ -d TEXBIN=/usr/local/texlive/2011 ]; then
+        export TEXYEAR=2011
+    fi
     export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-darwin
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
@@ -252,7 +281,7 @@ if [ -f ~/.bash.d/.bash_aliases ]; then
 fi
 
 #################################################################
-# GitHub git prompts
+# GitHub git stuff
 #################################################################
 #
 # Enable tab completion

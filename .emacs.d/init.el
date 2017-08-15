@@ -14,13 +14,21 @@
 ;;
 ;; add my own elisp directory to the loadpath
 (add-to-list 'load-path "~/.emacs.d/lisp")
+
+;;
+;; package stuff
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives
+	     '("melpa-stable" . "http://melpa.org/packages/"))
+(package-initialize)
+(setq url-http-attempt-keepalives nil)
+
 ;;
 ;; load packages for emacs version >= 25
 (when (>= emacs-major-version 25) 
-  ;; 
   (load "load-packages.el")
   )
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; platform specific stuff (linux, apple, ...)

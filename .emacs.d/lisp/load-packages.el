@@ -1,36 +1,27 @@
 ;;
-;; package stuff
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa.org/packages/"))
-(package-initialize)
-(setq url-http-attempt-keepalives nil)
-
-;;
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 
 
 ;; latex NOT auctex
-(use-package latex)
-(use-package cider)
+;;--(use-package latex)
+;;--(use-package cider)
 
-;; (use-package clojure-mode)
-(use-package dash)
-(use-package epl)
-(use-package fill-column-indicator)
+;; ;;--(use-package clojure-mode)
+;;--(use-package dash)
+;;--(use-package epl)
+;;--(use-package fill-column-indicator)
 
 ;;
 ;; graphical fill column indicator
 ;; toggle with ``fci-mode''
 (require 'fill-column-indicator)
 
-(use-package flycheck)
-(use-package geiser )
-;; (use-package inf-ruby)
-(use-package magit)
-(use-package markdown-mode)
-(use-package markdown-mode+)
+;;--(use-package flycheck)
+;;--(use-package geiser )
+;; ;;--(use-package inf-ruby)
+;;--(use-package magit)
+;;--(use-package markdown-mode)
+;;--(use-package markdown-mode+)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; markdown
@@ -50,18 +41,20 @@
 
 
 ;; smartparens replaces paredit
-;; (use-package paredit)
-;; (use-package php-mode)
-;; (use-package perl6-mode)
-(use-package pkg-info)
-(use-package projectile)
+;; ;;--(use-package paredit)
+;; ;;--(use-package php-mode)
+;; ;;--(use-package perl6-mode)
+;;--(use-package pkg-info)
+;;--(use-package projectile)
 
-(use-package quack)
+;;--(use-package quack)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; scheme: racket/guile/chicken
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+(require 'quack)
 ;;
 ;; name files *.scm
 ;; stick this in as needed:
@@ -75,8 +68,6 @@
 ;; geiser
 (setq geiser-racket-binary scheme-program-name)
 ;;
-(require 'quack)
-;;
 ;; how to start quack only with scheme files?
 ;; these don't work:
 ;; (add-hook 'scheme-mode-hook (require 'quack) t)
@@ -84,13 +75,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package queue)
-(use-package rainbow-delimiters)
-(use-package robe)
-;; (use-package scala-mode)
-(use-package seq)
+;;--(use-package queue)
+;;--(use-package rainbow-delimiters)
+;;--(use-package robe)
+;; ;;--(use-package scala-mode)
+;;--(use-package seq)
 ;; smartparens replaces paredit
-(use-package smartparens)
+;;--(use-package smartparens)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; smartparens (replaces paredit)
@@ -109,7 +100,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package spinner)
+;;--(use-package spinner)
 
 
 ;;;;;;;;;;;;
