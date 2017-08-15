@@ -77,6 +77,14 @@
 
 ;;--(use-package queue)
 ;;--(use-package rainbow-delimiters)
+;;
+;; rainbow delimiters
+;;
+;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;--(use-package robe)
 ;; ;;--(use-package scala-mode)
 ;;--(use-package seq)

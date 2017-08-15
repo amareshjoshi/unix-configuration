@@ -243,11 +243,6 @@
 (setq show-paren-delay 0
       show-paren-style 'parenthesis)
 (show-paren-mode 1)
-;;
-;; rainbow delimiters
-;;
-;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;;
 ;; colors/themes
