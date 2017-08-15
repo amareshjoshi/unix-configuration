@@ -247,12 +247,12 @@ fi
 
 # Alias definitions.
 # do this at the end because it may depend on ENVs above
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.bash.d/.bash_aliases ]; then
+    . ~/.bash.d/.bash_aliases
 fi
 
 #################################################################
-# udacity git stuff
+# GitHub git prompts
 #################################################################
 #
 # Enable tab completion
