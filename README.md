@@ -1,11 +1,8 @@
-# Common Configuration Files for CeLTA/CLEAR VMs and Lab machines
+# Common Configuration Files for Linux and Mac
 
-Includes the bash and emacs setup files.
+Configuration files for:
 
-
-Testing how git branching and merge works.
-
-
-
-
+- bash
+- emacs
+- tmux
 
