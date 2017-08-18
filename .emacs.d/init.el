@@ -14,6 +14,11 @@
 ;;
 ;; add my own elisp directory to the loadpath
 (add-to-list 'load-path "~/.emacs.d/lisp")
+;;
+;; this is to exclude old elisp files that cause problems with later versions of emacs
+(when (<= emacs-major-version 24) 
+  (add-to-list 'load-path "~/.emacs.d/lisp-old")
+  )
 
 ;;
 ;; package stuff
@@ -536,7 +541,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ '(package-selected-packages
+   (quote
+    (robe projectile perl6-mode markdown-mode+ markdown-mode magit geiser flycheck cider smartparens rainbow-delimiters quack fillcode fill-column-indicator auctex))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
