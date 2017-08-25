@@ -162,9 +162,11 @@ case `uname -s` in
         function update_terminal_cwd { cat /dev/null ; }
         #
         # bash completion from MacPorts
-        if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
-            . /opt/local/etc/profile.d/bash_completion.sh
-        fi
+        # this is giving errors. comment out for now (2017.08.25)
+        #if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+        #    . /opt/local/etc/profile.d/bash_completion.sh
+        #fi
+        #--
         #
         # MacPorts version of bash
         if [ -f /opt/local/bin/bash ]; then
