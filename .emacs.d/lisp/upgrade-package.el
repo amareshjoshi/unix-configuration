@@ -25,8 +25,7 @@
                       markdown-mode
                       markdown-mode+
                       ;;paredit
-                      ;;php-mode
-                      perl6-mode
+                      ;;perl6-mode
                       pkg-info
                       projectile
                       quack
@@ -37,7 +36,9 @@
                       seq
                       ;; smartparens replaces paredit
                       smartparens
-                      spinner))
+                      spinner
+                      ;; web-mode replaces php-mode
+                      web-mode))
 
 (dolist (p my-packages)
   (unless (package-installed-p p)
