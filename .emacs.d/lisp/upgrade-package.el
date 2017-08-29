@@ -13,11 +13,11 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages '(auctex
-                      cider
+                      ;;cider
                       ;;clojure-mode
                       dash
                       epl
-                      fill-column-indicator
+                      ;;fill-column-indicator
                       flycheck
                       geiser 
                       ;;inf-ruby
@@ -31,7 +31,7 @@
                       quack
                       queue
                       rainbow-delimiters
-                      robe
+                      ;;robe
                       ;;scala-mode
                       seq
                       ;; smartparens replaces paredit
