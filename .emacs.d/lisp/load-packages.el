@@ -14,7 +14,7 @@
 ;;
 ;; graphical fill column indicator
 ;; toggle with ``fci-mode''
-(require 'fill-column-indicator)
+;;(require 'fill-column-indicator)
 
 ;;--(use-package flycheck)
 ;;--(use-package geiser )
