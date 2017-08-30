@@ -307,9 +307,12 @@ fi
 #git config --global push.default upstream
 #git config --global merge.conflictstyle diff3
 
-#################################################################
-# udacity git stuff
-#################################################################
+#
+# run tmux (if available)
+if [ -f "/usr/bin/tmux" ]; then
+    echo "Connecting to tmux ..."
+    tm
+fi
 
 #
 # --- eof ---
