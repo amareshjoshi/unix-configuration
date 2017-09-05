@@ -338,6 +338,19 @@
 ;;(global-unset-key (kbd "S-p" ))
 ;;(global-set-key (kbd "S-p" ) 'shell)
 ;;(global-unset-key "\S-p")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; keyboard prefixes and bindings
+;;
+;; new prefix and its keybinding
+(define-prefix-command 'ctl-h-e-prefix)
+(global-set-key (kbd "C-h e") 'ctl-h-e-prefix)
+;;
+;; the old mapping for "C-h e"
+(global-set-key (kbd "C-h e e") 'view-echo-area-messages)
+(global-set-key (kbd "C-h e f") 'find-function)
+(global-set-key (kbd "C-h e a") 'apropos)
+(global-set-key (kbd "C-h e v") 'apropos-value)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
