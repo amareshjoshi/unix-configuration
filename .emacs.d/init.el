@@ -342,15 +342,26 @@
 ;;
 ;; keyboard prefixes and bindings
 ;;
-;; new prefix and its keybinding
+;; prefix "C-c e" already exists, so don't need to define it
+(global-set-key (kbd "C-c e b") 'do-eval-buffer)
+(global-set-key (kbd "C-c e e") 'toggle-debug-on-error)
+(global-set-key (kbd "C-c e f") 'emacs-lisp-byte-compile-and-load)
+(global-set-key (kbd "C-c e r") 'eval-region)
+(global-set-key (kbd "C-c e s") 'scratch)
+
+;;
+;; define new prefix "C-h e" and its keybinding
 (define-prefix-command 'ctl-h-e-prefix)
 (global-set-key (kbd "C-h e") 'ctl-h-e-prefix)
 ;;
 ;; the old mapping for "C-h e"
 (global-set-key (kbd "C-h e e") 'view-echo-area-messages)
 (global-set-key (kbd "C-h e f") 'find-function)
-(global-set-key (kbd "C-h e a") 'apropos)
-(global-set-key (kbd "C-h e v") 'apropos-value)
+(global-set-key (kbd "C-h e k") 'find-function-on-key)
+(global-set-key (kbd "C-h e l") 'find-library)
+(global-set-key (kbd "C-h e v") 'find-variable)
+(global-set-key (kbd "C-h e V") 'apropos-value)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
