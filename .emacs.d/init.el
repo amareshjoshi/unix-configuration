@@ -357,12 +357,12 @@
 ;; now add keys to this prefix-key map
 ;;
 ;; the old mapping for "C-h e"
-(define-key ctl-h-e-prefix (kbd "C-h e e") 'view-echo-area-messages)
-(define-key ctl-h-e-prefix (kbd "C-h e f") 'find-function)
-(define-key ctl-h-e-prefix (kbd "C-h e k") 'find-function-on-key)
-(define-key ctl-h-e-prefix (kbd "C-h e l") 'find-library)
-(define-key ctl-h-e-prefix (kbd "C-h e v") 'find-variable)
-(define-key ctl-h-e-prefix (kbd "C-h e V") 'apropos-value)
+(global-set-key (kbd "C-h e e") 'view-echo-area-messages)
+(global-set-key (kbd "C-h e f") 'find-function)
+(global-set-key (kbd "C-h e k") 'find-function-on-key)
+(global-set-key (kbd "C-h e l") 'find-library)
+(global-set-key (kbd "C-h e v") 'find-variable)
+(global-set-key (kbd "C-h e V") 'apropos-value)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
