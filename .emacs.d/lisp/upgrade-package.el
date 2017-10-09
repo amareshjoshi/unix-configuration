@@ -24,8 +24,7 @@
                       magit
                       markdown-mode
                       markdown-mode+
-                      ;;paredit
-                      ;;perl6-mode
+                      perl6-mode
                       pkg-info
                       projectile
                       quack
