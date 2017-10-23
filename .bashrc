@@ -307,12 +307,12 @@ fi
 #git config --global push.default upstream
 #git config --global merge.conflictstyle diff3
 
-#
-# run tmux (if available)
-if [ -f "/usr/bin/tmux" ]; then
-    echo "Connecting to tmux ..."
-    tm
-fi
+##
+## run tmux (if available)
+#if [ -f "/usr/bin/tmux" ]; then
+#    echo "Connecting to tmux ..."
+#    tm
+#fi
 
 #
 # --- eof ---
