@@ -439,7 +439,7 @@
 (defmacro with-face (str &rest properties)
   `(propertize ,str 'face (list ,@properties)))
 ;;
-;; we need to makr sure we don't add a extra separtor at the end
+;; we need to make sure we don't add a extra separter at the end
 (defun join (list &optional sep)
   "Concatenate elements of a list into string with an optional separator."
   (progn
@@ -452,6 +452,7 @@
       (concat (car list) s (join (cdr list) s)))
     )
   )
+
 ;;
 (defun arj-eshell-prompt ()
   (let ((header-bg "#333")
@@ -467,12 +468,16 @@
      ;;(with-face (concat "" (car (split-string (shell-command-to-string "hostname") "[.\n]"))) :foreground "green")
      ;;
      ;; just the host part of the fqdn
-     ;;(car (split-string (shell-command-to-string "hostname") "[.\n]"))
+     (car (split-string (shell-command-to-string "hostname") "[.\n]"))
      ;; fqdn, but trim the \n
-     (substring (shell-command-to-string "hostname") 0 -1)
+     ;;(substring (shell-command-to-string "hostname") 0 -1)
      ": "
+     ;; entire path
      ;;(with-face (concat (eshell/pwd) " ") :background header-bg)
-     (with-face (concat (eshell/pwd) " ") :foreground "green")
+     ;;(with-face (concat (eshell/pwd) " ") :foreground "green")
+     ;; just the last item in the path
+     (with-face (car (last (eshell-split-path (eshell/pwd))))
+                :foreground "green")
      (if (= (user-uid) 0)
          (with-face " #" :foreground "red")
        " $")
