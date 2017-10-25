@@ -476,8 +476,13 @@
      ;;(with-face (concat (eshell/pwd) " ") :background header-bg)
      ;;(with-face (concat (eshell/pwd) " ") :foreground "green")
      ;; just the last item in the path
-     (with-face (car (last (eshell-split-path (eshell/pwd))))
-                :foreground "green")
+     ;;(with-face (car (last (eshell-split-path (eshell/pwd)))) :foreground "green")
+     ;; first and last elements in the path
+     (with-face
+      (join (append (list (car (cdr (split-string (eshell/pwd) "/"))))
+                    (last (split-string (eshell/pwd) "/")))
+            "/.../")
+      :foreground "green")
      (if (= (user-uid) 0)
          (with-face " #" :foreground "red")
        " $")
@@ -485,8 +490,6 @@
 (setq eshell-prompt-function 'arj-eshell-prompt)
 (setq eshell-highlight-prompt nil)
 ;;(setq eshell-highlight-prompt 1)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
