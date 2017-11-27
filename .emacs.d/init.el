@@ -456,6 +456,8 @@
 (setq org-log-done t)
                                         ; set margins
 (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+                                        ; enable flyspell mode for org
+(add-hook 'org-mode-hook 'flyspell-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -544,7 +546,7 @@
 ;; Turn on RefTeX for AUCTeX http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
 (require 'reftex)
 (add-hook 'TeX-mode-hook 'turn-on-reftex)
-                                        ; Enable Flyspell mode for TeX modes such as AUCTeX. Highlights all misspelled words.
+                                        ; enable flyspell mode for TeX modes such as AUCTeX
 (add-hook 'TeX-mode-hook 'flyspell-mode)
                                         ; make reftex and auctex play nice together
 (setq reftex-plug-into-AUCTeX t)
