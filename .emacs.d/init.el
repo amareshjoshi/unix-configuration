@@ -160,7 +160,7 @@
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
     (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (display-pixel-height) 200)
+         (cons 'height (/ (- (display-pixel-height) 100)
                           (frame-char-height))))
     ;;
     ;; same idea for width
@@ -175,10 +175,16 @@
 ;; the pixel height and width are the maximum's from each monitor
 ;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
 ;;
-;; it may be possinble to use (display-monitor-attributes-list)
+;; it may be possible to use (display-monitor-attributes-list)
 ;; to better determine the ``best'' window size
-;; for now just disable it
-;;;;;;;(set-frame-size-according-to-resolution)
+;; for now only set the window size if the width is NOT "too big"
+;;
+;; for mixed displays (width > 2000) use batch files with "emacs -g 200x64 ..."
+;;
+(if (< (display-pixel-width) 2000)
+    (set-frame-size-according-to-resolution)
+  )
+
 
 ;;
 ;; set position (this needs some tweaking)
