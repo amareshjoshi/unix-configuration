@@ -155,21 +155,31 @@
   (interactive)
   (if window-system
   (progn
-    ;; use 160 char wide window for largeish displays
-    ;; and smaller 80 column windows for smaller displays
-    ;; pick whatever numbers make sense for you
-    (if (> (x-display-pixel-width) 1280)
-           (add-to-list 'default-frame-alist (cons 'width 160))
-           (add-to-list 'default-frame-alist (cons 'width 80)))
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
     (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (x-display-pixel-height) 200)
-                             (frame-char-height)))))))
+         (cons 'height (/ (- (display-pixel-height) 200)
+                          (frame-char-height))))
+    ;;
+    ;; same idea for width
+    ;; but need to subtract less, since there's no menu, etc.
+    (add-to-list 'default-frame-alist 
+         (cons 'width (/ (- (display-pixel-width) 100)
+                          (frame-char-width))))
+    )
+  ))
+;;
+;; the problem is with a horizontal+vertical two monitor combo
+;; the pixel height and width are the maximum's from each monitor
+;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
+;;
+;; it may be possinble to use (display-monitor-attributes-list)
+;; to better determine the ``best'' window size
+;; for now just disable it
+;;;;;;;(set-frame-size-according-to-resolution)
 
-(set-frame-size-according-to-resolution)
 ;;
 ;; set position (this needs some tweaking)
 (if window-system
