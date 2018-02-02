@@ -151,26 +151,39 @@
 )
 ;;
 ;; set size dynamically
+;;
+;; for small screens like laptops make the window slightly smaller
+;; than the dimensions of the screen (to handle menu bars, panels, etc.)
+;; but for large (e.g. 4k) displays we don't want to cover teh whole screen.
+;; most displays are wider than they are tall so make the width
+;; of large displays 1/2 the width of the screen
+;;
 (defun set-frame-size-according-to-resolution ()
   (interactive)
   (if window-system
-  (progn
-    ;; for the height, subtract a couple hundred pixels
-    ;; from the screen height (for panels, menubars and
-    ;; whatnot), then divide by the height of a char to
-    ;; get the height we want
-    (add-to-list 'default-frame-alist 
-         (cons 'height (/ (- (display-pixel-height) 100)
-                          (frame-char-height))))
-    ;;
-    ;; same idea for width
-    ;; but need to subtract less, since there's no menu, etc.
-    (add-to-list 'default-frame-alist 
-         (cons 'width (/ (- (display-pixel-width) 100)
-                          (frame-char-width))))
-    )
-  ))
-;;
+      (progn
+        ;;
+        ;; slightly smaller than the screen 
+        (setq HEIGHT (/ (- (display-pixel-height) 100) (frame-char-height)))
+        ;;
+        ;; for really big displays use a relative size
+        (setq LARGE 2000)
+        (setq WIDTH  (if (< (display-pixel-width) LARGE)
+                         ;; not LARGE
+                         (/ (- (display-pixel-width) 100) (frame-char-width))
+                       ;; LARGE
+                       (/ (/ (display-pixel-width) 2) (frame-char-width)))
+              )
+        (add-to-list 'default-frame-alist 
+                     (cons 'height HEIGHT
+                           ))
+        (add-to-list 'default-frame-alist 
+                     (cons 'width WIDTH
+                           ))
+        )
+    ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the problem is with a horizontal+vertical two monitor combo
 ;; the pixel height and width are the maximum's from each monitor
 ;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
@@ -181,13 +194,16 @@
 ;;
 ;; for mixed displays (width > 2000) use batch files with "emacs -g 200x64 ..."
 ;;
-(if (< (display-pixel-width) 2000)
-    (set-frame-size-according-to-resolution)
-  )
-
+;; (if (< (display-pixel-width) 1920)
+;;     (set-frame-size-according-to-resolution)
+;; )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; set position (this needs some tweaking)
+;; set size
+(set-frame-size-according-to-resolution)
+;;
+;; set position
 (if window-system
     (progn
       (add-to-list 'default-frame-alist (cons 'top 50))
