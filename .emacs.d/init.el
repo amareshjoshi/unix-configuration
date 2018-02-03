@@ -161,28 +161,29 @@
 (defun set-frame-size-according-to-resolution ()
   (interactive)
   (if window-system
-      (progn
-        ;;
-        ;; slightly smaller than the screen 
-        (setq HEIGHT (/ (- (display-pixel-height) 100) (frame-char-height)))
-        ;;
-        ;; for really big displays use a relative size
-        (setq LARGE 2000)
-        (setq WIDTH  (if (< (display-pixel-width) LARGE)
-                         ;; not LARGE
-                         (/ (- (display-pixel-width) 100) (frame-char-width))
-                       ;; LARGE
-                       (/ (/ (display-pixel-width) 2) (frame-char-width)))
-              )
-        (add-to-list 'default-frame-alist 
-                     (cons 'height HEIGHT
-                           ))
-        (add-to-list 'default-frame-alist 
-                     (cons 'width WIDTH
-                           ))
-        )
-    ))
+      (let* (
+            ;;
+            ;; slightly smaller than the screen 
+            (HEIGHT (/ (- (display-pixel-height) 100) (frame-char-height)))
+            ;;
+            ;; for really big displays use a relative size (2000)
+            (LARGE 2000)
+            (WIDTH  (if (< (display-pixel-width) LARGE)
+                        ;; not LARGE
+                        (/ (- (display-pixel-width) 100) (frame-char-width))
+                      ;; LARGE
+                      (/ (/ (display-pixel-width) 2) (frame-char-width)))
+                    )
 
+            )
+        (progn
+          (add-to-list 'default-frame-alist 
+                       (cons 'height HEIGHT
+                             ))
+          (add-to-list 'default-frame-alist 
+                       (cons 'width WIDTH
+                             ))
+          ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the problem is with a horizontal+vertical two monitor combo
 ;; the pixel height and width are the maximum's from each monitor
