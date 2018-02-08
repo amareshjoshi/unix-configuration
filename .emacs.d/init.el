@@ -408,6 +408,13 @@
 (global-set-key (kbd "C-c e f") 'emacs-lisp-byte-compile-and-load)
 (global-set-key (kbd "C-c e r") 'eval-region)
 (global-set-key (kbd "C-c e s") 'scratch)
+;;
+;; markdown -> pdf
+(global-set-key (kbd "C-c e p") 'markdown-export-pandoc-pdf)
+;;
+;; run asscociated (external) application
+(global-set-key (kbd "C-c e l") 'launch-files-dired)
+
 
 ;;
 ;; define new prefix "C-h e" and its keybinding

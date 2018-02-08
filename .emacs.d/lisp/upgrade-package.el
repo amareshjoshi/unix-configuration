@@ -21,6 +21,7 @@
                       flycheck
                       geiser 
                       ;;inf-ruby
+                      launch
                       magit
                       markdown-mode
                       markdown-mode+
