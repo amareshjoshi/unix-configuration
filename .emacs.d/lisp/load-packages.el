@@ -27,8 +27,8 @@
 ;; launch
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; every where
-;;(global-launch-mode +1)
+;; setup
+(global-launch-mode +1)
 ;; If you only want to enable it for certain modes, add:
 (add-hook 'dired-mode 'turn-on-launch-mode)
 
