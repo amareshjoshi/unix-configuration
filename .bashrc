@@ -286,8 +286,9 @@ if [ `uname -s` = "Linux" ]; then
     export RACKET_HOME=/usr/local/racket
     PATH=${RACKET_HOME}/bin:${PATH}
     #
+    # not sure why this was there. commented out 2018.02.12
     # IntelliJ
-    PATH=/usr/local/IntelliJIdea15/bin:${PATH}
+    # PATH=/usr/local/IntelliJIdea15/bin:${PATH}
 fi
 
 # Alias definitions.
