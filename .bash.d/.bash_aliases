@@ -24,7 +24,7 @@ alias macem='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
 function ll { ls -hlF ${@} | more ; }
 function la { ls -haF ${@} ; }
 function lla { ls -lhaF ${@} | more ; }
-function isit { ps -ecf | grep ${@} | grep -v grep ; }
+function isit { ps -ef | grep ${@} | grep -v grep ; }
 
 function p { ${@} | more ; }
 
