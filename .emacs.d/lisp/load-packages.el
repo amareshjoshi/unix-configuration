@@ -81,13 +81,21 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-(require 'quack)
+;; disbale quack (and geiser) for now
+;;;;(require 'quack)
 ;;
 ;; name files *.scm
 ;; stick this in as needed:
 ;; -*- geiser-scheme-implementation: guile -*-
 ;; -*- geiser-scheme-implementation: racket -*-
 ;; -*- geiser-scheme-implementation: chicken -*-
+;;
+(when (eq system-type 'darwin) ;; mac specific settings
+  (setq scheme-program-name "/opt/local/racket/bin/racket")
+  )
+(when (eq system-type 'gnu/linux) ;; linux specific settings
+  (setq scheme-program-name "/usr/local/racket/bin/racket")
+  )
 ;;
 ;; probably don't need this
 ;; quack

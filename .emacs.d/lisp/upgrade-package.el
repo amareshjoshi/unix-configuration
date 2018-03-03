@@ -19,7 +19,7 @@
                       epl
                       ;;fill-column-indicator
                       flycheck
-                      geiser 
+                      ;;geiser 
                       ;;inf-ruby
                       launch
                       magit
@@ -28,7 +28,7 @@
                       perl6-mode
                       pkg-info
                       projectile
-                      quack
+                      ;;quack
                       queue
                       rainbow-delimiters
                       ;;robe

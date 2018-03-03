@@ -98,7 +98,7 @@
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
   ;; may not need this
-  (setq scheme-program-name "/usr/bin/racket")
+  (setq scheme-program-name "/usr/local/racket/bin/racket")
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "evince -f %o")
