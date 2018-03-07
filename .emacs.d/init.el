@@ -97,12 +97,32 @@
   ;; dired settings
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
-  ;; may not need this
+  ;;
   (setq scheme-program-name "/usr/local/racket/bin/racket")
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "evince -f %o")
           ("^html?$" "." "iceweasel %o")))
+  )
+
+(when (eq system-type 'windows-nt) ;; windows specific settings
+  ;; win stuff
+  ;;
+  ;; like linux just one arg
+  (set-default-font "Source Code Pro-11")
+  ;;
+  ;; powershell stuff
+  (setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
+  (setq explicit-powershell.exe-args '("-InputFormat" "Text" "-OutputFormat" "Text"))
+  (setq shell-file-name explicit-shell-file-name)
+  ;; not sure about this require
+  (require 'powershell)
+  ;;
+  (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
+  ;;
+  (setq TeX-output-view-style             ; default viewers for AUCTeX
+        '(("^pdf$" "." "C:\\Program Files (x86)\\Adobe\\Acrobat 11.0\\Acrobat\\Acrobet.exe")
+          ))
   )
 
 
