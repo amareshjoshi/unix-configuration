@@ -329,5 +329,34 @@ fi
 #    tm
 #fi
 
+#########################################
+#
+# ssh-agent configuration for windows linux subsystem (WSL)
+# regular linux and macos do this automatically
+#
+#########################################
+case `uname -v` in
+    *Microsoft*)
+        if [ -z "$(pgrep ssh-agent)" ]; then
+            rm -rf /tmp/ssh-*
+            eval $(ssh-agent -s) > /dev/null
+        else
+            export SSH_AGENT_PID=$(pgrep ssh-agent)
+            export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
+        fi
+        
+        if [ "$(ssh-add -l)" == "The agent has no identities." ]; then
+            ssh-add
+        fi
+        ;;
+    *)
+        if [ -z "$(pgrep ssh-agent)" ]; then
+            echo "ssh-agent is not running"
+        else
+            echo "SSH_AGENT_PID=$(pgrep ssh-agent)"
+        fi
+        ;;
+esac
+
 #
 # --- eof ---
