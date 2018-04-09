@@ -331,12 +331,12 @@ fi
 
 #########################################
 #
-# ssh-agent configuration for windows linux subsystem (WSL)
-# regular linux and macos do this automatically
+# ssh-agent configuration for windows linux subsystem (WSL) and Ubuntu server
+# regular linux (X, Gnome, etc.) and macos do this automatically
 #
 #########################################
 case `uname -v` in
-    *Microsoft*)
+    *Microsoft*|*Ubuntu*)
         if [ -z "$(pgrep ssh-agent)" ]; then
             rm -rf /tmp/ssh-*
             eval $(ssh-agent -s) > /dev/null
@@ -346,7 +346,11 @@ case `uname -v` in
         fi
         
         if [ "$(ssh-add -l)" == "The agent has no identities." ]; then
-            ssh-add
+            read -p 'Run ssh-add? (N,y) ' addkeys
+            # ${foo,,} converts to lowercase
+            if [ "${addkeys,,}" == "y" ]; then
+                ssh-add
+            fi
         fi
         ;;
     *)
