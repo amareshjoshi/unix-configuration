@@ -38,7 +38,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; platform specific stuff (linux, apple, ...)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (eq system-type 'darwin) ;; mac specific settings
+;;
+;; mac os X
+(when (eq system-type 'darwin)
   ;;
   ;; set PATH and exec-path
   (setq path (concat
@@ -86,8 +88,9 @@
         '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
           ))
   )
-
-(when (eq system-type 'gnu/linux) ;; linux specific settings
+;;
+;; GNU linux
+(when (eq system-type 'gnu/linux)
   ;; gnu/linux stuff
   ;;
   ;; (set-default-font "Source Code Pro-11" t t)
@@ -104,8 +107,9 @@
         '(("^pdf$" "." "evince -f %o")
           ("^html?$" "." "iceweasel %o")))
   )
-
-(when (eq system-type 'windows-nt) ;; windows specific settings
+;;
+;; MS windows
+(when (eq system-type 'windows-nt)
   ;; win stuff
   ;;
   ;; like linux just one arg
@@ -123,6 +127,13 @@
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "C:\\Program Files (x86)\\Adobe\\Acrobat 11.0\\Acrobat\\Acrobet.exe")
           ))
+  )
+;;
+;; cygwin
+(when (eq system-type 'cygwin) 
+  ;; cygwin
+  ;;
+  (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
   )
 
 

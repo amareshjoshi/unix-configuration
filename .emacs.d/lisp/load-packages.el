@@ -99,6 +99,9 @@
 (when (eq system-type 'windows-nt) ;; windows specific settings
   (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
   )
+(when (eq system-type 'cygwin) ;; cygwin specific settings
+  (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
+  )
 ;;
 ;; probably don't need this
 ;; quack
