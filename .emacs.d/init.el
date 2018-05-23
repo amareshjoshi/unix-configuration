@@ -2,7 +2,7 @@
 ;;
 ;; .emacs file for Amaresh Joshi
 ;;
-;; should work across platforms (linux and mac)
+;; should work across platforms (linux,  mac and windows)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -116,8 +116,12 @@
   (set-default-font "Source Code Pro-11")
   ;;
   ;; powershell stuff
-  (setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
-  (setq explicit-powershell.exe-args '("-InputFormat" "Text" "-OutputFormat" "Text"))
+  ;;(setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
+  ;;(setq explicit-powershell.exe-args '("-InputFormat" "Text" "-OutputFormat" "Text"))
+  ;;
+  ;; use wsl as the shell
+  (setq explicit-shell-file-name "bash.exe")
+  (setq explicit-powershell.exe-args '())
   (setq shell-file-name explicit-shell-file-name)
   ;; not sure about this require
   (require 'powershell)
@@ -305,6 +309,12 @@
 ;;
 ;; dired options
 (setq delete-by-moving-to-trash t)
+
+;;
+;; set grep command and args
+;; gives an error in WSL
+;; (grep-apply-setting 'grep-command "grep --ignore-case --color -nH -e")
+
 
 ;;
 ;; don't make #backups# if choose not to save a file
