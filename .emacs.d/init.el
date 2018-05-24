@@ -83,7 +83,8 @@
   (setq dired-use-ls-dired t)
   ;;
   ;; for codeacademy courses that use python2
-  (setq python-shell-interpreter "python2.7")
+  ;;(setq python-shell-interpreter "python2.7")
+  (setq python-shell-interpreter "python3.6")
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
           ))
