@@ -135,8 +135,8 @@ case `uname -s` in
         ###export PATH="${HOME}/bin":/opt/local/bin:/usr/local/bin:${PATH}
         PATH="${HOME}/bin":/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
         #
-        # put GNU coreutils before BSD if it exists
-        if [ -f ~/.bash.d/.bash_aliases ]; then
+        # if GNU coreutils exists put it before BSD utils 
+        if [ -f /opt/local/libexec/gnubin ]; then
             PATH="${HOME}/bin":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
         fi
         export MANPATH=/opt/local/share/man:${MANPATH}
@@ -293,8 +293,8 @@ fi
 
 # Alias definitions.
 # do this at the end because it may depend on ENVs above
-if [ -f ~/.bash.d/.bash_aliases ]; then
-    . ~/.bash.d/.bash_aliases
+if [ -f ~/.bash.d/bash_aliases ]; then
+    . ~/.bash.d/bash_aliases
 fi
 
 #################################################################
