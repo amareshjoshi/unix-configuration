@@ -60,6 +60,41 @@ else
     echo "        DSQUERY = $DSQUERY\n"
 }
 
+
+#########################################
+# ssh-agent configuration for windows linux subsystem (WSL) and Ubuntu server
+# regular linux (X, Gnome, etc.) and macos do this automatically
+#########################################
+function ssh-setup {
+    case `uname -v` in
+        *Microsoft*|*Ubuntu*)
+            if [ -z "$(pgrep ssh-agent)" ]; then
+                rm -rf /tmp/ssh-*
+                eval $(ssh-agent -s) > /dev/null
+            else
+                export SSH_AGENT_PID=$(pgrep ssh-agent)
+                export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
+            fi
+            
+            if [ "$(ssh-add -l)" == "The agent has no identities." ]; then
+                read -p 'Run ssh-add? (N,y) ' addkeys
+                # ${foo,,} converts to lowercase
+                if [ "${addkeys,,}" == "y" ]; then
+                    ssh-add
+                fi
+            fi
+            ;;
+        *)
+            if [ -z "$(pgrep ssh-agent)" ]; then
+                echo "ssh-agent is not running"
+            else
+                echo "SSH_AGENT_PID=$(pgrep ssh-agent)"
+            fi
+            ;;
+    esac
+}
+
+
 #
 # --- eof ---
 #
