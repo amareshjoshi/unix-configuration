@@ -9,18 +9,14 @@
 echo "" > ~/.bash_history
 
 #
-# delete any ssh keys (but only on windows and linux)
+# delete any ssh keys when logging out of Ubuntu VMs
 case `uname -v` in
-    *Microsoft*|*Ubuntu*)
-        if [ "$(ssh-add -l)" != "The agent has no identities." ]; then
-            read -p 'Delete ssh keys? (N,y) ' delkeys
-            # ${foo,,} converts to lowercase
-            if [ "${delkeys,,}" == "y" ]; then
-                ssh-add -D
-            fi
-        fi
+    Ubuntu*)
+        ssh-add -D
         ;;
     *)
+        #
+        # for Mac OS, WSL and regular (non Ubuntu) Linux do nothing
         ;;
 esac
     
