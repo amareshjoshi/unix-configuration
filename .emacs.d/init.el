@@ -105,7 +105,12 @@
   (setq scheme-program-name "/usr/local/racket/bin/racket")
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
-        '(("^pdf$" "." "evince -f %o")
+        '(;;
+          ;; this works for WSL
+          ("^pdf$" "." "/mnt/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ 11.0/Acrobat/Acrobat.exe %o")
+          ;;
+          ;; this will need to be tweaked to work with both Linux and WSL
+          ;; ("^pdf$" "." "evince -f %o")
           ("^html?$" "." "iceweasel %o")))
   )
 ;;

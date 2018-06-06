@@ -126,7 +126,9 @@ fi
 set -o allexport
 set -o emacs
 
-export PATH=/bin:/usr/bin:/sbin:/usr/sbin
+#
+# we want to preserve any previous value for the PATH for Windows WSL 
+export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
 case `uname -s` in
     Darwin*|Wallace*)
         #
