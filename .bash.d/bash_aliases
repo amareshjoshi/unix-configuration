@@ -46,15 +46,15 @@ function dc {
 }
 
 function setserv {
- if [[ ${#} -gt 1 ]];  then
-    echo "\nUsage:"
-    echo "       setserv {COMSERV|SYBDEV|SYBTEST}\n"
-else
-    DSLISTEN=${@:-DEVSERV}
-    DSQUERY=${@:-DEVSERV}
-    export DSLISTEN
-    export DSQUERY
- fi
+    if [[ ${#} -gt 1 ]];  then
+        echo "\nUsage:"
+        echo "       setserv {COMSERV|SYBDEV|SYBTEST}\n"
+    else
+        DSLISTEN=${@:-DEVSERV}
+        DSQUERY=${@:-DEVSERV}
+        export DSLISTEN
+        export DSQUERY
+    fi
     echo "\nCurrent:"
     echo "        DSLISTEN = $DSLISTEN"
     echo "        DSQUERY = $DSQUERY\n"
@@ -65,31 +65,33 @@ else
 # ssh-agent configuration for windows linux subsystem (WSL) and Ubuntu server
 # regular linux (X, Gnome, etc.) and macos do this automatically
 #########################################
-function ssh-setup {
+function sshsetup {
     case `uname -v` in
         *Microsoft*|*Ubuntu*)
-            if [ -z "$(pgrep ssh-agent)" ]; then
-                rm -rf /tmp/ssh-*
-                eval $(ssh-agent -s) > /dev/null
-            else
-                export SSH_AGENT_PID=$(pgrep ssh-agent)
-                export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
-            fi
+            echo "M/L"
+            # if [ -z "$(pgrep ssh-agent)" ]; then
+            #     rm -rf /tmp/ssh-*
+            #     eval $(ssh-agent -s) > /dev/null
+            # else
+            #     export SSH_AGENT_PID=$(pgrep ssh-agent)
+            #     export SSH_AUTH_SOCK=$(find /tmp/ssh-* -name agent.*)
+            # fi
             
-            if [ "$(ssh-add -l)" == "The agent has no identities." ]; then
-                read -p 'Run ssh-add? (N,y) ' addkeys
-                # ${foo,,} converts to lowercase
-                if [ "${addkeys,,}" == "y" ]; then
-                    ssh-add
-                fi
-            fi
+            # if [ "$(ssh-add -l)" == "The agent has no identities." ]; then
+            #     read -p 'Run ssh-add? (N,y) ' addkeys
+            #     # ${foo,,} converts to lowercase
+            #     if [ "${addkeys,,}" == "y" ]; then
+            #         ssh-add
+            #     fi
+            # fi
             ;;
         *)
-            if [ -z "$(pgrep ssh-agent)" ]; then
-                echo "ssh-agent is not running"
-            else
-                echo "SSH_AGENT_PID=$(pgrep ssh-agent)"
-            fi
+            echo "*"
+            # if [ -z "$(pgrep ssh-agent)" ]; then
+            #     echo "ssh-agent is not running"
+            # else
+            #     echo "SSH_AGENT_PID=$(pgrep ssh-agent)"
+            # fi
             ;;
     esac
 }
