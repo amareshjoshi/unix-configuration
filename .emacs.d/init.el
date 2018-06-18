@@ -104,10 +104,25 @@
   ;;
   (setq scheme-program-name "/usr/local/racket/bin/racket")
   ;;
+  ;;
+
+  ;; we have to initialize this variable because it may not be set yet
+  ;; when this code firest runs. this  is okay because values will be added to it later
+  (setq org-file-apps ())
+  ;;
+  ;; set the PDF viewer for org latex export
+  ;; this gets a little weird because we are working across windows and linux
+  ;; and windows programs don't understand linx file paths (at all)
+  ;; linux programs only access windows files through "/mnt/c/..."
+  ;; - for the linux version we want to exclude the "/home/joshia/" part of the file name
+  ;;   and in windows replace it with "C:\Users\joshia\"
+  ;; - we need to escape (or double escpe all the special characaters (spaces, parenthesis, backslashes, etc.)
+  (add-to-list 'org-file-apps '("/home/joshia/\\(.+\\.pdf\\)" . "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe C:\\\\Users\\\\joshia\\\\%1 &"))
+  ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(;;
-          ;; this works for WSL
-          ("^pdf$" "." "/mnt/c/Program\ Files\ \(x86\)/Adobe/Acrobat\ 11.0/Acrobat/Acrobat.exe %o")
+          ;; may have to do something similar as org mode (see above)
+          ("^pdf$" "." "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe %o")
           ;;
           ;; this will need to be tweaked to work with both Linux and WSL
           ;; ("^pdf$" "." "evince -f %o")
