@@ -110,6 +110,7 @@
   ;; when this code firest runs. this  is okay because values will be added to it later
   (setq org-file-apps ())
   ;;
+  ;; this is only for WSL 
   ;; set the PDF viewer for org latex export
   ;; this gets a little weird because we are working across windows and linux
   ;; and windows programs don't understand linx file paths (at all)
@@ -117,15 +118,26 @@
   ;; - for the linux version we want to exclude the "/home/joshia/" part of the file name
   ;;   and in windows replace it with "C:\Users\joshia\"
   ;; - we need to escape (or double escpe all the special characaters (spaces, parenthesis, backslashes, etc.)
-  (add-to-list 'org-file-apps '("/home/joshia/\\(.+\\.pdf\\)" . "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe C:\\\\Users\\\\joshia\\\\%1 &"))
+  ;; WSL
+  ;; (add-to-list 'org-file-apps
+  ;;              '("/home/joshia/\\(.+\\.pdf\\)" .
+  ;;                "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe C:\\\\Users\\\\joshia\\\\%1 &"))
+  ;;
+  ;; regular linux
+  (add-to-list 'org-file-apps '("pdf" . "evince %s"))
+  ;;
+  
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(;;
-          ;; may have to do something similar as org mode (see above)
-          ("^pdf$" "." "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe %o")
-          ;;
           ;; this will need to be tweaked to work with both Linux and WSL
-          ;; ("^pdf$" "." "evince -f %o")
+          ;;
+          ;; WSL
+          ;; may have to do something similar as org mode (see above)
+          ;; ("^pdf$" "." "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe %o")
+          ;;
+          ;; regular Linux
+          ("^pdf$" "." "evince -f %o")
           ("^html?$" "." "iceweasel %o")))
   )
 ;;
