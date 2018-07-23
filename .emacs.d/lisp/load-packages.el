@@ -1,12 +1,83 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; ~/.emacs.d/lisp/load-packages.el
 ;;
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; latex NOT auctex
-;;--(use-package latex)
-;;--(use-package cider)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; AUCTeX
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package latex
+  :defer t
+  :ensure auctex
+  :config
+  (setq TeX-auto-save t)                  ; enable parsing on save
+  (setq TeX-engine 'xetex)                ; use xetex instead of latex
+  (setq TeX-parse-self t)                 ; enable parsing on load
+  (setq TeX-save-query nil)               ; If non-nil, then query the user
+                                        ; before saving each file with TeX-save-document.
+  (setq-default TeX-master nil)           ; set up AUCTeX to deal with
+                                        ; multiple file documents.
+  (setq LaTeX-biblatex-use-Biber t)       ; use biber by default
+  (setq TeX-PDF-mode t)                   ; use pdflatex by default
+  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  (how are these different?)
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
+  ;; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
+  (add-hook 'TeX-mode-hook 'LaTeX-math-mode)
+  ;;
+  ;; system specific
+  ;; mac
+  (when (eq system-type 'darwin)
+    (setq TeX-output-view-style             ; default viewers for AUCTeX
+          '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
+            )))
+  ;; linux
+  (when (eq system-type 'gnu/linux)
+    (setq TeX-output-view-style             ; default viewers for AUCTeX
+          '(;;
+            ;; this will need to be tweaked to work with both Linux and WSL
+            ;;
+            ;; WSL
+            ;; may have to do something similar as org mode (see above)
+            ;; ("^pdf$" "." "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe %o")
+            ;;
+            ;; regular Linux
+            ("^pdf$" "." "evince -f %o")
+            ("^html?$" "." "iceweasel %o")))
+    )
+  )
+
+;;
+;; temp fix.
+;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
+(use-package cl
+  :ensure t)
+:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; RefTeX
+;;
+;; see: 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package reftex
+  :ensure t
+  :config
+  ;; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
+  (add-hook 'TeX-mode-hook 'turn-on-reftex)
+  ;; enable flyspell mode for TeX modes such as AUCTeX
+  (add-hook 'TeX-mode-hook 'flyspell-mode)
+  ;; make reftex and auctex play nice together
+  (setq reftex-plug-into-AUCTeX t))
 
 ;; ;;--(use-package clojure-mode)
+;;--(use-package cider)
 ;;--(use-package dash)
 ;;--(use-package epl)
 ;;--(use-package fill-column-indicator)
@@ -20,31 +91,36 @@
 ;;--(use-package geiser )
 ;; ;;--(use-package inf-ruby)
 ;;--(use-package magit)
-;;--(use-package markdown-mode)
-;;--(use-package markdown-mode+)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; launch
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; setup
-(global-launch-mode +1)
-;; If you only want to enable it for certain modes, add:
-(add-hook 'dired-mode 'turn-on-launch-mode)
-
+(use-package launch
+  :ensure t
+  :config
+  (global-launch-mode +1)
+  ;; If you only want to enable it for certain modes, add:
+  (add-hook 'dired-mode 'turn-on-launch-mode))
+  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; markdown
+;; markdown-mode
+;; markdown-mode+
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(use-package markdown-mode
+  :ensure t
+  :config
+  (autoload 'markdown-mode "markdown-mode"
+    "Major mode for editing Markdown files" t)
+  (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
                                         ; Enable Flyspell mode for markdown
-(add-hook 'markdown-mode-hook 'flyspell-mode)
+  (add-hook 'markdown-mode-hook 'flyspell-mode))
+(use-package markdown-mode+
+  :ensure t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -53,26 +129,31 @@
 ;; web-mode (html, javascript, css, php)
 ;; (replaces php-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-;; php "inc"lude files
-(add-to-list 'auto-mode-alist '("\\.inc\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
-;;;; Enable Flyspell mode for web-mode
-;;(add-hook 'web-mode-hook 'flyspell-mode)
+;;;(require 'web-mode)
+(use-package web-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  ;; php "inc"lude files
+  (add-to-list 'auto-mode-alist '("\\.inc\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
+  ;; enable flyspell mode
+  (add-hook 'web-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; smartparens replaces paredit
-;; ;;--(use-package paredit)
-;; ;;--(use-package web-mode)
-;; ;;--(use-package perl6-mode)
-;;--(use-package pkg-info)
-;;--(use-package projectile)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; smartparens (replaces paredit)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode 1))
 
 ;;--(use-package quack)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -117,35 +198,24 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;--(use-package queue)
-;;--(use-package rainbow-delimiters)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; rainbow delimiters
 ;;
-;; (add-hook 'foo-mode-hook #'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;--(use-package robe)
 ;; ;;--(use-package scala-mode)
 ;;--(use-package seq)
-;; smartparens replaces paredit
-;;--(use-package smartparens)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; smartparens (replaces paredit)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(smartparens-global-mode 1)
-;;
-;; not needed for smart parens
-;; (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-;; (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-;; (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-;; (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-;; (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-;; (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-;; (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

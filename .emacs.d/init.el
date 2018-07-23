@@ -21,11 +21,11 @@
   )
 
 ;;
-;; package stuff
+;; package stuff (why isn't this stuff in load-packages.el???)
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
-(add-to-list 'package-archives
-	     '("melpa-stable" . "http://melpa.org/packages/"))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa-stable" . "http://melpa.org/packages/")
+                         ("orgmode" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
@@ -85,9 +85,6 @@
   ;; for codeacademy courses that use python2
   ;;(setq python-shell-interpreter "python2.7")
   (setq python-shell-interpreter "python3.6")
-  (setq TeX-output-view-style             ; default viewers for AUCTeX
-        '(("^pdf$" "." "/Applications/Preview.app/Contents/MacOS/Preview")
-          ))
   )
 ;;
 ;; GNU linux
@@ -126,19 +123,6 @@
   ;; regular linux
   (add-to-list 'org-file-apps '("pdf" . "evince %s"))
   ;;
-  
-  ;;
-  (setq TeX-output-view-style             ; default viewers for AUCTeX
-        '(;;
-          ;; this will need to be tweaked to work with both Linux and WSL
-          ;;
-          ;; WSL
-          ;; may have to do something similar as org mode (see above)
-          ;; ("^pdf$" "." "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe %o")
-          ;;
-          ;; regular Linux
-          ("^pdf$" "." "evince -f %o")
-          ("^html?$" "." "iceweasel %o")))
   )
 ;;
 ;; MS windows
@@ -583,41 +567,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; AUCTeX
+;; AUCTeX and RefTeX (moved into lisp/load-packages.el)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-(setq TeX-engine 'xetex)                ; use xetex instead of latex
-(setq TeX-parse-self t)                 ; enable parsing on load
-(setq TeX-auto-save t)                  ; enable parsing on save
-(setq TeX-save-query nil)               ; If non-nil, then query the user
-                                        ; before saving each file with TeX-save-document.
-(setq-default TeX-master nil)           ; set up AUCTeX to deal with
-                                        ; multiple file documents.
-(setq LaTeX-biblatex-use-Biber t)       ; use biber by default
-(setq TeX-PDF-mode t)                   ; use pdflatex by default
-(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  (how are these different?)
-(add-hook 'LaTeX-mode-hook
-          (lambda ()
-            (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
-;; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
-(add-hook 'TeX-mode-hook 'LaTeX-math-mode)
-
-;;; RefTeX
-;; Turn on RefTeX for AUCTeX http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
-(require 'reftex)
-(add-hook 'TeX-mode-hook 'turn-on-reftex)
-                                        ; enable flyspell mode for TeX modes such as AUCTeX
-(add-hook 'TeX-mode-hook 'flyspell-mode)
-                                        ; make reftex and auctex play nice together
-(setq reftex-plug-into-AUCTeX t)
-
-;;
-;; temp fix.
-;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
-;;(require 'cl)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -663,7 +615,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (web-mode spinner smartparens rainbow-delimiters queue quack projectile perl6-mode markdown-mode+ magit launch geiser flycheck auctex))))
+    (web-mode spinner smartparens rainbow-delimiters queue quack projectile perl6-mode markdown-mode+ magit launch geiser flycheck))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

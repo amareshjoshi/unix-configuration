@@ -6,9 +6,9 @@
 ;;
 ;; package setup
 (require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")))
-(add-to-list 'package-archives
-             '("melpa-stable" . "http://melpa.org/packages/"))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa-stable" . "http://melpa.org/packages/")
+                         ("orgmode" . "http://orgmode.org/elpa/")))
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
@@ -37,6 +37,7 @@
                       ;; smartparens replaces paredit
                       smartparens
                       spinner
+                      use-package
                       ;; web-mode replaces php-mode
                       web-mode))
 
