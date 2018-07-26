@@ -13,21 +13,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; add my own elisp directory to the loadpath
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;;
 ;; this is to exclude old elisp files that cause problems with later versions of emacs
 (when (<= emacs-major-version 24) 
   (add-to-list 'load-path "~/.emacs.d/lisp-old")
   )
-
-;;
-;; package stuff (why isn't this stuff in load-packages.el???)
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://melpa.org/packages/")
-                         ("orgmode" . "http://orgmode.org/elpa/")))
-(package-initialize)
-(setq url-http-attempt-keepalives nil)
 
 ;;
 ;; load packages for emacs version >= 25
@@ -158,6 +156,18 @@
   )
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; startup settings
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; clean and quiet startup
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message "the way is void...")
+(setq visible-bell nil)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; utf-8 encoding
@@ -177,7 +187,7 @@
   (setq default-buffer-file-coding-system 'utf-8))
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-;;
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -237,6 +247,7 @@
                              ))
           ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; the problem is with a horizontal+vertical two monitor combo
 ;; the pixel height and width are the maximum's from each monitor
 ;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
@@ -261,17 +272,6 @@
     (progn
       (add-to-list 'default-frame-alist (cons 'top 50))
       (add-to-list 'default-frame-alist (cons 'left 50))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; startup settings
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; clean and quiet startup
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message "the way is void...")
-(setq visible-bell nil)
 
 ;;
 ;; enable the {up|down}case region commands
@@ -312,8 +312,7 @@
 (setq redisplay-dont-pause t)
 
 ;;
-;; buffers with these names will open sepearte windows (frames)
-;; under X
+;; buffers with these names will open sepearte windows (frames) in gui
 (setq special-display-buffer-names
       '("*Colors*" "*Faces*"))
 
@@ -532,30 +531,13 @@
 
 ;;
 ;; ????
-(load-file "~/.emacs.d/lisp/caml.el")
+;;(load-file "~/.emacs.d/lisp/caml.el")
 
 ;;
 ;; answer just y/n to to yes/no question prompts
 ;;
 ;;(defalias 'yes-or-no-p 'y-or-n-p)
 
-;;
-;; build and test RE's on the fly
-;; https://masteringemacs.org/article/re-builder-interactive-regexp-builder
-(require 're-builder)
-(setq reb-re-syntax 'string)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; org mode stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'org)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
-(setq org-log-done t)
-                                        ; set margins
-(setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-                                        ; enable flyspell mode for org
-(add-hook 'org-mode-hook 'flyspell-mode)
 
 ;;
 ;; eshell stuff

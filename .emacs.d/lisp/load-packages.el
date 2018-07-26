@@ -5,6 +5,46 @@
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;
+;; initialize/config for loading packages
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa-stable" . "http://melpa.org/packages/")
+                         ("orgmode" . "http://orgmode.org/elpa/")))
+(package-initialize)
+(setq url-http-attempt-keepalives nil)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; org mode
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package org
+  :ensure t
+  :config
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (setq org-log-done t)
+  ;; set margins
+  (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+  ;; enable flyspell mode for org
+  (add-hook 'org-mode-hook 'flyspell-mode)
+  )
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; build and test RE's on the fly
+;; https://masteringemacs.org/article/re-builder-interactive-regexp-builder
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package re-builder
+  :defer t
+  :config
+  (setq reb-re-syntax 'string)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -58,7 +98,7 @@
 ;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
 (use-package cl
   :ensure t)
-:;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -155,51 +195,6 @@
   :config
   (smartparens-global-mode 1))
 
-;;--(use-package quack)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; scheme: racket/guile/chicken
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; disbale quack (and geiser) for now
-;;;;(require 'quack)
-;;
-;; name files *.scm
-;; stick this in as needed:
-;; -*- geiser-scheme-implementation: guile -*-
-;; -*- geiser-scheme-implementation: racket -*-
-;; -*- geiser-scheme-implementation: chicken -*-
-;;
-(when (eq system-type 'darwin) ;; mac specific settings
-  (setq scheme-program-name "/opt/local/racket/bin/racket")
-  )
-(when (eq system-type 'gnu/linux) ;; linux specific settings
-  (setq scheme-program-name "/usr/local/racket/bin/racket")
-  )
-(when (eq system-type 'windows-nt) ;; windows specific settings
-  (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
-  )
-(when (eq system-type 'cygwin) ;; cygwin specific settings
-  (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
-  )
-;;
-;; probably don't need this
-;; quack
-(setq quack-default-program scheme-program-name)
-;; geiser
-(setq geiser-racket-binary scheme-program-name)
-;;
-;; how to start quack only with scheme files?
-;; these don't work:
-;; (add-hook 'scheme-mode-hook (require 'quack) t)
-;; (add-hook 'scheme-mode-hook #'quack-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;--(use-package queue)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; rainbow delimiters
@@ -209,17 +204,51 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;--(use-package robe)
-;; ;;--(use-package scala-mode)
-;;--(use-package seq)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; scheme: racket/guile/chicken
+;;
+;;
+;; name files *.scm
+;; stick this in as needed:
+;; -*- geiser-scheme-implementation: guile -*-
+;; -*- geiser-scheme-implementation: racket -*-
+;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; disbale quack (and geiser) for now
+;; (use-package quack
+;;   :ensure t
+;;   :config
+;;   (when (eq system-type 'darwin) ;; mac specific settings
+;;     (setq scheme-program-name "/opt/local/racket/bin/racket")
+;;     )
+;;   (when (eq system-type 'gnu/linux) ;; linux specific settings
+;;     (setq scheme-program-name "/usr/local/racket/bin/racket")
+;;     )
+;;   (when (eq system-type 'windows-nt) ;; windows specific settings
+;;     (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
+;;     )
+;;   (when (eq system-type 'cygwin) ;; cygwin specific settings
+;;     (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
+;;     )
+;;   ;;
+;;   ;; probably don't need this
+;;   ;; quack
+;;   (setq quack-default-program scheme-program-name)
+;;   ;; geiser
+;;   (setq geiser-racket-binary scheme-program-name)
+;;   ;;
+;;   ;; how to start quack only with scheme files?
+;;   ;; these don't work:
+;;   ;; (add-hook 'scheme-mode-hook (require 'quack) t)
+;;   ;; (add-hook 'scheme-mode-hook #'quack-mode)
+;;   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;--(use-package spinner)
 
-
-;;;;;;;;;;;;
+;;
+;; eof
+;;
