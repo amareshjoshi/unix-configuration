@@ -8,7 +8,7 @@
 # aliases
 #
 alias h="fc -l"
-alias e=emacs
+alias e="emacs -nw"
 alias l=more
 alias path='echo -e ${PATH//:/\\n}'
 alias root="su -"
@@ -21,9 +21,25 @@ alias macem='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
 #
 # and functions
 #
-function ll { ls -hlF ${@} | more ; }
 function la { ls -haF ${@} ; }
-function lla { ls -lhaF ${@} | more ; }
+function ll {
+    if [ "$INSIDE_EMACS" != "" ]; then
+        #
+        # no pager in emacs
+        ls -hlF ${@}
+    else
+        ls -hlF ${@} | more
+    fi
+}
+function lla {
+    if [ "$INSIDE_EMACS" != "" ]; then
+        #
+        # no pager in emacs
+        ls -hlaF ${@}
+    else
+        ls -hlaF ${@} | more
+    fi
+}
 function isit { ps -ef | grep ${@} | grep -v grep ; }
 
 function p { ${@} | more ; }
