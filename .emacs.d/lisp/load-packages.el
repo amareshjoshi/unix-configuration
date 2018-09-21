@@ -26,10 +26,29 @@
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
-  ;; set margins
-  (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
   ;; enable flyspell mode for org
   (add-hook 'org-mode-hook 'flyspell-mode)
+  ;; set the list of packages that will be used by LaTeX export
+  (setq org-latex-packages-alist '())
+                                        ;  tikz ist keine drawing program
+  (add-to-list 'org-latex-packages-alist '("" "tikz" t))
+                                        ; double and 1.5 line spacing
+  (add-to-list 'org-latex-packages-alist '("" "setspace" t)) 
+                                        ;  creates dummy text
+  (add-to-list 'org-latex-packages-alist '("" "blindtext" t))
+                                        ;  math symbols
+  (add-to-list 'org-latex-packages-alist '("" "stmaryrd" t))
+                                        ;  roof (v3)(was triangle in v2))
+                                        ;  see: https://tex.stackexchange.com/questions/291420/tikz-pgf-error-when-using-forest
+  (add-to-list 'org-latex-packages-alist '("linguistics" "forest" t))
+                                        ;  fancy headers and footers
+  (add-to-list 'org-latex-packages-alist '("" "fancyhdr" t))
+                                        ;  multiple column text
+  (add-to-list 'org-latex-packages-alist '("" "multicol" t))
+                                        ;  color (obvs))
+  (add-to-list 'org-latex-packages-alist '("" "color" t))
+                                        ;  prevents indentation of first line
+  (add-to-list 'org-latex-packages-alist '("" "parskip" t))
   )
 
 
