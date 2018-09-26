@@ -138,7 +138,7 @@ case `uname -s` in
         PATH="${HOME}/bin":/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
         #
         # if GNU coreutils exists put it before BSD utils 
-        if [ -f /opt/local/libexec/gnubin ]; then
+        if [ -d /opt/local/libexec/gnubin ]; then
             PATH="${HOME}/bin":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
         fi
         export MANPATH=/opt/local/share/man:${MANPATH}
