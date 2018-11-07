@@ -209,8 +209,8 @@
       ;; terminal stuff
       (t 
        (menu-bar-mode -1)
-       ;; use mouse in terminals
-       (xterm-mouse-mode t)
+       ;; use mouse in terminals - nice but doesn't allow copying text
+       ;;(xterm-mouse-mode t)
        )
 )
 ;;
