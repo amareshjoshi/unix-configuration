@@ -210,7 +210,7 @@
       (t 
        (menu-bar-mode -1)
        ;; use mouse in terminals
-       (xterm-mouse-mode t))
+       (xterm-mouse-mode t)
        )
 )
 ;;
