@@ -433,6 +433,10 @@
 ;;     (define-key global-map (kbd "M-.") 'set-mark-command)
 ;;     (define-key text-mode-map (kbd "M-r") 'replace-regexp)
 ;;
+;;
+;; C-o (default open-line) will be the prefix key for tmux
+(global-unset-key (kbd "C-o"))
+;;
 (global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
 ;;(global-set-key "\M-." 'set-mark-command)
 (global-set-key (kbd "C-M-z") 'ispell-word)
