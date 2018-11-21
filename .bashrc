@@ -127,19 +127,24 @@ set -o allexport
 set -o emacs
 
 #
+# default path
+echo "starting path in " `uname -s`
+echo ${PATH}
+
+
+#
 # we want to preserve any previous value for the PATH for Windows WSL 
-export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
+# export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
 case `uname -s` in
     Darwin*|Wallace*)
         #
         # for now (2016.09) leave /usr/local/bin out of the path)
         # until /usr/local is cleaned up of Homebrew cruft
-        ###export PATH="${HOME}/bin":/opt/local/bin:/usr/local/bin:${PATH}
-        PATH="${HOME}/bin":/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
+        PATH=/opt/local/bin:/opt/local/sbin:${PATH}
         #
         # if GNU coreutils exists put it before BSD utils 
-        if [ -f /opt/local/libexec/gnubin ]; then
-            PATH="${HOME}/bin":/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:/usr/local/go/bin:${PATH}
+        if [ -d /opt/local/libexec/gnubin ]; then
+            PATH=/opt/local/libexec/gnubin:${PATH}
         fi
         export MANPATH=/opt/local/share/man:${MANPATH}
         #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
@@ -154,9 +159,15 @@ case `uname -s` in
             export EMACS_BIN="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin"
         fi
         #
+        # go lang
+        if [ -d GO_HOME="/usr/local/go" ]; then
+            PATH=${GO_HOME}/bin:${PATH}
+        fi
+        #
         # perl6
-        export PERL6_HOME="/Applications/Rakudo"
-        PATH=${PERL6_HOME}/bin:${PATH}
+        if [ -d PERL6_HOME="/Applications/Rakudo" ]; then
+            PATH=${PERL6_HOME}/bin:${PATH}
+        fi
         # for X11 stuff (linux does it automatically)
         export DISPLAY=":0.0"
         #
@@ -177,9 +188,14 @@ case `uname -s` in
         #
         # for emacs term and eshell
         export ESHELL="/opt/local/bin/bash"
+        #
+        # and the last shall be first
+        PATH="${HOME}/bin":${PATH}
         ;;
     Linux*|Solaris*)
-        PATH="${HOME}/bin":/usr/local/bin:/usr/local/sbin:${PATH}
+        #
+        # the default PATH is good. no need to edit it.
+        # PATH="${HOME}/bin":${PATH}
         # /usr/local/java -> whatever version of java you want 1.6,7,8
         export JAVA_HOME=/usr/local/java
         export EMACS=emacs
@@ -219,14 +235,14 @@ export SPELL=aspell
 #----------------------------------------------------------
 # ocaml settings
 #----------------------------------------------------------
-CAML_LD_LIBRARY_PATH=${HOME}/.opam/system/lib/stublibs:/opt/local/lib/ocaml/stublibs; export CAML_LD_LIBRARY_PATH;
-OPAMUTF8MSGS="1"; export OPAMUTF8MSGS;
-OCAML_MANPATH=${HOME}/.opam/system/man
-MANPATH=${OCAML_MANPATH}:${MANPATH};
-PERL5LIB=${HOME}/.opam/system/lib/perl5; export PERL5LIB;
-OCAML_TOPLEVEL_PATH=${HOME}/.opam/system/lib/toplevel; export OCAML_TOPLEVEL_PATH;
-OCAML_PATH=${HOME}/.opam/system/bin
-PATH=${OCAML_PATH}:${PATH}
+# CAML_LD_LIBRARY_PATH=${HOME}/.opam/system/lib/stublibs:/opt/local/lib/ocaml/stublibs; export CAML_LD_LIBRARY_PATH;
+# OPAMUTF8MSGS="1"; export OPAMUTF8MSGS;
+# OCAML_MANPATH=${HOME}/.opam/system/man
+# MANPATH=${OCAML_MANPATH}:${MANPATH};
+# PERL5LIB=${HOME}/.opam/system/lib/perl5; export PERL5LIB;
+# OCAML_TOPLEVEL_PATH=${HOME}/.opam/system/lib/toplevel; export OCAML_TOPLEVEL_PATH;
+# OCAML_PATH=${HOME}/.opam/system/bin
+# PATH=${OCAML_PATH}:${PATH}
 
 
 #----------------------------------------------------------
@@ -273,8 +289,10 @@ if [ `uname -s` = "Darwin" ]; then
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
-    export RACKET_HOME=/opt/local/racket
-    PATH=${RACKET_HOME}/bin:${PATH}
+    #export RACKET_HOME=/opt/local/racket
+    if [ -d RACKET_HOME=/opt/local/racket ]; then
+        PATH=${RACKET_HOME}/bin:${PATH}
+    fi
 fi
 
 # Linux
@@ -285,8 +303,9 @@ if [ `uname -s` = "Linux" ]; then
     #----------------------------------------------------------
     #
     # used for locally installed racket
-    export RACKET_HOME=/usr/local/racket
-    PATH=${RACKET_HOME}/bin:${PATH}
+    if [ -d RACKET_HOME=/usr/local/racket ]; then
+        PATH=${RACKET_HOME}/bin:${PATH}
+    fi
     #
     # not sure why this was there. commented out 2018.02.12
     # IntelliJ
@@ -333,3 +352,8 @@ fi
 
 #
 # --- eof ---
+
+#
+# final path
+echo "final path in " `uname -s`
+echo ${PATH}
