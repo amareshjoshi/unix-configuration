@@ -126,23 +126,21 @@ fi
 set -o allexport
 set -o emacs
 
-#
-# default path
-echo "starting path in " `uname -s`
-echo ${PATH}
-
-
-#
-# we want to preserve any previous value for the PATH for Windows WSL 
+#----------
+# Note: Windows WSL only, Linux and Mac don't need to do this
+#       because the default path is good.
+#       WSL needs this to add some of the windows paths to the linux path
+# we want to preserve any previous value for the PATH for Windows WSL
 # export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
+#----------
+
 case `uname -s` in
     Darwin*|Wallace*)
         #
-        # for now (2016.09) leave /usr/local/bin out of the path)
-        # until /usr/local is cleaned up of Homebrew cruft
-        PATH=/opt/local/bin:/opt/local/sbin:${PATH}
+        #PATH=/opt/local/bin:/opt/local/sbin:/usr/local/sbin:${PATH}
+        PATH=/usr/local/sbin:${PATH}
         #
-        # if GNU coreutils exists put it before BSD utils 
+        # if GNU coreutils exists put it before BSD utils that come with MacOS
         if [ -d /opt/local/libexec/gnubin ]; then
             PATH=/opt/local/libexec/gnubin:${PATH}
         fi
@@ -351,8 +349,3 @@ fi
 
 #
 # --- eof ---
-
-#
-# final path
-echo "final path in " `uname -s`
-echo ${PATH}
