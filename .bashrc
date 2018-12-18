@@ -137,8 +137,7 @@ set -o emacs
 case `uname -s` in
     Darwin*|Wallace*)
         #
-        #PATH=/opt/local/bin:/opt/local/sbin:/usr/local/sbin:${PATH}
-        PATH=/usr/local/sbin:${PATH}
+        PATH=/opt/local/bin:/opt/local/sbin:${PATH}
         #
         # if GNU coreutils exists put it before BSD utils that come with MacOS
         if [ -d /opt/local/libexec/gnubin ]; then
