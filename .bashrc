@@ -295,6 +295,20 @@ fi
 if [ `uname -s` = "Linux" ]; then
     echo "Linux stuff here"
     #----------------------------------------------------------
+    # local install of TeXlive
+    #----------------------------------------------------------
+    export TEXYEAR=2018
+    # if local install exists then use it
+    # otherwise the distribution version will be used
+    if [ -d /usr/local/texlive/${TEXYEAR} ]; then
+        export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-linux
+        export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
+        export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
+        PATH=${TEXBIN}:${PATH}
+        MANPATH=${TEXMAN}:${MANPATH}
+        INFOPATH=${TEXINFO}:${INFOPATH}
+    fi
+    #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
     #
