@@ -150,8 +150,12 @@ case `uname -s` in
         # MSU computer lab macs only have text emacs
         export EMACS='/usr/bin/emacs'
         #
-        # but if MacPorts emacs exists use that 
-        if [ -f /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs ]; then
+        # but if MacPorts emacs exists use that
+        # !!!! TEMPORARY till macports version of Emacs.app is fixed
+        if [ -f /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
+            export EMACS='/Applications/Emacs.app/Contents/MacOS/Emacs'
+            export EMACS_BIN="/Applications/Emacs.app/Contents/MacOS/bin"
+        elif [ -f /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs ]; then
             export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
             export EMACS_BIN="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin"
         fi
@@ -345,6 +349,8 @@ fi
 
 #
 # git config commands (only needs to be run once)
+#git config --global user.name “Amaresh R Joshi”
+#git config --global user.email joshia@msu.edu
 #git config --global core.editor "${EMACS} -n -w"
 #git config --global push.default upstream
 #git config --global merge.conflictstyle diff3
