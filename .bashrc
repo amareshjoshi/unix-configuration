@@ -254,14 +254,15 @@ export SPELL=aspell
 #----------------------------------------------------------
 # java settings
 #----------------------------------------------------------
-#
-JDK_HOME=${JAVA_HOME}
-export JDK_HOME
-PATH=${JAVA_HOME}/bin:${PATH}
-#ANT_HOME=/usr/share/ant
-#export ANT_HOME
-#PATH=${ANT_HOME}/bin:${PATH}
-
+# only set these if ${JAVA_HOME} is defined
+if [ ! ${JAVA_HOME} = "" ]; then
+    JDK_HOME=${JAVA_HOME}
+    export JDK_HOME
+    PATH=${JAVA_HOME}/bin:${PATH}
+    #ANT_HOME=/usr/share/ant
+    #export ANT_HOME
+    #PATH=${ANT_HOME}/bin:${PATH}
+fi
 #------------------------------------------------------------------------
 # OS specific stuff
 # mac and linux
@@ -311,15 +312,10 @@ if [ `uname -s` = "Linux" ]; then
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
-    #
     # used for locally installed racket
     if [ -d RACKET_HOME=/usr/local/racket ]; then
         PATH=${RACKET_HOME}/bin:${PATH}
     fi
-    #
-    # not sure why this was there. commented out 2018.02.12
-    # IntelliJ
-    # PATH=/usr/local/IntelliJIdea15/bin:${PATH}
 fi
 
 # Alias definitions.
