@@ -147,17 +147,18 @@ case `uname -s` in
         #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
         export JAVA_HOME=`/usr/libexec/java_home`
         #
-        # MSU computer lab macs only have text emacs
-        export EMACS='/usr/bin/emacs'
-        #
-        # but if MacPorts emacs exists use that
-        # !!!! TEMPORARY till macports version of Emacs.app is fixed
+        # if MacPorts emacs exists use that
         if [ -f /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
+            # !!!! TEMPORARY till macports version of Emacs.app is fixed
             export EMACS='/Applications/Emacs.app/Contents/MacOS/Emacs'
             export EMACS_BIN="/Applications/Emacs.app/Contents/MacOS/bin"
-        elif [ -f /Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs ]; then
-            export EMACS='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
-            export EMACS_BIN="/Applications/MacPorts/Emacs.app/Contents/MacOS/bin"
+        elif [ -f /Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs ]; then
+            export EMACS='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'
+            export EMACS_BIN="/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin"
+        else
+            #
+            # MSU computer lab macs only have text emacs
+            export EMACS='/usr/bin/emacs'
         fi
         #
         # go lang
