@@ -8,6 +8,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; emacs server
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; start emacs server
+;;(require 'server)
+;;(server-start)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; elisp and packages
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -216,11 +227,10 @@
 ;;
 ;; set size dynamically
 ;;
-;; for small screens like laptops make the window slightly smaller
-;; than the dimensions of the screen (to handle menu bars, panels, etc.)
-;; but for large (e.g. 4k) displays we don't want to cover teh whole screen.
-;; most displays are wider than they are tall so make the width
-;; of large displays 1/2 the width of the screen
+;; for small displays make the window 2/3 (0.66) of 
+;; the dimensions of the screen.
+;; but for large (e.g. 4k) displays make the width
+;; 1/2 the width of the screen
 ;;
 (defun set-frame-size-according-to-resolution ()
   (interactive)
@@ -234,7 +244,7 @@
             (LARGE 2000)
             (WIDTH  (if (< (display-pixel-width) LARGE)
                         ;; not LARGE
-                        (/ (- (display-pixel-width) 100) (frame-char-width))
+                        (/ (/ (* (display-pixel-width) 2) 3) (frame-char-width))
                       ;; LARGE
                       (/ (/ (display-pixel-width) 2) (frame-char-width)))
                     )
