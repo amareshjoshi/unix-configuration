@@ -1,6 +1,16 @@
 [user]
-	name = Amaresh R. Joshi
+	name = Amaresh R Joshi
 	email = joshia@msu.edu
+
+[core]
+	editor = "emacs -nw"
 
 [push]
 	default = simple
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
