@@ -9,6 +9,7 @@ rm -vf ${HOME}/.bash_logout
 rm -vf ${HOME}/.bash_profile
 rm -vf ${HOME}/.bashrc
 rm -vf ${HOME}/.tmux.conf
+rm -vf ${HOME}/.gitconfig
 
 
 
@@ -22,6 +23,7 @@ rm -rvf ${EH}/themes
 # now copy files to home
 
 cp -rv .[bet]* ${HOME}/
+cp -v .gitconfig ${HOME}/
 
 
 
