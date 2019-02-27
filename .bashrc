@@ -197,8 +197,9 @@ case `uname -s` in
         ;;
     Linux*|Solaris*)
         #
-        # the default PATH doesn't include ~/bin and /[s]bin
-        PATH="${HOME}/bin":${PATH}:/bin:/sbin
+        # the default PATH (from /etc/profile) doesn't include */sbin
+        PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        PATH="${PATH}:/usr/local/games:/usr/games"
         # /usr/local/java -> whatever version of java you want 1.6,7,8
         export JAVA_HOME=/usr/local/java
         export EMACS=emacs

@@ -98,7 +98,25 @@
 ;;
 ;; GNU linux
 (when (eq system-type 'gnu/linux)
-  ;; gnu/linux stuff
+  ;;
+  ;; set PATH and exec-path
+  (setenv "TEXYEAR" "2018")
+  (setenv "TEXBIN" (concat "/usr/local/texlive/"
+                           (getenv "TEXYEAR")
+                           "/bin/x86_64-linux"))
+  (setq path (concat
+              (getenv "TEXBIN") ":"
+              "/usr/local/java/bin:"
+              "/home/joshia/bin:"
+              "/usr/local/sbin:/usr/local/bin:"
+              "/usr/sbin:/usr/bin:"
+              "/sbin:/bin"
+	      "/usr/local/games:/usr/games"))
+  (setenv "PATH" path)
+  ;;
+  ;; exec-path is a list of directories
+  (setq exec-path (append (split-string path ":")))
+  ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
   ;; (set-default-font "Source Code Pro-11" t t)
   ;; not sure why this needs only 1 arg with linux?
