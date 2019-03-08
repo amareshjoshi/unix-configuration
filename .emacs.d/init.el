@@ -110,7 +110,7 @@
               "/home/joshia/bin:"
               "/usr/local/sbin:/usr/local/bin:"
               "/usr/sbin:/usr/bin:"
-              "/sbin:/bin"
+              "/sbin:/bin:"
 	      "/usr/local/games:/usr/games"))
   (setenv "PATH" path)
   ;;
