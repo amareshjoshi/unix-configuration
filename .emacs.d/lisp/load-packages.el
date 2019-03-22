@@ -14,7 +14,6 @@
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; org mode
@@ -162,6 +161,26 @@
   ;; If you only want to enable it for certain modes, add:
   (add-hook 'dired-mode 'turn-on-launch-mode))
   
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; asciidoc mode
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun setup-adoc-mode ()
+  ;; makes header (=, ==, etc.) and key word (::) markers more visible
+  ;; only mark changes from the default values
+  (custom-set-faces
+   '(markup-meta-face ((t (:inherit markup-meta-face :foreground "color-28"))))
+   '(markup-meta-hide-face ((t (:inherit markup-meta-hide-face :foreground "brightblack")))))
+  )
+
+(use-package adoc-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode))
+  (add-hook 'adoc-mode-hook 'setup-adoc-mode)
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; markdown-mode

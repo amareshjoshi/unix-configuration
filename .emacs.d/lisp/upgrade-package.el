@@ -13,6 +13,8 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages '(auctex
+                      ;; asciidoc
+                      adoc-mode
                       ;;cider
                       ;;clojure-mode
                       dash
