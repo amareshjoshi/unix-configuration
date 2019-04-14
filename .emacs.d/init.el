@@ -72,7 +72,12 @@
   ;; default font (for now)
   ;;(set-default-font "Monospace-10")
   ;;(set-default-font "Monaco-14")
+  ;;
+  ;; for 1050
   (set-default-font "Source Code Pro-14" t t)
+  ;;
+  ;; for 1200
+  (set-default-font "Source Code Pro-16" t t)
   ;; key bindings
   ;;
   ;; values can be:
