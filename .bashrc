@@ -128,11 +128,7 @@ set -o allexport
 set -o emacs
 
 #----------
-# Note: Windows WSL only, Linux and Mac don't need to do this
-#       because the default path is good.
-#       WSL needs this to add some of the windows paths to the linux path
-# we want to preserve any previous value for the PATH for Windows WSL
-# export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
+# Note: see note about WSL PATH
 #----------
 
 case `uname -s` in
@@ -197,8 +193,21 @@ case `uname -s` in
         ;;
     Linux*|Solaris*)
         #
+        # includes Linux in WSL
+        #----------
+        # Note: Windows WSL adds windows path on the end of the Linux path
+        # to run Windows programs. so we need to keep the original ${PATH} value
+        #----------
+        #
         # the default PATH (from /etc/profile) doesn't include */sbin
-        PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        case `uname -r` in
+            *Microsoft*)
+                PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH}"
+                ;;
+            *)
+                PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+                ;;
+        esac
         PATH="${PATH}:/usr/local/games:/usr/games"
         # /usr/local/java -> whatever version of java you want 1.6,7,8
         export JAVA_HOME=/usr/local/java
@@ -261,8 +270,8 @@ export SPELL=aspell
 #----------------------------------------------------------
 # java settings
 #----------------------------------------------------------
-# only set these if ${JAVA_HOME} is defined
-if [ ! ${JAVA_HOME} = "" ]; then
+# only set these if ${JAVA_HOME} exists
+if [ -d ${JAVA_HOME} ]; then
     JDK_HOME=${JAVA_HOME}
     export JDK_HOME
     PATH=${JAVA_HOME}/bin:${PATH}
