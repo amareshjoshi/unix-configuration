@@ -90,7 +90,7 @@ PROMPT='%n@%m: `pwd` !$ '
 # %Nd = last n part of pwd
 # %Nd = last n part of pwd with tilde substitution
 # %! or %h = history number
-PROMPT='%B%F{green}%n@%M%f%b: %2~ %h$ '
+PROMPT='%B%F{green}%n@%m%f%b: %2~ %h$ '
 
 # to make things right for utf-8 stuff (was LANG=C)
 export LC_ALL=en_US.UTF-8
