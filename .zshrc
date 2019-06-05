@@ -76,11 +76,6 @@ bindkey -e
 # prompt
 setopt PROMPT_BANG
 setopt PROMPT_SUBST
-#
-# need to trim pwd like in bash
-PROMPT='%n@%m: `pwd` !$ '
-#
-# with color
 # %F{color} (%f) = set (stop) using Foreground color
 # %K{color} (%k) = set (stop) using bacKground color
 # %B (%b) = set (stop) boldface mode
@@ -249,6 +244,23 @@ if [ ! ${JAVA_HOME} = "" ]; then
     #export ANT_HOME
     #PATH=${ANT_HOME}/bin:${PATH}
 fi
+
+#----------------------------------------------------------
+# GitHub git stuff
+#----------------------------------------------------------
+#
+# enable tab completion
+fpath=(~/.zsh $fpath)
+#
+# change command prompt
+# '$(__git_ps1)' adds git-related stuff
+source ~/.bash.d/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+PROMPT='%B%F{green}%n@%m%f%b: %2~%F{red}$(__git_ps1)%f %h$ '
+
+
+
+
 #------------------------------------------------------------------------
 # final os specific stuff
 #
