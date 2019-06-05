@@ -19,6 +19,7 @@ rm -vf ${HOME}/.gitconfig
 #
 # zsh
 rm -vf ${HOME}/.zshrc
+rm -rvf ${HOME}/.zsh
 
 
 #
