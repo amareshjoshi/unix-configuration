@@ -51,7 +51,7 @@ function isit { ps -ef | grep ${@} | grep -v grep ; }
 #
 # attach to a running tmux, or run a new instance
 function tm {
-    if [ `tmux ls | wc -l` = "0" ];  then
+    if [[ $(tmux ls | wc -l) = "0" ]];  then
         tmux
     else
         tmux attach-session
@@ -94,130 +94,145 @@ export LANGUAGE=en_US.UTF-8
 
 #
 # first OS specific section
-#----------
-# Note: Windows WSL only, Linux and Mac don't need to do this
-#       because the default path is good.
-#       WSL needs this to add some of the windows paths to the linux path
-# we want to preserve any previous value for the PATH for Windows WSL
-# export PATH=/bin:/usr/bin:/sbin:/usr/sbin:${PATH}
-#----------
+#
+# os variables
+case $(uname -s) in
+    Darwin)
+        macos=true
+        ;;
+    Linux)
+        linux=true
+        ;;
+    *)
+        unix=true
+        ;;
+esac
+#
+#  ms wsl check
+case $(uname -a) in
+    *Microsoft*)
+        wsl=true
+        ;;
+    *)
+        wsl=false
+        ;;
+esac
 
-case `uname -s` in
-    Darwin*|Wallace*)
-        echo "mac os ..."
+
+if [[ "$macos" ]]; then
+    echo "mac os ..."
+    #
+    PATH=/opt/local/bin:/opt/local/sbin:${PATH}
+    #
+    # if GNU coreutils exists put it before BSD utils that come with MacOS
+    if [[ -d /opt/local/libexec/gnubin ]]; then
+        PATH=/opt/local/libexec/gnubin:${PATH}
+    fi
+    export MANPATH=/opt/local/share/man:${MANPATH}
+    #export JAVA_HOME=$(/usr/libexec/java_home -v 1.x)
+    export JAVA_HOME=$(/usr/libexec/java_home)
+    export EMACS='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'
+    export EMACS_BIN="/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin"
+    #----------------------------------
+    # MacTeX
+    #----------------------------------
+    export TEXYEAR=2018
+    # MSU lab machines have TeX 2011 (NEED to better test!)
+    if [[ -d TEXBIN=/usr/local/texlive/2011 ]]; then
+        export TEXYEAR=2011
+    fi
+    export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-darwin
+    export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
+    export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
+    PATH=${TEXBIN}:${PATH}
+    MANPATH=${TEXMAN}:${MANPATH}
+    INFOPATH=${TEXINFO}:${INFOPATH}
+    #----------------------------------
+    #----------------------------------------------------------
+    # lisp/scheme stuff
+    #----------------------------------------------------------
+    #export RACKET_HOME=/opt/local/racket
+    if [[ -d RACKET_HOME=/opt/local/racket ]]; then
+        PATH=${RACKET_HOME}/bin:${PATH}
+    fi
+    #
+    # go lang
+    if [[ -d GO_HOME="/usr/local/go" ]]; then
+        PATH=${GO_HOME}/bin:${PATH}
+    fi
+    #
+    # perl6
+    if [[ -d PERL6_HOME="/Applications/Rakudo" ]]; then
+        PATH=${PERL6_HOME}/bin:${PATH}
+    fi
+    # for X11 stuff (linux does it automatically)
+    export DISPLAY=":0.0"
+    #
+    # MacPorts version of zsh????? do we need this?
+    if [[ -f /opt/local/bin/zsh ]]; then
+        export SHELL="/opt/local/bin/zsh"
+    fi
+    #
+    # for emacs term and eshell
+    export ESHELL="/opt/local/bin/zsh"
+    #
+    # and the last shall be first
+    PATH="${HOME}/bin":${PATH}
+fi
+#
+if [[ "$linux" ]]; then
+    echo "linux ..."
+    if [[ "$wsl" ]]; then
+        echo "wsl ..."
         #
-        PATH=/opt/local/bin:/opt/local/sbin:${PATH}
-        #
-        # if GNU coreutils exists put it before BSD utils that come with MacOS
-        if [ -d /opt/local/libexec/gnubin ]; then
-            PATH=/opt/local/libexec/gnubin:${PATH}
-        fi
-        export MANPATH=/opt/local/share/man:${MANPATH}
-        #export JAVA_HOME=`/usr/libexec/java_home -v 1.x`
-        export JAVA_HOME=`/usr/libexec/java_home`
-        #
-        # if MacPorts emacs exists use that
-        if [ -f /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
-            # !!!! TEMPORARY till macports version of Emacs.app is fixed
-            export EMACS='/Applications/Emacs.app/Contents/MacOS/Emacs'
-            export EMACS_BIN="/Applications/Emacs.app/Contents/MacOS/bin"
-        elif [ -f /Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs ]; then
-            export EMACS='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'
-            export EMACS_BIN="/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin"
-        else
-            #
-            # MSU computer lab macs only have text emacs
-            export EMACS='/usr/bin/emacs'
-        fi
-        #----------------------------------
-        # MacTeX
-        #----------------------------------
-        export TEXYEAR=2018
-        # MSU lab machines have TeX 2011 (NEED to better test!)
-        if [ -d TEXBIN=/usr/local/texlive/2011 ]; then
-            export TEXYEAR=2011
-        fi
-        export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-darwin
+        # wsl linux: wsl adds windows path dirs after the the linux path
+        # we just need to add in $HOME/bin
+        PATH="${HOME}/bin:${PATH}"
+    else
+        # (non wsl) linux
+        # the default PATH (from /etc/profile) doesn't include */sbin
+        PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+        PATH="${PATH}:/usr/local/games:/usr/games"
+    fi
+    if [[ -d /usr/local/java ]]; then
+        # /usr/local/java -> whatever version of java you want 1.6,7,8
+        export JAVA_HOME=/usr/local/java
+        export EMACS=emacs
+    fi
+    #----------------------------------
+    # MacTeX
+    #----------------------------------
+    export TEXYEAR=2018
+    # if local install exists then use it
+    # otherwise the distribution version will be used
+    if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
+        export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-linux
         export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
         export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
         PATH=${TEXBIN}:${PATH}
         MANPATH=${TEXMAN}:${MANPATH}
         INFOPATH=${TEXINFO}:${INFOPATH}
-        #----------------------------------
-        #----------------------------------------------------------
-        # lisp/scheme stuff
-        #----------------------------------------------------------
-        #export RACKET_HOME=/opt/local/racket
-        if [ -d RACKET_HOME=/opt/local/racket ]; then
-            PATH=${RACKET_HOME}/bin:${PATH}
-        fi
-        #
-        # go lang
-        if [ -d GO_HOME="/usr/local/go" ]; then
-            PATH=${GO_HOME}/bin:${PATH}
-        fi
-        #
-        # perl6
-        if [ -d PERL6_HOME="/Applications/Rakudo" ]; then
-            PATH=${PERL6_HOME}/bin:${PATH}
-        fi
-        # for X11 stuff (linux does it automatically)
-        export DISPLAY=":0.0"
-        #
-        # MacPorts version of zsh????? do we need this?
-        if [ -f /opt/local/bin/zsh ]; then
-            export SHELL="/opt/local/bin/zsh"
-        fi
-        #
-        # for emacs term and eshell
-        export ESHELL="/opt/local/bin/zsh"
-        #
-        # and the last shall be first
-        PATH="${HOME}/bin":${PATH}
-        ;;
-    Linux*|Solaris*)
-        echo "linux ..."
-        #
-        # the default PATH (from /etc/profile) doesn't include */sbin
-        PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        PATH="${PATH}:/usr/local/games:/usr/games"
-        # /usr/local/java -> whatever version of java you want 1.6,7,8
-        export JAVA_HOME=/usr/local/java
-        export EMACS=emacs
-        #----------------------------------
-        # MacTeX
-        #----------------------------------
-        export TEXYEAR=2018
-        # if local install exists then use it
-        # otherwise the distribution version will be used
-        if [ -d /usr/local/texlive/${TEXYEAR} ]; then
-            export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-linux
-            export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
-            export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
-            PATH=${TEXBIN}:${PATH}
-            MANPATH=${TEXMAN}:${MANPATH}
-            INFOPATH=${TEXINFO}:${INFOPATH}
-        fi
-        #----------------------------------
-        #----------------------------------------------------------
-        # lisp/scheme stuff
-        #----------------------------------------------------------
-        # used for locally installed racket
-        if [ -d RACKET_HOME=/usr/local/racket ]; then
-            PATH=${RACKET_HOME}/bin:${PATH}
-        fi
-        #
-        # for emacs term and eshell
-        export ESHELL="/bin/zsh"
-        ;;
-    *)
-        echo "other unix os ..."
-        PATH="${HOME}/bin":/usr/local/bin:/usr/local/sbin:${PATH}
-        #
-        # for emacs term and eshell
-        export ESHELL="/bin/zsh"
-        ;;
-esac
+    fi
+    #----------------------------------
+    #----------------------------------------------------------
+    # lisp/scheme stuff
+    #----------------------------------------------------------
+    # used for locally installed racket
+    if [[ -d RACKET_HOME=/usr/local/racket ]]; then
+        PATH=${RACKET_HOME}/bin:${PATH}
+    fi
+    #
+    # for emacs term and eshell
+    export ESHELL="/bin/zsh"
+fi
+#
+if [[ "$unix" ]]; then
+    echo "other unix os ..."
+    PATH="${HOME}/bin":/usr/local/bin:/usr/local/sbin:${PATH}
+    #
+    # for emacs term and eshell
+    export ESHELL="/bin/zsh"
+fi
 
 #
 # for all...
@@ -236,7 +251,7 @@ export SPELL=aspell
 # java settings
 #----------------------------------------------------------
 # only set these if ${JAVA_HOME} is defined
-if [ ! ${JAVA_HOME} = "" ]; then
+if [[ ! ${JAVA_HOME} = "" ]]; then
     JDK_HOME=${JAVA_HOME}
     export JDK_HOME
     PATH=${JAVA_HOME}/bin:${PATH}
@@ -265,14 +280,21 @@ PROMPT='%B%F{green}%n@%m%f%b: %2~%F{red}$(__git_ps1)%f %h$ '
 # final os specific stuff
 #
 # mac os
-if [ `uname -s` = "Darwin" ]; then
+if [[ "$macos" ]]; then
     echo "final mac os stuff"
 fi
-
+#
 # linux
-if [ `uname -s` = "Linux" ]; then
+if [[ "$linux" ]]; then
     echo "final linux stuff"
 fi
+#
+# ms wsl
+if [[ "$wsl" ]]; then
+    echo "final wsl stuff"
+    source ~/.zsh/config-ssh-agent.zsh
+fi
+
 
 #
 # --- eof ---
