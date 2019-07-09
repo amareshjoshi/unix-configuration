@@ -171,7 +171,7 @@ if [[ "${linux}" ]]; then
         PATH=${RACKET_HOME}/bin:${PATH}
     fi
     #
-    if [[-f /usr/bin/ssh-askpass ]]; then
+    if [[ -f /usr/bin/ssh-askpass ]]; then
         export SSH_ASKPASS=/usr/bin/ssh-askpass
     fi
     # use by some xfce programs (like notes)
