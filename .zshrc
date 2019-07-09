@@ -245,7 +245,7 @@ fpath=(~/.zsh $fpath)
 # '$(__git_ps1)' adds git-related stuff
 source ~/.bash.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
-PROMPT='%B%F{green}%n@%m%f%b: %2~%F{red}$(__git_ps1)%f %h$ '
+PROMPT='%B%F{green}%n@%m%f%b: %2~%B%F{yellow}$(__git_ps1)%f%b %h$ '
 
 
 #------------------------------------------------------------------------
