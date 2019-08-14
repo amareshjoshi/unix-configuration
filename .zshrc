@@ -201,13 +201,13 @@ export ESHELL=${SHELL}
 # TeX settings
 #----------------------------------------------------------
 # set version
-if [[ -d TEXBIN=/usr/local/texlive/2018 ]]; then
+if [[ -d /usr/local/texlive/2018 ]]; then
     export TEXYEAR=2018
 fi
-if [[ -d TEXBIN=/usr/local/texlive/2019 ]]; then
+if [[ -d /usr/local/texlive/2019 ]]; then
     export TEXYEAR=2019
 fi
-if [[ -d TEXBIN=/usr/local/texlive/2020 ]]; then
+if [[ -d /usr/local/texlive/2020 ]]; then
     export TEXYEAR=2020
 fi
 # if /usr/local install exists then use it
