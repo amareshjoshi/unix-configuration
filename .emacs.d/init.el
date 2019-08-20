@@ -48,18 +48,42 @@
 ;; platform specific stuff (linux, apple, ...)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; but first get the right version of TeX
+(if (file-directory-p "/usr/local/texlive/2018")
+  (setenv "TEXYEAR" "2018")
+  )
+(if (file-directory-p "/usr/local/texlive/2019")
+  (setenv "TEXYEAR" "2019")
+  )
+(if (file-directory-p "/usr/local/texlive/2020")
+  (setenv "TEXYEAR" "2020")
+  )
+;;
 ;; mac os X
 (when (eq system-type 'darwin)
+  (setenv "TEXBIN" (concat "/usr/local/texlive/"
+                           (getenv "TEXYEAR")
+                           "/bin/x86_64-darwin"))
   ;;
   ;; set PATH and exec-path
   (setq path (concat
-              "/Users/joshia/bin:/Library/TeX/texbin:"
+              "/Users/joshia/bin:"
+              (getenv "TEXBIN") ":"
               "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
               ;; put GNU coreutils before BSD
               "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
               "/opt/local/racket/bin:"
               "/bin:/usr/bin:"
               "/sbin:/usr/sbin"))
+  ;; (setq path (concat
+  ;;             "/Users/joshia/bin:/Library/TeX/texbin:"
+  ;;             "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
+  ;;             ;; put GNU coreutils before BSD
+  ;;             "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
+  ;;             "/opt/local/racket/bin:"
+  ;;             "/bin:/usr/bin:"
+  ;;             "/sbin:/usr/sbin"))
+
   (setenv "PATH" path)
   ;;
   ;; exec-path is a list of directories
@@ -103,12 +127,11 @@
 ;;
 ;; GNU linux
 (when (eq system-type 'gnu/linux)
-  ;;
-  ;; set PATH and exec-path
-  (setenv "TEXYEAR" "2018")
   (setenv "TEXBIN" (concat "/usr/local/texlive/"
                            (getenv "TEXYEAR")
                            "/bin/x86_64-linux"))
+  ;;
+  ;; set PATH and exec-path
   (setq path (concat
               (getenv "TEXBIN") ":"
               "/usr/local/java/bin:"
@@ -150,7 +173,7 @@
   ;; WSL
   ;; (add-to-list 'org-file-apps
   ;;              '("/home/joshia/\\(.+\\.pdf\\)" .
-  ;;                "/mnt/c/Program\\ Files\\ \\(x86\\)/Adobe/Acrobat\\ 11\\.0/Acrobat/Acrobat.exe C:\\\\Users\\\\joshia\\\\%1 &"))
+
   ;;
   ;; regular linux
   (add-to-list 'org-file-apps '("pdf" . "evince %s"))
