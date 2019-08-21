@@ -61,6 +61,7 @@ function tm {
 #--------------------------------------
 # other basic shell stuff
 #--------------------------------------
+
 #
 # command history
 HISTFILE=~/.histfile
@@ -107,6 +108,7 @@ case $(uname -s) in
         unix=true
         ;;
 esac
+osname=$(tr '[A-Z]' '[a-z]' <<< $(uname -s))
 #
 #  ms wsl check
 case $(uname -a) in
@@ -213,7 +215,7 @@ fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used
 if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
-    export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-linux
+    export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-${osname}
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
     PATH=${TEXBIN}:${PATH}
