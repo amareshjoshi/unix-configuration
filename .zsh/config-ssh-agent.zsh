@@ -3,7 +3,7 @@
 #
 # ms wsl needs to set ssh-agent configuraion manually
 # (do NOT double-quote regex's)
-if [[ $(uname -a) =~ .*Microsoft.* ]]; then
+if [[ $(uname -a) =~ .*[Mm]icrosoft.* ]]; then
     echo "setup ssh-agent ..."
     if [ -z "$(pgrep ssh-agent)" ]; then
         rm -rf /tmp/ssh-*

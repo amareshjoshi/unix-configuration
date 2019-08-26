@@ -112,7 +112,7 @@ osname=$(tr '[A-Z]' '[a-z]' <<< $(uname -s))
 #
 #  ms wsl check
 case $(uname -a) in
-    *Microsoft*)
+    *[Mm]icrosoft*)
         wsl=true
         ;;
 esac
