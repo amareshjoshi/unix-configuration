@@ -501,6 +501,11 @@
 ;; C-o (default open-line) will be the prefix key for tmux
 (global-unset-key (kbd "C-o"))
 ;;
+;; unbind these to use as cut/paste in windows terminal
+(global-unset-key (kbd "C-M-c"))
+(global-unset-key (kbd "C-M-v"))
+
+;;
 (global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
 ;;(global-set-key "\M-." 'set-mark-command)
 (global-set-key (kbd "C-M-z") 'ispell-word)
