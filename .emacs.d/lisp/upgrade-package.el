@@ -4,6 +4,14 @@
 ;; M-x eval-buffer
 
 ;;
+;; if you get gpg errors this is because your version of emacs doesn't
+;; have the latest gpg keys
+;; to fix
+;; 1. (setq package-check-signature nil)
+;; 2. update package list and install the package: gnu-elpa-keyring-update-*
+;; 3. reset teh old value back: (setq package-check-signature 'allow-unsigned)
+(setq package-check-signature 'allow-unsigned)
+;;
 ;; package setup
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
