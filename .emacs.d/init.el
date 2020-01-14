@@ -500,14 +500,12 @@
 ;;
 ;; C-o (default open-line) will be the prefix key for tmux
 (global-unset-key (kbd "C-o"))
-;;
-;; unbind these to use as cut/paste in windows terminal
-(global-unset-key (kbd "C-M-c"))
-(global-unset-key (kbd "C-M-v"))
 
 ;;
 (global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
 ;;(global-set-key "\M-." 'set-mark-command)
+;;
+;; 
 (global-set-key (kbd "C-M-z") 'ispell-word)
 
 ;;
@@ -522,6 +520,22 @@
 (global-set-key (kbd "<f3>" ) 'shell)
 (global-set-key (kbd "<f4>" ) 'eshell)
 (global-set-key (kbd "<s-f12>" ) 'a2ps-buffer)
+
+;;
+;;
+;; Windows Terminal (Preview) specific stuff
+;;
+;; unbind these to use as cut/paste in windows terminal
+(global-unset-key (kbd "C-M-c"))
+(global-unset-key (kbd "C-M-v"))
+;;
+;; because of a bug in C-M-z is treated as C-z
+;; as a (hopefully temporary) fix we'll unbind C-z from suspend-emacs
+;; and add another keybinding for ispell-word
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-M-y") 'ispell-word)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;
 ;; avoid printing by mistake in osX with command-p 
 ;;default: (global-set-key (kbd "S-p" ) 'ns-print-buffer)
