@@ -30,6 +30,7 @@ compinit
 # aliases
 #--------------------------------------
 # alias h="fc -l"
+alias h=history
 alias e="emacs -nw"
 alias l=more
 #

@@ -258,7 +258,10 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (cond ((display-graphic-p)
-       (menu-bar-mode t)
+       ;;
+       ;; keep this off by default
+       ;; turn it on for auctex
+       (menu-bar-mode -1)
        ;;
        ;; get rid of scroll and tool bar
        (tool-bar-mode -1)
