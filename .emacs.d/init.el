@@ -505,9 +505,12 @@
 (global-unset-key (kbd "C-o"))
 
 ;;
-;; set default keybindings for windmove
-;; S(hift)-arrow_keys will move around windows
-(windmove-default-keybindings)
+;; keybindings for windmove
+;; M-arrow_keys will move around windows
+(global-set-key (kbd "<M-up>") 'windmove-up)
+(global-set-key (kbd "<M-down>") 'windmove-down)
+(global-set-key (kbd "<M-left>") 'windmove-left)
+(global-set-key (kbd "<M-right>") 'windmove-right)
 
 ;;
 (global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
