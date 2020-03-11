@@ -20,7 +20,10 @@ rm -vf ${HOME}/.gitconfig
 # zsh
 rm -vf ${HOME}/.zshrc
 rm -rvf ${HOME}/.zsh
-
+#
+#i3
+rm -rvf ~/.config/i3
+rm -rvf ~/.config/i3status
 
 #
 # emacs
@@ -34,6 +37,7 @@ rm -rvf ${EH}/themes
 # bash,emacs,tmux,zsh
 cp -rv .[betz]* ${HOME}/
 cp -v .gitconfig ${HOME}/
+cp -rv .config/i3* ${HOME}/
 
 
 
