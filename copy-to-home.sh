@@ -37,7 +37,7 @@ rm -rvf ${EH}/themes
 # bash,emacs,tmux,zsh
 cp -rv .[betz]* ${HOME}/
 cp -v .gitconfig ${HOME}/
-cp -rv .config/i3* ${HOME}/
+cp -rv .config/i3* ${HOME}/.config/
 
 
 
