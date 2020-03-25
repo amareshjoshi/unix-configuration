@@ -98,7 +98,8 @@
   ;;(set-default-font "Monaco-14")
   ;;
   ;; for 1050
-  (set-default-font "Source Code Pro-14" t t)
+  ;; (set-default-font "Source Code Pro-14" t t)
+  (set-default-font "Menlo-16" t t)
   ;;
   ;; for 1200
   (set-default-font "Source Code Pro-16" t t)
@@ -121,8 +122,11 @@
   (setq dired-use-ls-dired t)
   ;;
   ;; for codeacademy courses that use python2
-  ;;(setq python-shell-interpreter "python2.7")
-  (setq python-shell-interpreter "python3.6")
+  ;;(setq python-shell-interpreter "python2")
+  (setq python-shell-interpreter "python3")
+  ;;
+  ;; useful for running inferior python (M-x run-python)
+  (append (list python-shell-interpreter) python-shell-completion-native-disabled-interpreters)
   )
 ;;
 ;; GNU linux
@@ -440,6 +444,7 @@
 (when (>= emacs-major-version 24) 
   (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
   ;;(load-theme 'zenburn t)
+  ;; (load-theme 'modus-operandi)
   
   ;;(load-theme 'adwaita t)
   ;;(load-theme 'deeper-blue t)
@@ -687,18 +692,3 @@
 
 ;;
 ;; end of .emacs file
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (web-mode spinner smartparens rainbow-delimiters queue quack projectile perl6-mode markdown-mode+ magit launch geiser flycheck))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
