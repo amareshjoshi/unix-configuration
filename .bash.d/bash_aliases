@@ -9,6 +9,7 @@
 #
 alias h="fc -l"
 alias e="emacs -nw"
+alias ec="emacsclient -nw" 
 alias l=more
 alias path='echo -e ${PATH//:/\\n}'
 alias root="su -"
