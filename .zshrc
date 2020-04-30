@@ -32,6 +32,7 @@ compinit
 # alias h="fc -l"
 alias h=history
 alias e="emacs -nw"
+alias ec="emacsclient -nw" 
 alias l=more
 #
 # displays path one dir per line

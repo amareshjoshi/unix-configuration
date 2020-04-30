@@ -9,11 +9,9 @@
 #
 alias h="fc -l"
 alias e="emacs -nw"
-alias ec="emacsclient -nw" 
+alias ec="emacsclient -nw"
 alias l=more
 alias path='echo -e ${PATH//:/\\n}'
-alias root="su -"
-alias nt="netstat | grep $(hostname) | sort | more"
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 alias xterm="xterm -fg white -bg darkslateblue -T xterm\@$(uname -n)"
 alias dc3="/usr/bin/dc -e 3k - "
