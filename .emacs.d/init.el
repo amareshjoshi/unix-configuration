@@ -72,6 +72,8 @@
               "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
               ;; put GNU coreutils before BSD
               "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
+              ;; /usr/local is where where docker, vbox, etc. get installed
+              "/usr/local/bin:/usr/local/sbin:"
               "/opt/local/racket/bin:"
               "/bin:/usr/bin:"
               "/sbin:/usr/sbin"))
