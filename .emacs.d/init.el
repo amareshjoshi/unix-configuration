@@ -126,9 +126,6 @@
   ;; for codeacademy courses that use python2
   ;;(setq python-shell-interpreter "python2")
   (setq python-shell-interpreter "python3")
-  ;;
-  ;; useful for running inferior python (M-x run-python)
-  (append (list python-shell-interpreter) python-shell-completion-native-disabled-interpreters)
   )
 ;;
 ;; GNU linux
