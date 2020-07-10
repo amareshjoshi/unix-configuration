@@ -23,6 +23,7 @@
 (defvar my-packages '(auctex
                       ;; asciidoc
                       adoc-mode
+                      cdlatex
                       ;;cider
                       ;;clojure-mode
                       dash

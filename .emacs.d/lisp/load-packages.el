@@ -83,6 +83,8 @@
   (setq LaTeX-biblatex-use-Biber t)       ; use biber by default
   (setq TeX-PDF-mode t)                   ; use pdflatex by default
   (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode) ;turn on pdf-mode.  (how are these different?)
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex) ; lots of kbd shortcuts for latex environments
+                                        ; and math mode (see CDLatex documentation)
   (add-hook 'LaTeX-mode-hook
             (lambda ()
               (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
