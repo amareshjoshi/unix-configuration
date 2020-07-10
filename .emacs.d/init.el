@@ -273,6 +273,9 @@
        ;; ruler mode
        ;; doesn't work. needs to be turned on for each mode i think
        ;;  (ruler-mode t)
+       ;;
+       ;; uses Unicode symbols for stuff like arrows, Greek letters
+       (prettify-symbols-mode)
        )
       ;;
       ;; terminal stuff
