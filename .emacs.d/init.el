@@ -25,12 +25,6 @@
 ;;
 ;; add my own elisp directory to the loadpath
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;;
 ;; this is to exclude old elisp files that cause problems with later versions of emacs
@@ -96,15 +90,15 @@
   (setq scheme-program-name "/opt/local/racket/bin/racket")
   ;;
   ;; default font (for now)
-  ;;(set-default-font "Monospace-10")
-  ;;(set-default-font "Monaco-14")
+  ;;(set-frame-font "Monospace-10")
+  ;;(set-frame-font "Monaco-14")
   ;;
   ;; for 1050
-  ;; (set-default-font "Source Code Pro-14" t t)
-  (set-default-font "Menlo-16" t t)
+  ;; (set-frame-font "Source Code Pro-14" t t)
+  (set-frame-font "Menlo-16" t t)
   ;;
   ;; for 1200
-  (set-default-font "Source Code Pro-16" t t)
+  (set-frame-font "Source Code Pro-16" t t)
   ;; key bindings
   ;;
   ;; values can be:
@@ -149,9 +143,9 @@
   (setq exec-path (append (split-string path ":")))
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
-  ;; (set-default-font "Source Code Pro-11" t t)
+  ;; (set-frame-font "Source Code Pro-11" t t)
   ;; not sure why this needs only 1 arg with linux?
-  (set-default-font "Source Code Pro-11")
+  (set-frame-font "Source Code Pro-11")
   ;;
   ;; dired settings
   ;; linux "ls" uses the --dired option
@@ -188,7 +182,7 @@
   ;; win stuff
   ;;
   ;; like linux just one arg
-  (set-default-font "Source Code Pro-11")
+  (set-frame-font "Source Code Pro-11")
   ;;
   ;; powershell stuff
   ;;(setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
@@ -274,7 +268,7 @@
        ;; doesn't work. needs to be turned on for each mode i think
        ;;  (ruler-mode t)
        ;;
-       ;; uses Unicode symbols for stuff like arrows, Greek letters
+       ;; uses Unicode symbols for stuff like arrows, Greek letters 
        (prettify-symbols-mode)
        )
       ;;

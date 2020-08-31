@@ -113,13 +113,6 @@
     )
   )
 
-;;
-;; temp fix.
-;; see: http://tex.stackexchange.com/questions/327952/auctex-symbols-function-definition-is-void-signum
-(use-package cl
-  :ensure t)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; RefTeX
