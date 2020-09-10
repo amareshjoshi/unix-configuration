@@ -89,16 +89,8 @@
   ;; need this, not sure why
   (setq scheme-program-name "/opt/local/racket/bin/racket")
   ;;
-  ;; default font (for now)
-  ;;(set-frame-font "Monospace-10")
-  ;;(set-frame-font "Monaco-14")
-  ;;
-  ;; for 1050
-  ;; (set-frame-font "Source Code Pro-14" t t)
-  (set-frame-font "Menlo-16" t t)
-  ;;
-  ;; for 1200
   (set-frame-font "Source Code Pro-16" t t)
+  ;;
   ;; key bindings
   ;;
   ;; values can be:
@@ -143,9 +135,7 @@
   (setq exec-path (append (split-string path ":")))
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
-  ;; (set-frame-font "Source Code Pro-11" t t)
-  ;; not sure why this needs only 1 arg with linux?
-  (set-frame-font "Source Code Pro-11")
+  (set-frame-font "Source Code Pro-11" t t)
   ;;
   ;; dired settings
   ;; linux "ls" uses the --dired option
@@ -181,8 +171,7 @@
 (when (eq system-type 'windows-nt)
   ;; win stuff
   ;;
-  ;; like linux just one arg
-  (set-frame-font "Source Code Pro-11")
+  (set-frame-font "Source Code Pro-11" t t)
   ;;
   ;; powershell stuff
   ;;(setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
@@ -688,3 +677,16 @@
 
 ;;
 ;; end of .emacs file
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yaml-mode web-mode use-package spinner smartparens rainbow-delimiters queue projectile perl6-mode modus-operandi-theme markdown-mode+ magit-popup magit launch graphql ghub flycheck cdlatex auctex)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
