@@ -9,8 +9,9 @@
 ;; to fix
 ;; 1. (setq package-check-signature nil)
 ;; 2. update package list and install the package: gnu-elpa-keyring-update-*
-;; 3. reset teh old value back: (setq package-check-signature 'allow-unsigned)
+;; 3. reset the old value back: (setq package-check-signature 'allow-unsigned)
 (setq package-check-signature 'allow-unsigned)
+;;(setq package-check-signature 'nil)
 ;;
 ;; package setup
 (require 'package)
