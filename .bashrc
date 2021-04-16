@@ -162,11 +162,6 @@ case `uname -s` in
         if [ -d GO_HOME="/usr/local/go" ]; then
             PATH=${GO_HOME}/bin:${PATH}
         fi
-        #
-        # perl6
-        if [ -d PERL6_HOME="/Applications/Rakudo" ]; then
-            PATH=${PERL6_HOME}/bin:${PATH}
-        fi
         # for X11 stuff (linux does it automatically)
         export DISPLAY=":0.0"
         #
@@ -352,6 +347,18 @@ source ~/.bash.d/git-completion.sh
 # '\$(__git_ps1)' adds git-related stuff
 source ~/.bash.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
+
+#----------------------------------------------------------
+# Node.js git stuff
+#----------------------------------------------------------
+export NVM_DIR="${HOME}/.nvm"
+if [ -d ${NVM_DIR} ]; then
+    # This loads nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    # This loads nvm bash_completion
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
+
 
 if [ "$color_prompt" = yes ]; then
     PS1="${green}\u@${fqdn_hostname}:${purple}\$(__git_ps1)${reset} \w \!$ "

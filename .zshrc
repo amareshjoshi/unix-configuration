@@ -214,6 +214,9 @@ fi
 if [[ -d /usr/local/texlive/2020 ]]; then
     export TEXYEAR=2020
 fi
+if [[ -d /usr/local/texlive/2021 ]]; then
+    export TEXYEAR=2021
+fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used
 if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
@@ -229,7 +232,7 @@ fi
 # java settings
 #----------------------------------------------------------
 # only set these if ${JAVA_HOME} is defined
-if [[ ! ${JAVA_HOME} = "" ]]; then
+if [[ -d ${JAVA_HOME} ]]; then
     JDK_HOME=${JAVA_HOME}
     export JDK_HOME
     PATH=${JAVA_HOME}/bin:${PATH}
@@ -251,6 +254,15 @@ source ~/.bash.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 PROMPT='%B%F{green}%n@%m%f%b: %2~%B%F{yellow}$(__git_ps1)%f%b %h$ '
 
+#----------------------------------------------------------
+# Node.js git stuff
+#----------------------------------------------------------
+export XDG_CONFIG_HOME="${HOME}/.nvm"
+if [[ -d ${XDG_CONFIG_HOME} ]]; then
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    # This loads nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+fi
 
 #------------------------------------------------------------------------
 # final os specific stuff
