@@ -33,7 +33,6 @@
                       launch
                       magit
                       markdown-mode
-                      markdown-mode+
                       pkg-info
                       projectile
                       ;;quack

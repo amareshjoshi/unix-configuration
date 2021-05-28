@@ -159,7 +159,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; markdown-mode
-;; markdown-mode+
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package markdown-mode
@@ -172,8 +171,6 @@
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
                                         ; Enable Flyspell mode for markdown
   (add-hook 'markdown-mode-hook 'flyspell-mode))
-(use-package markdown-mode+
-  :ensure t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
