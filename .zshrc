@@ -205,6 +205,7 @@ export ESHELL=${SHELL}
 # TeX settings
 #----------------------------------------------------------
 # set version
+export TEXBINPREFIX=x86_64
 if [[ -d /usr/local/texlive/2018 ]]; then
     export TEXYEAR=2018
 fi
@@ -216,11 +217,15 @@ if [[ -d /usr/local/texlive/2020 ]]; then
 fi
 if [[ -d /usr/local/texlive/2021 ]]; then
     export TEXYEAR=2021
+    if [[ "${osname}" = "darwin" ]]; then
+        export TEXBINPREFIX=universal
+    fi
 fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used
 if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
-    export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/x86_64-${osname}
+    echo "/usr/local/texlive/${TEXYEAR} !!!!"
+    export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/${TEXBINPREFIX}-${osname}
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
     PATH=${TEXBIN}:${PATH}

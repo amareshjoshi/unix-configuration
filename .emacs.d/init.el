@@ -43,21 +43,31 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; but first get the right version of TeX
+(setenv "TEXBINPREFIX" "x86_64")
 (if (file-directory-p "/usr/local/texlive/2018")
-  (setenv "TEXYEAR" "2018")
+    (setenv "TEXYEAR" "2018")
   )
 (if (file-directory-p "/usr/local/texlive/2019")
-  (setenv "TEXYEAR" "2019")
+    (setenv "TEXYEAR" "2019")
   )
 (if (file-directory-p "/usr/local/texlive/2020")
-  (setenv "TEXYEAR" "2020")
+    (setenv "TEXYEAR" "2020")
+  )
+(if (file-directory-p "/usr/local/texlive/2021")
+    (setenv "TEXYEAR" "2021")
+  (if (eq system-type "darwin")
+      (setenv "TEXBINPREFIX" "universal")
+    )
   )
 ;;
 ;; mac os X
 (when (eq system-type 'darwin)
   (setenv "TEXBIN" (concat "/usr/local/texlive/"
                            (getenv "TEXYEAR")
-                           "/bin/x86_64-darwin"))
+                           "/bin/"
+                           (getenv "TEXBINPREFIX")
+			   "-darwin")
+	  )
   ;;
   ;; set PATH and exec-path
   (setq path (concat
