@@ -29,7 +29,10 @@
                       dash
                       epl
                       flycheck
-                      ;;geiser 
+                      ;;geiser
+                      graphql ;; graphql utilities
+                      graphql-doc ;; graphql documentation explorer
+                      graphql-mode
                       launch
                       magit
                       markdown-mode
@@ -39,12 +42,12 @@
                       queue
                       rainbow-delimiters
                       seq
-                      ;; smartparens replaces paredit
-                      smartparens
+                      smartparens ;; smartparens replaces paredit
                       spinner
                       use-package
                       ;; web-mode replaces php-mode
-                      web-mode))
+                      web-mode
+                      yaml-mode))
 
 (dolist (p my-packages)
   (unless (package-installed-p p)
