@@ -3,7 +3,8 @@
 
 Configuration files for:
 
-- bash
+- zsh
 - emacs
 - tmux
+- bashrc (legacy files, not updated)
 
