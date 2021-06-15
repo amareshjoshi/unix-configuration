@@ -6,5 +6,5 @@ Configuration files for:
 - zsh
 - emacs
 - tmux
-- bashrc (legacy files, not updated)
+- bash (legacy files, not updated)
 
