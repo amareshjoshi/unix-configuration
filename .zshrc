@@ -224,7 +224,6 @@ fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used
 if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
-    echo "/usr/local/texlive/${TEXYEAR} !!!!"
     export TEXBIN=/usr/local/texlive/${TEXYEAR}/bin/${TEXBINPREFIX}-${osname}
     export TEXINFO=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/info
     export TEXMAN=/usr/local/texlive/${TEXYEAR}/texmf-dist/doc/man
