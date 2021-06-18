@@ -59,6 +59,19 @@ function tm {
         tmux attach-session
     fi
 }
+#
+# for CCR dev
+function testCCR {
+    START_DIR=$(pwd)
+    echo "PWD = " ${PWD}
+    CCR_HOME="${HOME}/development/CCR"
+    if [[ -d ${CCR_HOME} ]]; then
+        echo "Starting CCR testing ..." && \
+            cd ${CCR_HOME}/backend && lando artisan test && \
+            cd ${CCR_HOME}/client && lando yarn test:unit && lando cypress run
+        cd ${START_DIR}
+    fi
+}
 
 #--------------------------------------
 # other basic shell stuff
