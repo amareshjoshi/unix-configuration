@@ -1,4 +1,7 @@
 #
+# editor and ide config
+*.code-workspace
+#
 # emacs generated backup files
 *~
 .*~
