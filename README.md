@@ -7,5 +7,3 @@ Configuration files for:
 - emacs
 - tmux
 - bash (legacy files, not updated)
-
-ignore: testing github desktop
