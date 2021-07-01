@@ -8,3 +8,4 @@ Configuration files for:
 - tmux
 - bash (legacy files, not updated)
 
+ignore: testing github desktop
