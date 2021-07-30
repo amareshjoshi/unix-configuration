@@ -272,14 +272,12 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 PROMPT='%B%F{green}%n@%m%f%b: %2~%B%F{yellow}$(__git_ps1)%f%b %h$ '
 
 #----------------------------------------------------------
-# Node.js git stuff
+# nvm stuff
 #----------------------------------------------------------
-export XDG_CONFIG_HOME="${HOME}/.nvm"
-if [[ -d ${XDG_CONFIG_HOME} ]]; then
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    # This loads nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
+export NVM_DIR=${HOME}/.nvm
+# sources the fille if (&&) it exists
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 
 #------------------------------------------------------------------------
 # final os specific stuff
