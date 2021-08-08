@@ -242,11 +242,17 @@
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 ;;
-;; prevent sells from echoing their arguments (lines)
+;; prevent shells from echoing their arguments (lines)
 (defun my-comint-init ()
   (setq comint-process-echoes t))
 (add-hook 'comint-mode-hook 'my-comint-init)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; turn on semantic mode (NEW, see docs)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(semantic-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
