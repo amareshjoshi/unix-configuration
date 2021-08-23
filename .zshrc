@@ -175,6 +175,11 @@ if [[ "${linux}" ]]; then
         PATH="${HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
         PATH="${PATH}:/usr/local/games:/usr/games"
     fi
+    #
+    # snap
+    if [[ -d /snap/bin ]]; then
+        PATH=/snap/bin:${PATH}
+    fi
     if [[ -d /usr/local/java ]]; then
         # ln -s whatever version of java you want 1.6,7,8 to /usr/local/java
         export JAVA_HOME=/usr/local/java
