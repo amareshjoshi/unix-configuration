@@ -54,13 +54,18 @@
     (setenv "TEXYEAR" "2020")
   )
 (if (file-directory-p "/usr/local/texlive/2021")
-    (setenv "TEXYEAR" "2021")
-  (if (eq system-type "darwin")
-      (setenv "TEXBINPREFIX" "universal")
-    )
+    ;; need to do 2 things
+    ;; (if ...) only does 1 expression
+    ;; progn is a way of doing multiple expressions in one
+    (progn (setenv "TEXYEAR" "2021")
+           (if (eq system-type 'darwin)
+               (setenv "TEXBINPREFIX" "universal")
+             )
+           
+           )
   )
 ;;
-;; mac os X
+;; mac/apple/darwin
 (when (eq system-type 'darwin)
   (setenv "TEXBIN" (concat "/usr/local/texlive/"
                            (getenv "TEXYEAR")
