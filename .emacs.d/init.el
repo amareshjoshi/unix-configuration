@@ -102,7 +102,7 @@
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
   ;; need this, not sure why
-  (setq scheme-program-name "/opt/local/racket/bin/racket")
+  (setq scheme-program-name "/opt/local/bin/guile")
   ;;
   (set-frame-font "Source Code Pro-16" t t)
   ;;
