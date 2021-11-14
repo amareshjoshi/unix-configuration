@@ -29,7 +29,11 @@
                       dash
                       epl
                       flycheck
-                      ;;geiser
+                      ;;
+                      ;; scheme ide
+                      geiser
+                      geiser-racket
+                      ;;geiser-guile
                       graphql ;; graphql utilities
                       graphql-doc ;; graphql documentation explorer
                       graphql-mode
