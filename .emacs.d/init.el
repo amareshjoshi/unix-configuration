@@ -156,7 +156,7 @@
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
   ;;
-  (setq scheme-program-name "/usr/local/racket/bin/racket")
+  (setq scheme-program-name "/usr/bin/guile3.0")
   ;;
   ;;
 
@@ -199,7 +199,7 @@
   ;; not sure about this require
   (require 'powershell)
   ;;
-  (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
+  (setq scheme-program-name "C:\\Programs\\Racket\\no-racket-for-mswindows-Racket.exe")
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "C:\\Program Files (x86)\\Adobe\\Acrobat 11.0\\Acrobat\\Acrobet.exe")
@@ -698,3 +698,16 @@
 
 ;;
 ;; end of .emacs file
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(geiser-guile geiser yaml-mode web-mode use-package spinner smartparens rainbow-delimiters queue projectile markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

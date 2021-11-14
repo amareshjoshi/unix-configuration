@@ -150,10 +150,12 @@ if [[ "${macos}" ]]; then
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
-    #export RACKET_HOME=/opt/local/racket
-    if [[ -d RACKET_HOME=/opt/local/racket ]]; then
-        PATH=${RACKET_HOME}/bin:${PATH}
-    fi
+    #
+    # switched to GNU guile
+    #
+    #if [[ -d RACKET_HOME=/opt/local/racket ]]; then
+    #    PATH=${RACKET_HOME}/bin:${PATH}
+    #fi
     # for X11 (linux does it automatically)
     export DISPLAY=":0.0"
     #
@@ -188,10 +190,13 @@ if [[ "${linux}" ]]; then
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
+    #
+    # switched to GNU guile
+    #
     # used for locally installed racket
-    if [[ -d RACKET_HOME=/usr/local/racket ]]; then
-        PATH=${RACKET_HOME}/bin:${PATH}
-    fi
+    #if [[ -d RACKET_HOME=/usr/local/racket ]]; then
+    #    PATH=${RACKET_HOME}/bin:${PATH}
+    #fi
     #
     if [[ -f /usr/bin/ssh-askpass ]]; then
         export SSH_ASKPASS=/usr/bin/ssh-askpass
