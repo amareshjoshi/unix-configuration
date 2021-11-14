@@ -157,6 +157,7 @@
   (setq dired-use-ls-dired t)
   ;;
   (setq scheme-program-name "/usr/bin/guile3.0")
+  (setq geiser-guile-binary "guile3.0")
   ;;
   ;;
 
