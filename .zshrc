@@ -32,23 +32,28 @@ compinit
 # alias h="fc -l"
 alias h=history
 alias e="emacs -nw"
-alias ec="emacsclient -nw" 
-alias l=more
 #
 # displays path one dir per line
 alias path='echo -e ${PATH//:/\\n}'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 alias dc3="/usr/bin/dc -e 3k - "
-#
-# graphical version of mac emacs
-alias macem='/Applications/MacPorts/Emacs.app/Contents/MacOS/Emacs'
 
 #--------------------------------------
 # functions
 #--------------------------------------
-function la { ls -haF ${@} ; }
-function ll { ls -hlF ${@} ; }
-function lla { ls -hlaF ${@} ; }
+#
+# combine less and ls
+function l {
+    if [[ -d ${1} ]];  then
+        /bin/ls --human-readable --classify --color=auto ${1}
+    else
+        /bin/less ${1}
+    fi
+}
+function ls { /bin/ls --human-readable --classify --color=auto ${@} ; }
+function la { /bin/ls --all --human-readable --classify --color=auto ${@} ; }
+function ll { /bin/ls -l --human-readable --classify --color=auto ${@} ; }
+function lla { /bin/ls -l --all --human-readable --classify --color=auto ${@} ; }
 function isit { ps -ef | grep ${@} | grep -v grep ; }
 #
 # attach to a running tmux, or run a new instance
