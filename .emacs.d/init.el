@@ -532,6 +532,10 @@
 (global-set-key (kbd "C-M-z") 'ispell-word)
 
 ;;
+;; for some reason the default binding ("C-/") doesn't work 
+(global-set-key (kbd "C-M-/") 'undo)
+
+;;
 (global-set-key (kbd "M-r" ) 'replace-regexp)
 (global-set-key (kbd "M-s" ) 'replace-string)
 ;;
