@@ -31,6 +31,9 @@
 (when (<= emacs-major-version 24) 
   (add-to-list 'load-path "~/.emacs.d/lisp-old")
   )
+;;
+;; utility functions
+  (load "utility-functions.el")
 
 ;;
 ;; load packages for emacs version >= 25
@@ -498,7 +501,20 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; keymaps
+;; aliases
+;;
+;; useful to shorten commands
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+(defalias 'qrr 'query-replace-regexp)
+(defalias 'skr 'show-kill-ring)
+(defalias 'rfb 'rename-file-and-buffer)
+;; answer just y/n to to yes/no question prompts
+;;(defalias 'yes-or-no-p 'y-or-n-p)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; key bindings
 ;;
 ;; always use "kbd" to set keys (see Xah Emacs site)
 ;;      (kbd "M-f") vs "\M-f"
@@ -513,6 +529,13 @@
 ;;     (define-key text-mode-map (kbd "M-r") 'replace-regexp)
 ;;
 ;;
+
+;;
+;; better bindings for M-x
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(global-set-key (kbd "C-c C-m") 'execute-extended-command)
+
+
 ;; C-o (default open-line) will be the prefix key for tmux
 (global-unset-key (kbd "C-o"))
 
@@ -649,11 +672,6 @@
 ;;
 ;; ????
 ;;(load-file "~/.emacs.d/lisp/caml.el")
-
-;;
-;; answer just y/n to to yes/no question prompts
-;;
-;;(defalias 'yes-or-no-p 'y-or-n-p)
 
 
 ;;

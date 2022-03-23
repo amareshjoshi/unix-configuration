@@ -40,20 +40,21 @@ alias dc3="/usr/bin/dc -e 3k - "
 
 #--------------------------------------
 # functions
+# note: use "command ls" to avoid infinite recursion when command name and alias name are the same 
 #--------------------------------------
 #
 # combine less and ls
 function l {
     if [[ -d ${1} ]];  then
-        /bin/ls --human-readable --classify --color=auto ${1}
+        ls --human-readable --classify --color=auto ${1}
     else
-        /bin/less ${1}
+        command less ${1}
     fi
 }
-function ls { /bin/ls --human-readable --classify --color=auto ${@} ; }
-function la { /bin/ls --all --human-readable --classify --color=auto ${@} ; }
-function ll { /bin/ls -l --human-readable --classify --color=auto ${@} ; }
-function lla { /bin/ls -l --all --human-readable --classify --color=auto ${@} ; }
+function ls { command ls --human-readable --classify --color=auto ${@} ; }
+function la { ls --all --human-readable --classify --color=auto ${@} ; }
+function ll { ls -l --human-readable --classify --color=auto ${@} ; }
+function lla { ls -l --all --human-readable --classify --color=auto ${@} ; }
 function isit { ps -ef | grep ${@} | grep -v grep ; }
 #
 # attach to a running tmux, or run a new instance
