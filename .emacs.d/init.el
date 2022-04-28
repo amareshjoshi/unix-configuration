@@ -33,7 +33,11 @@
   )
 ;;
 ;; utility functions
-  (load "utility-functions.el")
+(load "utility-functions.el")
+
+;;
+;; MSU Commons functions and defs
+(load "msucommons.el")
 
 ;;
 ;; load packages for emacs version >= 25
@@ -506,6 +510,7 @@
 ;; useful to shorten commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+(defalias 'vhc 'visit-humcore)
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'skr 'show-kill-ring)
 (defalias 'rfb 'rename-file-and-buffer)

@@ -5,6 +5,9 @@
 [core]
 	editor = "emacs -nw"
 
+[merge]
+        conflictstyle = diff3
+
 [push]
 	default = simple
 
