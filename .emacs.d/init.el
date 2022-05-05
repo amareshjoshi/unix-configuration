@@ -111,8 +111,6 @@
   ;; need this, not sure why
   (setq scheme-program-name "/opt/local/bin/guile")
   ;;
-  (set-frame-font "Source Code Pro-16" t t)
-  ;;
   ;; key bindings
   ;;
   ;; values can be:
@@ -157,8 +155,6 @@
   (setq exec-path (append (split-string path ":")))
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
-  (set-frame-font "Source Code Pro-11" t t)
-  ;;
   ;; dired settings
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
@@ -193,8 +189,6 @@
 ;; MS windows
 (when (eq system-type 'windows-nt)
   ;; win stuff
-  ;;
-  (set-frame-font "Source Code Pro-11" t t)
   ;;
   ;; powershell stuff
   ;;(setq explicit-shell-file-name "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe")
@@ -330,6 +324,11 @@
           (add-to-list 'default-frame-alist 
                        (cons 'width WIDTH
                              ))
+          ;;
+          ;; for now set font size based ONLY on pixel width for
+          ;; graphical environments.
+          ;; font for terminals will come from the terminal settings
+          (set-frame-font "Source Code Pro-16" t t)
           ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
