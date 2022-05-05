@@ -422,7 +422,7 @@
 ;; also don't make 'dead' pointers if a session quits suddenly
 ;;
 ;; (doesn't work!)
-(setq auto-save-list-file-prefix nil) 
+;;(setq auto-save-list-file-prefix nil) 
 
 ;;
 ;; fix cut and paste in X
@@ -698,8 +698,7 @@
 ;; clojure
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;;(setq inferior-lisp-program "java -cp /usr/local/clojure/clojure.jar clojure.main")
+;; don't need to set anything
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -729,16 +728,3 @@
 
 ;;
 ;; end of .emacs file
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(geiser-guile geiser yaml-mode web-mode use-package spinner smartparens rainbow-delimiters queue projectile markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

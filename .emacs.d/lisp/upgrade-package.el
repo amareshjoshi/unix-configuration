@@ -24,15 +24,14 @@
                       ;; asciidoc
                       adoc-mode
                       cdlatex
-                      ;;cider
-                      ;;clojure-mode
+                      cider
+                      clojure-mode
                       dash
                       epl
                       flycheck
                       ;;
                       ;; scheme ide
                       geiser
-                      ;;geiser-racket
                       geiser-guile
                       graphql ;; graphql utilities
                       graphql-doc ;; graphql documentation explorer
@@ -43,11 +42,9 @@
                       pkg-info
                       projectile
                       ;;quack
-                      queue
                       rainbow-delimiters
                       seq
                       smartparens ;; smartparens replaces paredit
-                      spinner
                       use-package
                       ;; web-mode replaces php-mode
                       web-mode
