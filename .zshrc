@@ -38,6 +38,15 @@ alias path='echo -e ${PATH//:/\\n}'
 alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
 alias dc3="/usr/bin/dc -e 3k - "
 
+#
+# OpenVPN aliases
+export OPENVPN_CONFIG=${HOME}/.ssh/openvpn.hcommons.org-client.ovpn
+openvpn-start="openvpn3 session-start --config ${OPENVON_CONFIG}"
+openvpn-list="openvpn3 sessions-list"
+openvpn-restart="openvpn3 session-manage --config ${OPENVPN_CONFIG} --restart"
+openvpn-stop="openvpn3 session-manage --config ${OPENVPN_CONFIG} --disconnect"
+
+
 #--------------------------------------
 # functions
 # note: use "command ls" to avoid infinite recursion when command name and alias name are the same 
