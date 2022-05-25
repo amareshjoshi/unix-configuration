@@ -305,14 +305,15 @@
       (let* (
             ;;
             ;; slightly smaller than the screen 
-            (HEIGHT (/ (- (display-pixel-height) 300) (frame-char-height)))
+            (OFFSET 75)
+            (HEIGHT (/ (- (display-pixel-height) OFFSET) (frame-char-height)))
             ;;
             ;; for really big displays use a relative size (2000)
-            (LARGE 2000)
-            (WIDTH  (if (< (display-pixel-width) LARGE)
-                        ;; not LARGE
+            (LARGE 1100)
+            (WIDTH  (if (< (display-pixel-height) LARGE)
+                        ;; not LARGE (laptop)
                         (/ (/ (* (display-pixel-width) 2) 3) (frame-char-width))
-                      ;; LARGE
+                      ;; LARGE (4k)
                       (/ (/ (display-pixel-width) 2) (frame-char-width)))
                     )
 
@@ -328,9 +329,12 @@
           ;; for now set font size based ONLY on pixel width for
           ;; graphical environments.
           ;; font for terminals will come from the terminal settings
-          (set-frame-font "Source Code Pro-16" t t)
-          )
-        )))
+          (if (< (display-pixel-height) 1100)
+              ;; laptop or small screen (1050 or 1080)
+              (set-frame-font "Source Code Pro-13" t t)
+            ;; big screen (4k)
+            (set-frame-font "Source Code Pro-16" t t))
+          ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; the problem is with a horizontal+vertical two monitor combo
@@ -355,8 +359,8 @@
 ;; set position
 (if window-system
     (progn
-      (add-to-list 'default-frame-alist (cons 'top 10))
-      (add-to-list 'default-frame-alist (cons 'left 10))))
+      (add-to-list 'default-frame-alist (cons 'top 50))
+      (add-to-list 'default-frame-alist (cons 'left 50))))
 
 ;;
 ;; enable the {up|down}case region commands
