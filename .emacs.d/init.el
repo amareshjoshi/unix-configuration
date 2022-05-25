@@ -305,7 +305,7 @@
       (let* (
             ;;
             ;; slightly smaller than the screen 
-            (HEIGHT (/ (- (display-pixel-height) 150) (frame-char-height)))
+            (HEIGHT (/ (- (display-pixel-height) 300) (frame-char-height)))
             ;;
             ;; for really big displays use a relative size (2000)
             (LARGE 2000)
@@ -329,7 +329,8 @@
           ;; graphical environments.
           ;; font for terminals will come from the terminal settings
           (set-frame-font "Source Code Pro-16" t t)
-          ))))
+          )
+        )))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; the problem is with a horizontal+vertical two monitor combo
@@ -354,8 +355,8 @@
 ;; set position
 (if window-system
     (progn
-      (add-to-list 'default-frame-alist (cons 'top 50))
-      (add-to-list 'default-frame-alist (cons 'left 50))))
+      (add-to-list 'default-frame-alist (cons 'top 10))
+      (add-to-list 'default-frame-alist (cons 'left 10))))
 
 ;;
 ;; enable the {up|down}case region commands
