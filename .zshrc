@@ -27,74 +27,16 @@ compinit
 #--------------------------------------
 
 #--------------------------------------
-# aliases
+# moved aliases and functions to ${HOME}/.zshrc/aliases.zsh
 #--------------------------------------
-# alias h="fc -l"
-alias h=history
-alias e="emacs -nw"
-#
-# displays path one dir per line
-alias path='echo -e ${PATH//:/\\n}'
-alias rot13="tr '[A-Za-z]' '[N-ZA-Mn-za-m]'"
-alias dc3="/usr/bin/dc -e 3k - "
-
-#
-# OpenVPN aliases
-export OPENVPN_CONFIG=${HOME}/.ssh/openvpn.hcommons.org-client.ovpn
-openvpn-start="openvpn3 session-start --config ${OPENVON_CONFIG}"
-openvpn-list="openvpn3 sessions-list"
-openvpn-restart="openvpn3 session-manage --config ${OPENVPN_CONFIG} --restart"
-openvpn-stop="openvpn3 session-manage --config ${OPENVPN_CONFIG} --disconnect"
-
+source ${HOME}/.zsh/aliases-and-functions.zsh
 
 #--------------------------------------
-# functions
-# note: use "command ls" to avoid infinite recursion when command name and alias name are the same 
+# basic shell stuff
 #--------------------------------------
-#
-# combine less and ls
-function l {
-    if [[ -d ${1} ]];  then
-        ls --human-readable --classify --color=auto ${1}
-    else
-        command less ${1}
-    fi
-}
-function ls { command ls --human-readable --classify --color=auto ${@} ; }
-function la { ls --all --human-readable --classify --color=auto ${@} ; }
-function ll { ls -l --human-readable --classify --color=auto ${@} ; }
-function lla { ls -l --all --human-readable --classify --color=auto ${@} ; }
-function isit { ps -ef | grep ${@} | grep -v grep ; }
-#
-# attach to a running tmux, or run a new instance
-function tm {
-    if [[ $(tmux ls | wc -l) = "0" ]];  then
-        tmux
-    else
-        tmux attach-session
-    fi
-}
-#
-# for CCR dev
-function testCCR {
-    START_DIR=$(pwd)
-    echo "PWD = " ${PWD}
-    CCR_HOME="${HOME}/development/CCR"
-    if [[ -d ${CCR_HOME} ]]; then
-        echo "Starting CCR testing ..." && \
-            cd ${CCR_HOME}/backend && lando artisan test && \
-            cd ${CCR_HOME}/client && lando yarn test:unit && lando cypress run
-        cd ${START_DIR}
-    fi
-}
-
-#--------------------------------------
-# other basic shell stuff
-#--------------------------------------
-
 #
 # command history
-HISTFILE=~/.histfile
+HISTFILE=${HOME}/.histfile
 HISTSIZE=1000
 SAVEHIST=0
 #
@@ -288,11 +230,11 @@ fi
 #----------------------------------------------------------
 #
 # enable tab completion
-fpath=(~/.zsh $fpath)
+fpath=(${HOME}/.zsh $fpath)
 #
 # change command prompt
 # '$(__git_ps1)' adds git-related stuff
-source ~/.bash.d/git-prompt.sh
+source ${HOME}/.zsh/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 PROMPT='%B%F{green}%n@%m%f%b: %2~%B%F{yellow}$(__git_ps1)%f%b %h$ '
 
@@ -320,7 +262,7 @@ fi
 # ms wsl
 if [[ "${wsl}" ]]; then
     echo "final wsl stuff"
-    source ~/.zsh/config-ssh-agent.zsh
+    source ${HOME}/.zsh/config-ssh-agent.zsh
 fi
 
 
