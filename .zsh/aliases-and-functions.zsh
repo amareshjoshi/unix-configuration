@@ -17,7 +17,7 @@ alias dc3="/usr/bin/dc -e 3k - "
 #
 # OpenVPN aliases
 export OPENVPN_CONFIG=${HOME}/.ssh/openvpn.hcommons.org-client.ovpn
-alias openvpn-start="openvpn3 session-start --config ${OPENVON_CONFIG}"
+alias openvpn-start="openvpn3 session-start --config ${OPENVPN_CONFIG}"
 alias openvpn-list="openvpn3 sessions-list"
 alias openvpn-restart="openvpn3 session-manage --config ${OPENVPN_CONFIG} --restart"
 alias openvpn-stop="openvpn3 session-manage --config ${OPENVPN_CONFIG} --disconnect"
