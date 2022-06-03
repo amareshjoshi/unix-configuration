@@ -301,7 +301,7 @@
 ;;
 (defun set-frame-size-according-to-resolution ()
   (interactive)
-  (if window-system
+  (if display-graphic-p
       (let* (
             ;;
             ;; slightly smaller than the screen 
@@ -357,7 +357,7 @@
 (set-frame-size-according-to-resolution)
 ;;
 ;; set position
-(if window-system
+(if display-graphic-p
     (progn
       (add-to-list 'default-frame-alist (cons 'top 50))
       (add-to-list 'default-frame-alist (cons 'left 50))))
