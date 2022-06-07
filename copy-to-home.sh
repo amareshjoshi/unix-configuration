@@ -19,7 +19,7 @@ rm -vf ${HOME}/.gitconfig
 #
 # zsh
 rm -vf ${HOME}/.zshrc
-rm -rvf ${HOME}/.zsh
+rm -rvf ${HOME}/.zsh.d
 #
 #i3
 rm -rvf ~/.config/i3

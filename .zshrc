@@ -27,9 +27,7 @@ compinit
 #--------------------------------------
 
 #--------------------------------------
-# moved aliases and functions to ${HOME}/.zshrc/aliases.zsh
-#--------------------------------------
-source ${HOME}/.zsh/aliases-and-functions.zsh
+source ${HOME}/.zsh.d/aliases-and-functions.zsh
 
 #--------------------------------------
 # basic shell stuff
@@ -230,11 +228,11 @@ fi
 #----------------------------------------------------------
 #
 # enable tab completion
-fpath=(${HOME}/.zsh $fpath)
+fpath=(${HOME}/.zsh.d $fpath)
 #
 # change command prompt
 # '$(__git_ps1)' adds git-related stuff
-source ${HOME}/.zsh/git-prompt.sh
+source ${HOME}/.zsh.d/git-prompt.sh
 export GIT_PS1_SHOWDIRTYSTATE=1
 PROMPT='%B%F{green}%n@%m%f%b: %2~%B%F{yellow}$(__git_ps1)%f%b %h$ '
 
@@ -262,7 +260,7 @@ fi
 # ms wsl
 if [[ "${wsl}" ]]; then
     echo "final wsl stuff"
-    source ${HOME}/.zsh/config-ssh-agent.zsh
+    source ${HOME}/.zsh.d/config-ssh-agent.zsh
 fi
 
 
