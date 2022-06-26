@@ -259,6 +259,8 @@ if [[ "${linux}" ]]; then
     # Connect to and initalize gnome-keyring-daemon when in sway session
     # to access ssh-agent
     if [ "$DESKTOP_SESSION" = "sway" ]; then
+        #
+        # this relies on gnome-keyring-daemon to access ssh-agent
         export $(gnome-keyring-daemon --start)
     fi
 fi
