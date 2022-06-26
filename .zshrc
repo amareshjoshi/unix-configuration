@@ -255,6 +255,12 @@ fi
 # linux
 if [[ "${linux}" ]]; then
     echo "final linux stuff"
+    #
+    # Connect to and initalize gnome-keyring-daemon when in sway session
+    # to access ssh-agent
+    if [ "$DESKTOP_SESSION" = "sway" ]; then
+        export $(gnome-keyring-daemon --start)
+    fi
 fi
 #
 # ms wsl
@@ -262,7 +268,6 @@ if [[ "${wsl}" ]]; then
     echo "final wsl stuff"
     source ${HOME}/.zsh.d/config-ssh-agent.zsh
 fi
-
 
 #
 # --- eof ---

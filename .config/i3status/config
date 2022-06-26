@@ -18,9 +18,9 @@ order += "volume master"
 order += "volume mic" 
 order += "wireless _first_"
 order += "ethernet _first_"
-# order += "load"
-# order += "ipv6"
-# order += "disk /"
+#order += "load"
+order += "ipv6"
+#order += "disk /"
 
 wireless _first_ {
         # format_up = "W: (%quality at %essid) %ip"
@@ -62,7 +62,7 @@ tztime local {
         # format = "%b-%d %I:%M%p"
         #
         # skip date (%b-%d)
-        format = "🕙 %I:%M%p "
+        format = "🕙 %I:%M%p %b %d"
 }
 
 load {
