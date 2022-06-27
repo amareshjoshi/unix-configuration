@@ -331,7 +331,7 @@
           ;; font for terminals will come from the terminal settings
           (if (< (display-pixel-height) 1100)
               ;; laptop or small screen (1050 or 1080)
-              (set-frame-font "Source Code Pro-13" t t)
+              (set-frame-font "Source Code Pro-15" t t)
             ;; big screen (4k)
             (set-frame-font "Source Code Pro-16" t t))
           ))))
@@ -377,7 +377,7 @@
 ;; and line highlighting
 (setq line-number-mode t)
 (setq column-number-mode t)
-(global-hl-line-mode t)
+(global-hl-line-mode nil)
 
 ;;
 ;; always split windows horizontally
@@ -390,6 +390,10 @@
 ;;
 ;; display tab characters as caret-I
 ;;(standard-display-ascii ?\t "^I")
+
+;;
+;; enable narrowing commands (C-x n n  and C-C n w (widen))
+(put 'narrow-to-region 'disabled nil)
 
 ;;
 ;; set the title bar to show file name if available, buffer name otherwise
