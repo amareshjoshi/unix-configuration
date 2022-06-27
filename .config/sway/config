@@ -8,6 +8,8 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $alt Mod1
+
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -27,8 +29,13 @@ set $menu wofi --dmenu --show drun | xargs swaymsg exec --
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+# Default wallpaper (see /usr/share/backgrounds/sway/)
+#
+# need to pick a wallpaper with a "light and clear" top left corner
+# so that the vdesktop numbers display clearly
+set $wallpaper /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
+set $wallpaper /home/joshia/Dropbox/wallpaper/art-institute-chicago/Hokusai-Great_Wave.jpg
+output * bg $wallpaper fill
 #
 # Example configuration:
 #
@@ -83,6 +90,7 @@ input "1149:32792:Kensington_Expert_Wireless_TB_Mouse" {
 
     # Kill focused window
     bindsym $mod+Shift+q kill
+    bindsym $alt+F4 kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -256,6 +264,7 @@ include /etc/sway/config.d/*
 #
 # startup programs
 exec dropbox start
+exec eval $(sshagent)
 
 #
 # Misc
@@ -274,7 +283,8 @@ bindsym $mod+Control+Right workspace next
 
 #
 # clamshell mode config
-set $laptop dell_latitude_7490
+set $laptop eDP-1
+# set $externalmonitor HDMI-A-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 exec_always /home/joshia/bin/sway_clamshell_fix.sh

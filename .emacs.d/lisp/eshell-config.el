@@ -21,9 +21,12 @@
     )
   )
 
+
+
 ;;
 (defun arj-eshell-prompt ()
   (let ((header-bg "#333")
+        (path-list (split-string (eshell/pwd) "/"))
         )
     (concat
      ;;(with-face (format-time-string "(%Y-%m-%d %H:%M) " (current-time)) :background header-bg :foreground "#888")
@@ -47,9 +50,18 @@
      ;;(with-face (car (last (eshell-split-path (eshell/pwd)))) :foreground "green")
      ;; first and last elements in the path
      (with-face
-      (join (append (list (car (cdr (split-string (eshell/pwd) "/"))))
-                    (last (split-string (eshell/pwd) "/")))
-            "/.../")
+      ;;
+      ;; for short paths use the entire path
+      ;; for longer paths, just use the first and last elements
+      ;; e.g /usr/local
+      (if (< (length path-list) 4)
+          (join path-list "/")
+        ;; e.g. /usr/local/etc/emacs/lisp -> /usr/.../lisp
+        (join (append (list (concat "/" (car (cdr path-list))) )
+                      (last path-list))
+              "/.../")
+      )
+      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
       :foreground "green")
      (if (= (user-uid) 0)
          (with-face " #" :foreground "red")
