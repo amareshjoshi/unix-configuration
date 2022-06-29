@@ -69,6 +69,13 @@ output * bg $wallpaper fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+input "type:keyboard" {
+      xkb_layout us
+      #
+      # Caps Lock as Ctrl
+      xkb_options ctrl:nocaps
+}
+
 input "type:touchpad" {
       natural_scroll enabled
 }
@@ -244,7 +251,11 @@ bar {
 
     # do not hide bar
     mode dock
+    # this is only use whne mode is hide
     hidden_state show
+    #
+    # tray icons
+    tray_output primary
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
@@ -253,8 +264,7 @@ bar {
   
    colors {
         statusline #ffffff
-        #background #323232
-        background #444466
+        background #666688
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
@@ -274,6 +284,13 @@ default_orientation horizontal
 # workspace default layout
 workspace_layout default
 #
+# window title placement
+title_align center
+#
+# put chrome on workspace 1
+assign [title="Google Chrome"] 1
+
+#
 # must click on a window to get focus
 focus_follows_mouse no
 #
@@ -288,3 +305,4 @@ set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 exec_always /home/joshia/bin/sway_clamshell_fix.sh
+

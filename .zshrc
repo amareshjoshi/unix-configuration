@@ -64,6 +64,11 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 #
+# for wayland
+# see https://github.com/swaywm/sway/wiki#troubleshooting
+export QT_QPA_PLATFORM=wayland
+
+#
 # first OS specific section
 #
 # os variables

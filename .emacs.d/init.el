@@ -582,9 +582,8 @@
 (global-set-key (kbd "M-o" ) 'other-window)
 ;;
 ;; eshell and (r(ecursive))grep
-(global-set-key (kbd "<f2>" ) 'other-window) ;; avoid using f1
-(global-set-key (kbd "<f3>" ) 'shell)
-(global-set-key (kbd "<f4>" ) 'eshell)
+(global-set-key (kbd "<f2>" ) 'shell)
+(global-set-key (kbd "<f3>" ) 'eshell)
 (global-set-key (kbd "<s-f12>" ) 'a2ps-buffer)
 
 ;;
