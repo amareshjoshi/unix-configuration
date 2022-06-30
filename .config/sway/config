@@ -11,9 +11,9 @@ set $mod Mod4
 set $alt Mod1
 
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
+set $left  h
+set $down  j
+set $up    k
 set $right l
 # Your preferred terminal emulator
 #set $term alacritty
@@ -24,7 +24,15 @@ set $term gnome-terminal
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 ##set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --dmenu --show drun | xargs swaymsg exec --
+#
+# drun looks at *.desktop files
+# run looks at all files in path
+set $dmenu rofi -show drun | xargs swaymsg exec --
+set $rmenu rofi -show run | xargs swaymsg exec --
+# wofi (alternative to rofi) doesn't show stuff in ${HOME}/bin
+#set $dmenu wofi --show drun | xargs swaymsg exec --
+#set $rmenu wofi --show run | xargs swaymsg exec --
+
 
 
 ### Output configuration
@@ -34,7 +42,7 @@ set $menu wofi --dmenu --show drun | xargs swaymsg exec --
 # need to pick a wallpaper with a "light and clear" top left corner
 # so that the vdesktop numbers display clearly
 set $wallpaper /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png
-set $wallpaper /home/joshia/Dropbox/wallpaper/art-institute-chicago/Hokusai-Great_Wave.jpg
+#set $wallpaper /home/joshia/Dropbox/wallpaper/art-institute-chicago/Hokusai-Great_Wave.jpg
 output * bg $wallpaper fill
 #
 # Example configuration:
@@ -100,7 +108,8 @@ input "1149:32792:Kensington_Expert_Wireless_TB_Mouse" {
     bindsym $alt+F4 kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    bindsym $mod+d exec $dmenu
+    bindsym $mod+Shift+d exec $rmenu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -184,7 +193,7 @@ input "1149:32792:Kensington_Expert_Wireless_TB_Mouse" {
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
-
+    
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
 
@@ -289,6 +298,15 @@ title_align center
 #
 # put chrome on workspace 1
 assign [title="Google Chrome"] 1
+#
+# floating windows
+for_window [title="JetBrains Toolbox"] floating enable
+# minesweeper
+for_window [title="Mines"] floating enable
+# for you tube
+for_window [title="Picture-in-Picture"] floating enable
+# firefox bookmark manager
+for_window [title="Library"] floating enable
 
 #
 # must click on a window to get focus
@@ -301,8 +319,16 @@ bindsym $mod+Control+Right workspace next
 #
 # clamshell mode config
 set $laptop eDP-1
-# set $externalmonitor HDMI-A-1
+set $fourk HDMI-A-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 exec_always /home/joshia/bin/sway_clamshell_fix.sh
+
+#
+# scale 4k monitor
+output $fourk scale 2
+
+
+
+
 

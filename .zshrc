@@ -64,9 +64,25 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
 #
+# flatpack
+export XDG_DATA_DIRS=${XDG_DATA_DIRS}:/home/joshia/flatpak/exports/share
+
+#
 # for wayland
 # see https://github.com/swaywm/sway/wiki#troubleshooting
 export QT_QPA_PLATFORM=wayland
+export XDG_SESSION_TYPE=wayland
+export QT_WAYLAND_FORCE_DPI=physical
+# older versions of Qt
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# firefox
+export MOZ_ENABLE_WAYLAND=1
+# libre office
+export SAL_USE_VCLPLUGIN=gtk3
+if [ "$XDG_SESSION_DESKTOP" = "sway" ] ; then
+    # https://github.com/swaywm/sway/issues/595
+    export _JAVA_AWT_WM_NONREPARENTING=1
+fi
 
 #
 # first OS specific section
