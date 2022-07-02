@@ -568,8 +568,8 @@
 (global-set-key (kbd "C-M-z") 'ispell-word)
 
 ;;
-;; for some reason the default binding ("C-/") doesn't work 
-(global-set-key (kbd "C-M-/") 'undo)
+;; both C-/ and C-M-/ both don't work in some terminal emulators (gnome-terminal and foot)
+(global-set-key (kbd "C-M-u") 'undo)
 (global-set-key (kbd "C-x u")
                 (lambda ()
                   (interactive)

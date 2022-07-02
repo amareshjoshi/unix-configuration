@@ -290,21 +290,24 @@ exec eval $(sshagent)
 
 # default tile layout
 default_orientation horizontal
-# workspace default layout
+# workspace default layout (tiled)
 workspace_layout default
 #
 # window title placement
 title_align center
 #
-# put chrome on workspace 1
+# put chrome and edge on workspace 1
 assign [title="Google Chrome"] 1
+assign [title="^.*Microsoft Edge$"] 4
 #
 # floating windows
 for_window [title="JetBrains Toolbox"] floating enable
 # minesweeper
 for_window [title="Mines"] floating enable
 # for you tube
-for_window [title="Picture-in-Picture"] floating enable
+# for some reason, using this makes the parent firefox window also floating.
+# need to debug this
+####for_window [title="Picture-in-Picture"] floating enable
 # firefox bookmark manager
 for_window [title="Library"] floating enable
 
