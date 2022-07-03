@@ -578,13 +578,10 @@
 (global-set-key (kbd "M-r" ) 'replace-regexp)
 (global-set-key (kbd "M-s" ) 'replace-string)
 ;;
-;; remap other-window
-(global-set-key (kbd "M-o" ) 'other-window)
-;;
 ;; eshell and (r(ecursive))grep
 (global-set-key (kbd "<f2>" ) 'shell)
 (global-set-key (kbd "<f3>" ) 'eshell)
-(global-set-key (kbd "<s-f12>" ) 'a2ps-buffer)
+(global-set-key (kbd "<f4>" ) 'term)
 
 ;;
 ;;
