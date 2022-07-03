@@ -14,6 +14,29 @@
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;
+;; ;; lsp
+;; ;;
+;; ;; never got the lsp servers installed and working correctly :-(
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init
+;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :config
+;;   (setq lsp-eldoc-render-all t)
+;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+;;          (php-mode . lsp)
+;;          (javascript-mode . lsp)
+;;          (python-mode . lsp)
+;;          ;; if you want which-key integration
+;;          ;;(lsp-mode . lsp-enable-which-key-integration)
+;;          )
+;;   :commands lsp
+;;   )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; org mode
