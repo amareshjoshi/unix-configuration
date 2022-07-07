@@ -78,8 +78,8 @@
                            (getenv "TEXYEAR")
                            "/bin/"
                            (getenv "TEXBINPREFIX")
-			   "-darwin")
-	  )
+                           "-darwin")
+          )
   ;;
   ;; set PATH and exec-path
   (setq path (concat
@@ -148,7 +148,7 @@
               "/usr/local/sbin:/usr/local/bin:"
               "/usr/sbin:/usr/bin:"
               "/sbin:/bin:"
-	      "/usr/local/games:/usr/games"))
+              "/usr/local/games:/usr/games"))
   (setenv "PATH" path)
   ;;
   ;; exec-path is a list of directories
@@ -270,6 +270,7 @@
        ;;
        ;; keep this off by default
        ;; turn it on for auctex
+       ;; (menu-bar-mode t)
        (menu-bar-mode -1)
        ;;
        ;; get rid of scroll and tool bar
@@ -387,6 +388,13 @@
 ;;
 ;; force emacs to insert tabs instead of spaces
 (setq-default indent-tabs-mode nil)
+;; and convert tabs to spaces when saving files
+;; if indent-tabs-mode is off, untabify before saving
+;; see: https://www.emacswiki.org/emacs/UntabifyUponSave
+(add-hook 'write-file-hooks 
+          (lambda () (if (not indent-tabs-mode)
+                         (untabify (point-min) (point-max)))
+            nil ))
 ;;
 ;; display tab characters as caret-I
 ;;(standard-display-ascii ?\t "^I")
