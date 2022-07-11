@@ -113,13 +113,19 @@ esac
 if [[ "${macos}" ]]; then
     echo "mac os ..."
     #
-    PATH=/opt/local/bin:/opt/local/sbin:${PATH}
+    # for some reason /opt/local/[s]bin is getting into the PATH
+    # so set it explicitly
+    PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/sbin:/usr/sbin
+    #PATH=/opt/local/bin:/opt/local/sbin:${PATH}
     #
     # if GNU coreutils exists put it before BSD utils that come with MacOS
-    if [[ -d /opt/local/libexec/gnubin ]]; then
-        PATH=/opt/local/libexec/gnubin:${PATH}
+    if [[ -d /usr/local/opt/coreutils/libexec/gnubin ]]; then
+        PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     fi
-    export MANPATH=/opt/local/share/man:${MANPATH}
+    # if [[ -d /opt/local/libexec/gnubin ]]; then
+    #     PATH=/opt/local/libexec/gnubin:${PATH}
+    # fi
+    #export MANPATH=/opt/local/share/man:${MANPATH}
     #export JAVA_HOME=$(/usr/libexec/java_home -v 1.x)
     export JAVA_HOME=$(/usr/libexec/java_home)
     export EMACS='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'

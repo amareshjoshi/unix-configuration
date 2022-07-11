@@ -85,22 +85,16 @@
   (setq path (concat
               "/Users/joshia/bin:"
               (getenv "TEXBIN") ":"
-              "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
-              ;; put GNU coreutils before BSD
-              "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
+              ;;put GNU coreutils before BSD
+              "/usr/local/opt/coreutils/libexec/gnubin"
+              ;; macports (to be removed)
+              ;;"/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
+              ;;"/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
               ;; /usr/local is where where docker, vbox, etc. get installed
               "/usr/local/bin:/usr/local/sbin:"
               "/opt/local/racket/bin:"
               "/bin:/usr/bin:"
               "/sbin:/usr/sbin"))
-  ;; (setq path (concat
-  ;;             "/Users/joshia/bin:/Library/TeX/texbin:"
-  ;;             "/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
-  ;;             ;; put GNU coreutils before BSD
-  ;;             "/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"
-  ;;             "/opt/local/racket/bin:"
-  ;;             "/bin:/usr/bin:"
-  ;;             "/sbin:/usr/sbin"))
 
   (setenv "PATH" path)
   ;;
@@ -109,7 +103,7 @@
   ;;(setq exec-path (append '("/foo/bar/bin")))
   ;;
   ;; need this, not sure why
-  (setq scheme-program-name "/opt/local/bin/guile")
+  (setq scheme-program-name "/usr/local/bin/guile")
   ;;
   ;; key bindings
   ;;
@@ -126,8 +120,7 @@
   (setq mac-right-command-modifier 'super)
   ;;
   ;; dired settings
-  ;; mac "ls" now groks --dired
-  (setq dired-use-ls-dired t)
+  (setq dired-use-ls-dired nil)
   ;;
   ;; for codeacademy courses that use python2
   ;;(setq python-shell-interpreter "python2")
@@ -581,7 +574,7 @@
 (global-set-key (kbd "C-x u")
                 (lambda ()
                   (interactive)
-                  (message "Use C-M-/ to undo.")))
+                  (message "Use C-M-u to undo.")))
 ;;
 (global-set-key (kbd "M-r" ) 'replace-regexp)
 (global-set-key (kbd "M-s" ) 'replace-string)
@@ -740,3 +733,16 @@
 
 ;;
 ;; end of .emacs file
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(yaml-mode web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck cider cdlatex auctex adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

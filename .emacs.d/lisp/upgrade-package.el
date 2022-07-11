@@ -24,7 +24,7 @@
                       ;; asciidoc
                       adoc-mode
                       cdlatex
-                      cider
+                      ;;cider
                       clojure-mode
                       dash
                       epl
