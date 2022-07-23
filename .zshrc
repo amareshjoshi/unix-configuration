@@ -37,7 +37,7 @@ source ${HOME}/.zsh.d/aliases-and-functions.zsh
 setopt APPEND_HISTORY
 HISTFILE=${HOME}/.histfile
 HISTSIZE=1000
-SAVEHIST=0
+SAVEHIST=1000
 #
 # beep on errors
 setopt beep

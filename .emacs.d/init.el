@@ -314,10 +314,10 @@
             )
         (progn
           (add-to-list 'default-frame-alist 
-                       (cons 'height HEIGHT
+                       (cons 'height 40     ; HEIGHT
                              ))
           (add-to-list 'default-frame-alist 
-                       (cons 'width WIDTH
+                       (cons 'width 100     ; WIDTH
                              ))
           ;;
           ;; for now set font size based ONLY on pixel width for
@@ -663,8 +663,11 @@
 (setq c-brace-offset -4)
 (setq c-argdecl-indent 8)
 
+;; python settings
 ;; set indentation for python
-(setq python-indent-offset 4)
+(setq python-indent-offset 2)
+(setq python-shell-completion-native-disabled-interpreters '("python3"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
