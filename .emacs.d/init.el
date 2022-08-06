@@ -14,7 +14,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cider inf-clojure company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck clojure-mode cdlatex auctex adoc-mode)))
+   '(clojure-mode-extra-font-locking cider inf-clojure company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck clojure-mode cdlatex auctex adoc-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,12 +41,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; add my own elisp directory to the loadpath
-
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;;
 ;; this is to exclude old elisp files that cause problems with later versions of emacs
 (when (<= emacs-major-version 24) 
   (add-to-list 'load-path "~/.emacs.d/lisp-old")
+  )
+;;
+;; upgrade and load packages for emacs version >= 25
+(when (>= emacs-major-version 25) 
+  (load "upgrade-packages.el")
+  (load "load-packages.el")
   )
 ;;
 ;; utility functions
@@ -55,12 +60,6 @@
 ;;
 ;; MSU Commons functions and defs
 (load "msucommons.el")
-
-;;
-;; load packages for emacs version >= 25
-(when (>= emacs-major-version 25) 
-  (load "load-packages.el")
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; platform specific stuff (linux, apple, ...)
@@ -103,7 +102,7 @@
               "/Users/joshia/bin:"
               (getenv "TEXBIN") ":"
               ;;put GNU coreutils before BSD
-              "/usr/local/opt/coreutils/libexec/gnubin"
+              "/usr/local/opt/coreutils/libexec/gnubin:"
               ;; macports (to be removed)
               ;;"/Applications/MacPorts/Emacs.app/Contents/MacOS/bin:"
               ;;"/opt/local/libexec/gnubin:/opt/local/bin:/opt/local/sbin:"

@@ -6,15 +6,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; initialize/config for loading packages
-(require 'package)
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://melpa.org/packages/")
-                         ("orgmode" . "http://orgmode.org/elpa/")))
-(package-initialize)
-(setq url-http-attempt-keepalives nil)
-
-
+;; initialize/config for loading packages is handled
+;; in ./upgrade-packages.el
+;; (require 'package)
+;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                          ("melpa-stable" . "http://melpa.org/packages/")
+;;                          ("orgmode" . "http://orgmode.org/elpa/")))
+;; (package-initialize)
+;; (setq url-http-attempt-keepalives nil)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;
@@ -165,8 +164,7 @@
   ;; make reftex and auctex play nice together
   (setq reftex-plug-into-AUCTeX t))
 
-;; ;;--(use-package clojure-mode)
-;;--(use-package cider)
+
 ;;--(use-package dash)
 ;;--(use-package epl)
 ;;--(use-package fill-column-indicator)

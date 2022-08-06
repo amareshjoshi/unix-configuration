@@ -16,7 +16,9 @@
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa-stable" . "http://melpa.org/packages/")
-                         ("orgmode" . "http://orgmode.org/elpa/")))
+                         ("orgmode" . "http://orgmode.org/elpa/")
+                         ("tromey" . "http://tromey.com/elpa/")))
+
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
@@ -24,11 +26,12 @@
                       ;; asciidoc
                       adoc-mode
                       cdlatex
-                      ;; clojure
+                      ;; clojure --------------------------
                       clojure-mode
+                      clojure-mode-extra-font-locking
                       cider
                       inf-clojure
-                      ;; 
+                      ;; clojure ---------------------------
                       dash
                       epl
                       flycheck
