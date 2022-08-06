@@ -14,27 +14,40 @@
 (package-initialize)
 (setq url-http-attempt-keepalives nil)
 
+
+
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;
-;; ;; lsp
+;; ;; eglot
 ;; ;;
-;; ;; never got the lsp servers installed and working correctly :-(
+;; ;; see: https://whatacold.io/blog/2022-01-22-emacs-eglot-lsp/#&gid=1&pid=1
+;; ;; see: https://deno.land/manual/getting_started/setup_your_environment
+;; ;;
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package lsp-mode
+;; ;;
+;; ;; used for auto completion popus
+;; (use-package company
 ;;   :ensure t
-;;   :init
-;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-;;   (setq lsp-keymap-prefix "C-c l")
 ;;   :config
-;;   (setq lsp-eldoc-render-all t)
-;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-;;          (php-mode . lsp)
-;;          (javascript-mode . lsp)
-;;          (python-mode . lsp)
-;;          ;; if you want which-key integration
-;;          ;;(lsp-mode . lsp-enable-which-key-integration)
-;;          )
-;;   :commands lsp
+;;   (global-company-mode)
+;;   )
+;; (use-package eglot
+;;   :ensure t
+;;   :config
+;;   (add-to-list 'eglot-server-programs
+;;                '((js-mode typescript-mode) . (eglot-deno "/usr/local/bin/deno" "lsp")) )
+;;   (defclass eglot-deno (eglot-lsp-server) ()
+;;     :documentation "A custom class for deno lsp.")
+  
+;;   (cl-defmethod eglot-initialization-options ((server eglot-deno))
+;;     "Passes through required deno initialization options"
+;;     (list :enable t
+;;           :lint t))
+;;   ;; initiate the completion manually
+;;   (define-key eglot-mode-map (kbd "C-c <tab>") #'company-complete)
+;;   (define-key eglot-mode-map (kbd "C-c e f n") #'flymake-goto-next-error)
+;;   (define-key eglot-mode-map (kbd "C-c e f p") #'flymake-goto-prev-error)
+;;   (define-key eglot-mode-map (kbd "C-c e r") #'eglot-rename)
 ;;   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -45,8 +58,8 @@
 (use-package org
   :ensure t
   :config
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
+  (define-key org-mode-map (kbd "C-c l") 'org-store-link)
+  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
   (setq org-log-done t)
   ;; enable flyspell mode for org
   (add-hook 'org-mode-hook 'flyspell-mode)
@@ -85,7 +98,7 @@
   :defer t
   :config
   (setq reb-re-syntax 'string)
-)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -178,7 +191,7 @@
   (global-launch-mode +1)
   ;; If you only want to enable it for certain modes, add:
   (add-hook 'dired-mode 'turn-on-launch-mode))
-  
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; markdown-mode

@@ -24,8 +24,11 @@
                       ;; asciidoc
                       adoc-mode
                       cdlatex
-                      ;;cider
+                      ;; clojure
                       clojure-mode
+                      cider
+                      inf-clojure
+                      ;; 
                       dash
                       epl
                       flycheck

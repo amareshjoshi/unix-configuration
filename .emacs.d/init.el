@@ -6,6 +6,23 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq python-shell-completion-native-disabled-interpreters '("python3"))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(cider inf-clojure company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck clojure-mode cdlatex auctex adoc-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; emacs server
@@ -663,11 +680,8 @@
 (setq c-brace-offset -4)
 (setq c-argdecl-indent 8)
 
-;; python settings
 ;; set indentation for python
-(setq python-indent-offset 2)
-(setq python-shell-completion-native-disabled-interpreters '("python3"))
-
+(setq python-indent-offset 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -734,18 +748,7 @@
 ;;;; setup to print to franklin
 ;;(setq lpr-switches '("-d lj4simx"))
 
+
+
 ;;
 ;; end of .emacs file
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(yaml-mode web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck cider cdlatex auctex adoc-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
