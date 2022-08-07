@@ -21,10 +21,28 @@
   )
 ;;
 ;; upgrade and load packages for emacs version >= 25
-(when (>= emacs-major-version 25) 
+(when (>= emacs-major-version 25)
+  ;;
+  ;; if you get gpg errors this is because your version of emacs doesn't
+  ;; have the latest gpg keys to fix:
+  ;; 1. (setq package-check-signature nil)
+  ;; 2. update package list and install the package: gnu-elpa-keyring-update-*
+  ;; 3. reset the old value back: (setq package-check-signature 'allow-unsigned)
+  ;;(setq package-check-signature 'nil)
+  (setq package-check-signature 'allow-unsigned)
+  ;;
+  ;; package setup
+  (require 'package)
+  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa-stable" . "http://melpa.org/packages/")
+                           ("orgmode" . "http://orgmode.org/elpa/")))
+  (package-initialize)
   (load "upgrade-packages.el")
   (load "load-packages.el")
+  ;; run this manually periodically
+  ;;(package-autoremove)
   )
+
 ;;
 ;; utility functions
 (load "utility-functions.el")
