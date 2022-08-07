@@ -6,34 +6,6 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq python-shell-completion-native-disabled-interpreters '("python3"))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(clojure-mode-extra-font-locking cider inf-clojure company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck clojure-mode cdlatex auctex adoc-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; emacs server
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; start emacs server
-;;(require 'server)
-;;(server-start)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; elisp and packages
@@ -60,6 +32,14 @@
 ;;
 ;; MSU Commons functions and defs
 (load "msucommons.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; eshell stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(load "eshell-config.el")
+(setq eshell-highlight-prompt nil)
+;;(setq eshell-highlight-prompt 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; platform specific stuff (linux, apple, ...)
@@ -638,7 +618,6 @@
 ;; run asscociated (external) application
 (global-set-key (kbd "C-c e l") 'launch-files-dired)
 
-
 ;;
 ;; define new prefix "C-h e" and its keybinding
 (define-prefix-command 'ctl-h-e-prefix)
@@ -653,7 +632,6 @@
 (define-key ctl-h-e-prefix (kbd "l") 'find-library)
 (define-key ctl-h-e-prefix (kbd "v") 'find-variable)
 (define-key ctl-h-e-prefix (kbd "V") 'apropos-value)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -692,50 +670,8 @@
 (setq compile-command "make")
 
 ;;
-;; sigh ...
-(setq gnus-default-nntp-server "news.eternal-september.org")
-
-;;
-;; ????
-;;(load-file "~/.emacs.d/lisp/caml.el")
-
-
-;;
-;; eshell stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(load "eshell-config.el")
-(setq eshell-highlight-prompt nil)
-;;(setq eshell-highlight-prompt 1)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; AUCTeX and RefTeX (moved into lisp/load-packages.el)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; clojure
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; don't need to set anything
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Robe (enhanced Ruby mode)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; start with
-;; M-x run-ruby
-;; or 
-;; M-x inf-ruby
-(add-hook 'ruby-mode-hook 'robe-mode)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; python interpreter
+(setq python-shell-completion-native-disabled-interpreters '("python3"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -743,11 +679,63 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;
-;;;; setup to print to franklin
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; emacs server
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; start emacs server
+;;(require 'server)
+;;(server-start)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; sigh ...
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq gnus-default-nntp-server "news.eternal-september.org")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; setup to print to franklin
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(setq lpr-switches '("-d lj4simx"))
 
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; custom-set-variables was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+(custom-set-variables
+ '(package-selected-packages
+   '(clojure-mode-extra-font-locking
+     cider
+     inf-clojure
+     company
+     yaml-mode
+     web-mode
+     use-package
+     smartparens
+     sesman
+     rainbow-delimiters
+     projectile
+     parseedn
+     markdown-mode
+     magit
+     launch
+     graphql-mode
+     graphql-doc
+     graphql
+     gnu-elpa-keyring-update
+     geiser-guile
+     flycheck
+     clojure-mode
+     cdlatex
+     auctex
+     adoc-mode)))
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+(custom-set-faces
+ )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; end of .emacs file
