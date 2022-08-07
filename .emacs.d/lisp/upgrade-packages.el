@@ -9,13 +9,14 @@
 
 (defvar my-packages '(auctex
                       ;; asciidoc
+                      aggressive-indent
                       adoc-mode
                       cdlatex
                       ;; clojure --------------------------
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
-                      inf-clojure
+                      ;;inf-clojure
                       ;; clojure ---------------------------
                       dash
                       epl
@@ -32,7 +33,6 @@
                       markdown-mode
                       pkg-info
                       projectile
-                      ;;quack
                       rainbow-delimiters
                       seq
                       smartparens ;; smartparens replaces paredit

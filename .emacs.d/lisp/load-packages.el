@@ -5,39 +5,36 @@
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;
-;; ;; eglot
-;; ;;
-;; ;; see: https://whatacold.io/blog/2022-01-22-emacs-eglot-lsp/#&gid=1&pid=1
-;; ;; see: https://deno.land/manual/getting_started/setup_your_environment
-;; ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;
-;; ;; used for auto completion popus
-;; (use-package company
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; clojure
+;;
+;; don't invoke inf-mode and cider mode at the same time
+;; cider is like SLIME
+;; inf-clojure is simpler and probably better for sicp. but it's freezing
+;;
+;; https://clojure.org/guides/editors
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package clojure-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+  (require 'clojure-mode-extra-font-locking)
+  (add-hook 'clojure-mode-hook #'cider-mode)
+  (add-hook 'clojure-mode-hook #'subword-mode)
+  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
+  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+(use-package cider
+  :ensure t
+  :pin melpa-stable)
+;;
+;; (use-package inf-clojure
 ;;   :ensure t
 ;;   :config
-;;   (global-company-mode)
+;;   (add-hook 'clojure-mode-hook #'inf-clojure-minor-mode)
 ;;   )
-;; (use-package eglot
-;;   :ensure t
-;;   :config
-;;   (add-to-list 'eglot-server-programs
-;;                '((js-mode typescript-mode) . (eglot-deno "/usr/local/bin/deno" "lsp")) )
-;;   (defclass eglot-deno (eglot-lsp-server) ()
-;;     :documentation "A custom class for deno lsp.")
-  
-;;   (cl-defmethod eglot-initialization-options ((server eglot-deno))
-;;     "Passes through required deno initialization options"
-;;     (list :enable t
-;;           :lint t))
-;;   ;; initiate the completion manually
-;;   (define-key eglot-mode-map (kbd "C-c <tab>") #'company-complete)
-;;   (define-key eglot-mode-map (kbd "C-c e f n") #'flymake-goto-next-error)
-;;   (define-key eglot-mode-map (kbd "C-c e f p") #'flymake-goto-prev-error)
-;;   (define-key eglot-mode-map (kbd "C-c e r") #'eglot-rename)
-;;   )
+;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
