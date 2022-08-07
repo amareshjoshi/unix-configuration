@@ -5,16 +5,6 @@
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;
-;; initialize/config for loading packages is handled
-;; in ./upgrade-packages.el
-;; (require 'package)
-;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;;                          ("melpa-stable" . "http://melpa.org/packages/")
-;;                          ("orgmode" . "http://orgmode.org/elpa/")))
-;; (package-initialize)
-;; (setq url-http-attempt-keepalives nil)
-
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;;
 ;; ;; eglot
