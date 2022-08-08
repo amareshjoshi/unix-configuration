@@ -226,7 +226,7 @@
   :config
   ;; good defaults
   (require 'smartparens-config)
-  ;; turn on everywhere
+  ;; turn on globally
   (smartparens-global-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
