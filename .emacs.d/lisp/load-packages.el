@@ -224,8 +224,9 @@
 (use-package smartparens
   :ensure t
   :config
+  ;; good defaults
+  (require 'smartparens-config)
   (smartparens-global-mode 1))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; rainbow delimiters
