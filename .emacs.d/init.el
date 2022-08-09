@@ -33,7 +33,9 @@
   ;;
   ;; package setup
   (require 'package)
-  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+  ;;
+  (setq package-archives '(;; lets leave out gnu, melpa seems better anyway
+                           ;; ("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa-stable" . "http://melpa.org/packages/")
                            ("orgmode" . "http://orgmode.org/elpa/")))
   (package-initialize)
@@ -276,7 +278,7 @@
 (cond ((display-graphic-p)
        ;;
        ;; keep this off by default
-       ;; turn it on for auctex
+       ;; turn it on for auctex and CIDER
        ;; (menu-bar-mode t)
        (menu-bar-mode -1)
        ;;
@@ -722,37 +724,21 @@
 ;; Your init file should contain only one such instance.
 ;; If there is more than one, they won't work right.
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(clojure-mode-extra-font-locking
-     cider
-     inf-clojure
-     company
-     yaml-mode
-     web-mode
-     use-package
-     smartparens
-     sesman
-     rainbow-delimiters
-     projectile
-     parseedn
-     markdown-mode
-     magit
-     launch
-     graphql-mode
-     graphql-doc
-     graphql
-     gnu-elpa-keyring-update
-     geiser-guile
-     flycheck
-     clojure-mode
-     cdlatex
-     auctex
-     adoc-mode)))
+   '(which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck cdlatex auctex adoc-mode)))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

@@ -7,24 +7,24 @@
 
 (setq url-http-attempt-keepalives nil)
 
-(defvar my-packages '(auctex
-                      ;; asciidoc
-                      aggressive-indent
-                      adoc-mode
+(defvar my-packages '(;; TeX stuff
+                      auctex
                       cdlatex
+                      ;;-----------------------------------
+                      aggressive-indent
+                      adoc-mode         ; ascii doc
                       ;; clojure --------------------------
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
-                      ;;inf-clojure
-                      ;; clojure ---------------------------
+                      ;;-----------------------------------
                       dash
                       epl
                       flycheck
-                      ;;
-                      ;; scheme ide
+                      ;; scheme stuff
                       geiser
                       geiser-guile
+                      ;;-----------------------------------
                       graphql ;; graphql utilities
                       graphql-doc ;; graphql documentation explorer
                       graphql-mode
@@ -34,7 +34,6 @@
                       pkg-info
                       projectile
                       rainbow-delimiters
-                      seq
                       smartparens ;; smartparens replaces paredit
                       use-package
                       ;; web-mode replaces php-mode
