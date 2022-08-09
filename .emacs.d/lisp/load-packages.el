@@ -112,6 +112,8 @@
   :defer t
   :ensure auctex
   :config
+  ;; normally off
+  (menu-bar-mode t)
   (setq TeX-auto-save t)                  ; enable parsing on save
   (setq TeX-engine 'xetex)                ; use xetex instead of latex
   (setq TeX-parse-self t)                 ; enable parsing on load
