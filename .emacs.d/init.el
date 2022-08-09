@@ -506,6 +506,7 @@
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'skr 'show-kill-ring)
 (defalias 'rfb 'rename-file-and-buffer)
+(defalias 'plp 'package-list-packages)
                                         ; scheme ide
 (defalias 'rg 'run-geiser)
                                         ; clojure ide

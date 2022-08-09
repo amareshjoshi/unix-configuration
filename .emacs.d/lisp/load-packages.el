@@ -1,23 +1,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; load packages
+;;
 ;; ~/.emacs.d/lisp/load-packages.el
 ;;
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; magit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package magit
+  :ensure t
+  :pin melpa-stable)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; company (completion)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'company)
-(global-company-mode)
+(use-package company
+  :ensure t
+  :pin melpa-stable
+  :config
+  (global-company-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flycheck
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'flycheck)
-(require 'flycheck-aspell)
-(require 'flycheck-guile)
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package flycheck
+  :ensure t
+  :pin melpa-stable
+  :config
+  (require 'flycheck-aspell)
+  (require 'flycheck-guile)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -30,7 +46,8 @@
 ;; https://clojure.org/guides/editors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clojure-mode
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
   (require 'clojure-mode-extra-font-locking)
@@ -41,7 +58,7 @@
   (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
   (add-hook 'clojure-mode-hook #'menu-bar-mode))
 (use-package cider
-  :ensure t
+  :defer t
   :pin melpa-stable
   :config
   (menu-bar-mode t))
@@ -65,7 +82,8 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package org
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (define-key org-mode-map (kbd "C-c l") 'org-store-link)
   (define-key org-mode-map (kbd "C-c a") 'org-agenda)
@@ -105,6 +123,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package re-builder
   :defer t
+  :pin melpa-stable
   :config
   (setq reb-re-syntax 'string)
   )
@@ -114,9 +133,12 @@
 ;; AUCTeX
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package latex
+;; (use-package latex
+;;   :defer t
+;;   :ensure auctex
+(use-package auctex
   :defer t
-  :ensure auctex
+  :pin melpa-stable
   :config
   (setq TeX-auto-save t)                  ; enable parsing on save
   (setq TeX-engine 'xetex)                ; use xetex instead of latex
@@ -165,7 +187,8 @@
 ;; see: 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package reftex
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   ;; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
   (add-hook 'TeX-mode-hook 'turn-on-reftex)
@@ -182,7 +205,8 @@
 ;; your operating system.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package launch
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (global-launch-mode +1)
   ;; If you only want to enable it for certain modes, add:
@@ -194,7 +218,8 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package markdown-mode
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (autoload 'markdown-mode "markdown-mode"
     "Major mode for editing Markdown files" t)
@@ -211,9 +236,9 @@
 ;; web-mode (html, javascript, css, php)
 ;; (replaces php-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;(require 'web-mode)
 (use-package web-mode
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
@@ -234,6 +259,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package smartparens
   :ensure t
+  :pin melpa-stable
   :config
   ;; good defaults
   (require 'smartparens-config)
@@ -248,6 +274,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package rainbow-delimiters
   :ensure t
+  :pin melpa-stable
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
@@ -263,7 +290,8 @@
 ;; it.  See the README for more details.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package projectile
-  :ensure t
+  :defer t
+  :pin melpa-stable
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -281,13 +309,18 @@
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq geiser-active-implementations '(guile chez kawa))
-(setq geiser-active-implementations '(guile))
-(setq geiser-guile-binary "guile") 
-(setq geiser-chez-binary "chez") 
-(require 'geiser)
-(require 'quack)
-
+(use-package quack
+  :ensure t)
+(use-package geiser
+  :ensure t
+  :pin melpa-stable
+  :config
+  ;; (setq geiser-active-implementations '(guile chez kawa))
+  (setq geiser-active-implementations '(guile))
+  (setq geiser-guile-binary "guile") 
+  (setq geiser-chez-binary "chez") 
+  (setq quack-default-program "guile")
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; SLIME (common-lisp ide)
@@ -296,7 +329,8 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package slime
-  :ensure t
+  :defer t
+  :pin melpa-stable
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
 )
