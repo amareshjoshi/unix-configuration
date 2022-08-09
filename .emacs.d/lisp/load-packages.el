@@ -24,10 +24,14 @@
   (add-hook 'clojure-mode-hook #'subword-mode)
   (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
   (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode))
+  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
+  (add-hook 'clojure-mode-hook #'menu-bar-mode))
 (use-package cider
   :ensure t
-  :pin melpa-stable)
+  :pin melpa-stable
+  :config
+  (menu-bar-mode t))
+
 ;;
 ;; (use-package inf-clojure
 ;;   :ensure t
@@ -36,6 +40,19 @@
 ;;   )
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; which-key
+;; displays keybindings when you press a prefix key
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package which-key
+  :ensure t
+  :pin melpa-stable
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 0.2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; org mode
