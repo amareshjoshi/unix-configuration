@@ -52,7 +52,7 @@
   :init (which-key-mode)
   :diminish which-key-mode
   :config
-  (setq which-key-idle-delay 0.4))
+  (setq which-key-idle-delay 0.2))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; org mode
@@ -112,8 +112,6 @@
   :defer t
   :ensure auctex
   :config
-  ;; normally off
-  (menu-bar-mode t)
   (setq TeX-auto-save t)                  ; enable parsing on save
   (setq TeX-engine 'xetex)                ; use xetex instead of latex
   (setq TeX-parse-self t)                 ; enable parsing on load
@@ -246,7 +244,9 @@
   ;; good defaults
   (require 'smartparens-config)
   ;; turn on globally
-  (smartparens-global-mode 1))
+  (smartparens-global-mode 1)
+  ;; maybe *too* strict 
+  (smartparens-strict-mode 1))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; rainbow delimiters
