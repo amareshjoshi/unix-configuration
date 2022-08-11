@@ -282,6 +282,8 @@
 ;; name files *.scm
 ;; stick this in as needed:
 ;; -*- geiser-scheme-implementation: guile -*-
+;; -*- geiser-scheme-implementation: kawa -*-
+;; -*- geiser-scheme-implementation: chez -*-
 ;; -*- geiser-scheme-implementation: racket -*-
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
