@@ -19,9 +19,11 @@
                       clojure-mode-extra-font-locking
                       cider
                                         ; scheme
+                      quack
                       geiser
                       geiser-guile
-                      quack
+                      geiser-chez
+                      geiser-kawa
                                         ; ---
                       dash
                       epl

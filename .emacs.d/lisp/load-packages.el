@@ -291,6 +291,8 @@
   :config
   (when (eq system-type 'darwin) ;; mac specific settings
     (setq scheme-program-name "/usr/local/bin/guile")
+    ;;(setq scheme-program-name "/usr/local/bin/kawa")
+    ;;(setq scheme-program-name "/usr/local/bin/chez")
     )
   (when (eq system-type 'gnu/linux) ;; linux specific settings
     (setq scheme-program-name "/usr/bin/guile3.0")
@@ -303,6 +305,16 @@
   (setq the-way '(is void))
   )
 (use-package geiser-guile
+  :ensure t
+  :config
+  (setq the-way '(is void))
+  )
+(use-package geiser-chez
+  :ensure t
+  :config
+  (setq the-way '(is void))
+  )
+(use-package geiser-kawa
   :ensure t
   :config
   (setq the-way '(is void))
