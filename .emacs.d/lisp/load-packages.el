@@ -275,8 +275,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; scheme: racket/guile/chicken
+;; scheme: just guile (for now)
 ;;
+;; install: quack, geiser, geiser-guile
 ;;
 ;; name files *.scm
 ;; stick this in as needed:
@@ -285,36 +286,27 @@
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; disbale quack (and geiser) for now
-;; (use-package quack
-;;   :ensure t
-;;   :config
-;;   (when (eq system-type 'darwin) ;; mac specific settings
-;;     (setq scheme-program-name "/opt/local/racket/bin/racket")
-;;     )
-;;   (when (eq system-type 'gnu/linux) ;; linux specific settings
-;;     (setq scheme-program-name "/usr/local/racket/bin/racket")
-;;     )
-;;   (when (eq system-type 'windows-nt) ;; windows specific settings
-;;     (setq scheme-program-name "C:\\Programs\\Racket\\Racket.exe")
-;;     )
-;;   (when (eq system-type 'cygwin) ;; cygwin specific settings
-;;     (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
-;;     )
-;;   ;;
-;;   ;; probably don't need this
-;;   ;; quack
-;;   (setq quack-default-program scheme-program-name)
-;;   ;; geiser
-;;   (setq geiser-racket-binary scheme-program-name)
-;;   ;;
-;;   ;; how to start quack only with scheme files?
-;;   ;; these don't work:
-;;   ;; (add-hook 'scheme-mode-hook (require 'quack) t)
-;;   ;; (add-hook 'scheme-mode-hook #'quack-mode)
-;;   )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(use-package quack
+  :ensure t
+  :config
+  (when (eq system-type 'darwin) ;; mac specific settings
+    (setq scheme-program-name "/usr/local/bin/guile")
+    )
+  (when (eq system-type 'gnu/linux) ;; linux specific settings
+    (setq scheme-program-name "/usr/bin/guile3.0")
+    )
+  (setq geiser-guile-binary scheme-program-name)
+  )
+(use-package geiser
+  :ensure t
+  :config
+  (setq the-way '(is void))
+  )
+(use-package geiser-guile
+  :ensure t
+  :config
+  (setq the-way '(is void))
+  )
 
 ;;
 ;; eof

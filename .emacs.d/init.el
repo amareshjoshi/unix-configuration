@@ -37,6 +37,7 @@
   (setq package-archives '(;; lets leave out gnu, melpa seems better anyway
                            ;; ("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa-stable" . "http://melpa.org/packages/")
+                           ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                            ("orgmode" . "http://orgmode.org/elpa/")))
   (package-initialize)
   (load "upgrade-packages.el")
@@ -116,10 +117,6 @@
   ;;
   ;; exec-path is a list of directories
   (setq exec-path (append (split-string path ":"))) 
-  ;;(setq exec-path (append '("/foo/bar/bin")))
-  ;;
-  ;; need this, not sure why
-  (setq scheme-program-name "/usr/local/bin/guile")
   ;;
   ;; key bindings
   ;;
@@ -167,11 +164,6 @@
   ;; dired settings
   ;; linux "ls" uses the --dired option
   (setq dired-use-ls-dired t)
-  ;;
-  (setq scheme-program-name "/usr/bin/guile3.0")
-  (setq geiser-guile-binary "guile3.0")
-  ;;
-  ;;
 
   ;; we have to initialize this variable because it may not be set yet
   ;; when this code firest runs. this  is okay because values will be added to it later
@@ -210,7 +202,7 @@
   ;; not sure about this require
   (require 'powershell)
   ;;
-  (setq scheme-program-name "C:\\Programs\\Racket\\no-racket-for-mswindows-Racket.exe")
+  (setq scheme-program-name "C:\\Programs\\Racket\\no-racket-for-mswindows.exe")
   ;;
   (setq TeX-output-view-style             ; default viewers for AUCTeX
         '(("^pdf$" "." "C:\\Program Files (x86)\\Adobe\\Acrobat 11.0\\Acrobat\\Acrobet.exe")
@@ -729,7 +721,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update geiser-guile flycheck cdlatex auctex adoc-mode)))
+   '(geiser geiser-guile quack which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.

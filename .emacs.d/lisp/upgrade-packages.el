@@ -10,23 +10,24 @@
 (defvar my-packages '(;; TeX stuff
                       auctex
                       cdlatex
-                      ;;-----------------------------------
-                      aggressive-indent
-                      adoc-mode         ; ascii doc
-                      ;; clojure --------------------------
+                      adoc-mode
+                                        ; clojure
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
-                      ;;-----------------------------------
+                                        ; clojure
                       dash
                       epl
                       flycheck
-                      ;; scheme stuff
+                                        ; scheme
                       geiser
                       geiser-guile
-                      ;;-----------------------------------
-                      graphql ;; graphql utilities
-                      graphql-doc ;; graphql documentation explorer
+                      quack
+                                        ; scheme
+                                        ; graphql utilities
+                      graphql
+                                        ;graphql documentation explorer
+                      graphql-doc
                       graphql-mode
                       launch
                       magit
@@ -34,9 +35,10 @@
                       pkg-info
                       projectile
                       rainbow-delimiters
-                      smartparens ;; smartparens replaces paredit
+                                        ; smartparens replaces paredit
+                      smartparens 
                       use-package
-                      ;; web-mode replaces php-mode
+                                        ; web-mode replaces php-mode
                       web-mode
                       which-key
                       yaml-mode))
