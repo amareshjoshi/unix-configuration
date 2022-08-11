@@ -7,23 +7,25 @@
 
 (setq url-http-attempt-keepalives nil)
 
-(defvar my-packages '(;; TeX stuff
+(defvar my-packages '(
+                                        ; LaTeX ide
                       auctex
                       cdlatex
                       adoc-mode
+                                        ; cl
+                      slime
                                         ; clojure
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
-                                        ; clojure
-                      dash
-                      epl
-                      flycheck
                                         ; scheme
                       geiser
                       geiser-guile
                       quack
-                                        ; scheme
+                                        ; ---
+                      dash
+                      epl
+                      flycheck
                                         ; graphql utilities
                       graphql
                                         ;graphql documentation explorer
