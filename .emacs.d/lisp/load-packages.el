@@ -308,6 +308,19 @@
   (setq the-way '(is void))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; SLIME (common-lisp ide)
+;;
+;; https://github.com/slime/slime
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package slime
+  :ensure t
+  :config
+  (menu-bar-mode t)
+  (setq inferior-lisp-program "/usr/local/bin/sbcl")
+)
 ;;
 ;; eof
 ;;
