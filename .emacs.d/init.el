@@ -531,6 +531,8 @@
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'skr 'show-kill-ring)
 (defalias 'rfb 'rename-file-and-buffer)
+(defalias 'rg 'run-geiser)
+(defalias 'cji 'cider-jack-in)
 ;; answer just y/n to to yes/no question prompts
 ;;(defalias 'yes-or-no-p 'y-or-n-p)
 
