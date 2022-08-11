@@ -37,7 +37,8 @@
   (setq package-archives '(;; lets leave out gnu, melpa seems better anyway
                            ;; ("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa-stable" . "http://melpa.org/packages/")
-                           ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                           ;; not needed
+                           ;; ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                            ("orgmode" . "http://orgmode.org/elpa/")))
   (package-initialize)
   (load "upgrade-packages.el")
@@ -723,7 +724,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(geiser geiser-guile quack which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
+   '(slime geiser geiser-guile quack which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
