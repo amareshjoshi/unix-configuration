@@ -5,6 +5,21 @@
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;--(use-package dash)
+;;--(use-package epl)
+;;--(use-package fill-column-indicator)
+
+;;
+;; graphical fill column indicator
+;; toggle with ``fci-mode''
+;;(require 'fill-column-indicator)
+
+;;--(use-package flycheck)
+;;--(use-package geiser)
+;;--(use-package inf-ruby)
+;;--(use-package magit)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; clojure
@@ -160,21 +175,6 @@
   ;; make reftex and auctex play nice together
   (setq reftex-plug-into-AUCTeX t))
 
-
-;;--(use-package dash)
-;;--(use-package epl)
-;;--(use-package fill-column-indicator)
-
-;;
-;; graphical fill column indicator
-;; toggle with ``fci-mode''
-;;(require 'fill-column-indicator)
-
-;;--(use-package flycheck)
-;;--(use-package geiser )
-;; ;;--(use-package inf-ruby)
-;;--(use-package magit)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; launch
@@ -252,8 +252,6 @@
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; projectile (project management)
@@ -268,10 +266,6 @@
 (use-package projectile
   :ensure t
 )
-
-
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -288,39 +282,10 @@
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package quack
-  :ensure t
-  :config
-  (when (eq system-type 'darwin) ;; mac specific settings
-    (setq scheme-program-name "/usr/local/bin/guile")
-    ;;(setq scheme-program-name "/usr/local/bin/kawa")
-    ;;(setq scheme-program-name "/usr/local/bin/chez")
-    )
-  (when (eq system-type 'gnu/linux) ;; linux specific settings
-    (setq scheme-program-name "/usr/bin/guile3.0")
-    )
-  (setq geiser-guile-binary scheme-program-name)
-  )
-(use-package geiser
-  :ensure t
-  :config
-  (setq the-way '(is void))
-  )
-(use-package geiser-guile
-  :ensure t
-  :config
-  (setq the-way '(is void))
-  )
-(use-package geiser-chez
-  :ensure t
-  :config
-  (setq the-way '(is void))
-  )
-(use-package geiser-kawa
-  :ensure t
-  :config
-  (setq the-way '(is void))
-  )
+(setq geiser-active-implementations '(guile chez))
+(setq geiser-chez-binary "chez") 
+(require 'geiser)
+(require 'quack)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -332,7 +297,6 @@
 (use-package slime
   :ensure t
   :config
-  (menu-bar-mode t)
   (setq inferior-lisp-program "/usr/local/bin/sbcl")
 )
 ;;

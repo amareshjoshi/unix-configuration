@@ -12,18 +12,16 @@
                       auctex
                       cdlatex
                       adoc-mode
-                                        ; cl
+                                        ; common lisp ide
                       slime
-                                        ; clojure
+                                        ; clojure ide
                       clojure-mode
                       clojure-mode-extra-font-locking
                       cider
-                                        ; scheme
-                      quack
-                      geiser
+                                        ; scheme ide
                       geiser-guile
                       geiser-chez
-                      geiser-kawa
+                      quack
                                         ; ---
                       dash
                       epl

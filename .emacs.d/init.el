@@ -15,37 +15,26 @@
 ;; add my own elisp directory to the loadpath
 (add-to-list 'load-path "~/.emacs.d/lisp")
 ;;
-;; this is to exclude old elisp files that cause problems with later versions of emacs
-(when (<= emacs-major-version 24) 
-  (add-to-list 'load-path "~/.emacs.d/lisp-old")
-  )
+;; if you get gpg errors this is because your version of emacs doesn't
+;; have the latest gpg keys to fix:
+;; 1. (setq package-check-signature nil)
+;; 2. update package list and install the package: gnu-elpa-keyring-update-*
+;; 3. reset the old value back: (setq package-check-signature 'allow-unsigned)
+;;(setq package-check-signature 'nil)
+(setq package-check-signature 'allow-unsigned)
 ;;
-;; upgrade and load packages for emacs version >= 25
-(when (>= emacs-major-version 25)
-  ;;
-  ;; if you get gpg errors this is because your version of emacs doesn't
-  ;; have the latest gpg keys to fix:
-  ;; 1. (setq package-check-signature nil)
-  ;; 2. update package list and install the package: gnu-elpa-keyring-update-*
-  ;; 3. reset the old value back: (setq package-check-signature 'allow-unsigned)
-  ;;(setq package-check-signature 'nil)
-  (setq package-check-signature 'allow-unsigned)
-  ;;
-  ;; package setup
-  (require 'package)
-  ;;
-  (setq package-archives '(;; lets leave out gnu, melpa seems better anyway
-                           ;; ("gnu" . "http://elpa.gnu.org/packages/")
-                           ("melpa-stable" . "http://melpa.org/packages/")
-                           ;; not needed
-                           ;; ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                           ("orgmode" . "http://orgmode.org/elpa/")))
-  (package-initialize)
-  (load "upgrade-packages.el")
-  (load "load-packages.el")
-  ;; run this manually periodically
-  ;;(package-autoremove)
-  )
+;; package setup
+(require 'package)
+;;
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa-stable" . "http://melpa.org/packages/")
+                         ("orgmode" . "http://orgmode.org/elpa/")))
+(package-initialize)
+(load "upgrade-packages.el")
+(load "load-packages.el")
+;; run this manually periodically
+;;(package-autoremove)
+;;-----------------------------------------------------------
 
 ;;
 ;; utility functions
@@ -242,42 +231,38 @@
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (setq locale-coding-system 'utf-8)
-;; backwards compatibility as default-buffer-file-coding-system
-;; is deprecated in 23.2.
-(if (boundp 'buffer-file-coding-system)
-    (setq-default buffer-file-coding-system 'utf-8)
-  (setq default-buffer-file-coding-system 'utf-8))
-;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+;; ;; backwards compatibility as default-buffer-file-coding-system
+;; ;; is deprecated in 23.2.
+;; (if (boundp 'buffer-file-coding-system)
+;;     (setq-default buffer-file-coding-system 'utf-8)
+;;   (setq default-buffer-file-coding-system 'utf-8))
+;; ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+;; (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;;
-;; prevent shells from echoing their arguments (lines)
-(defun my-comint-init ()
-  (setq comint-process-echoes t))
-(add-hook 'comint-mode-hook 'my-comint-init)
+;; ;;
+;; ;; prevent shells from echoing their arguments (lines)
+;; (defun my-comint-init ()
+;;   (setq comint-process-echoes t))
+;; (add-hook 'comint-mode-hook 'my-comint-init)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; turn on semantic mode (NEW, see docs)
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(semantic-mode t)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;;
+;; ;; turn on semantic mode (NEW, see docs)
+;; ;;
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (semantic-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; terminal vs gui, other
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; get rid of scroll and tool bar
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 (cond ((display-graphic-p)
-       ;;
-       ;; keep this off by default
-       ;; turn it on for auctex and CIDER
-       ;; (menu-bar-mode t)
-       (menu-bar-mode -1)
-       ;;
-       ;; get rid of scroll and tool bar
-       (tool-bar-mode -1)
-       (scroll-bar-mode -1)
+       ;; turn it on for GUI
+       (menu-bar-mode t)
        ;;
        ;; ruler mode
        ;; doesn't work. needs to be turned on for each mode i think
@@ -409,10 +394,10 @@
 ;; set the title bar to show file name if available, buffer name otherwise
 (setq frame-title-format '(buffer-file-name "%f" ("%b")))
 
-;;
-;; improves display performance, maybe ...
-;; https://masteringemacs.org/article/improving-performance-emacs-display-engine
-(setq redisplay-dont-pause t)
+;; ;;
+;; ;; improves display performance, maybe ...
+;; ;; https://masteringemacs.org/article/improving-performance-emacs-display-engine
+;; (setq redisplay-dont-pause t)
 
 ;;
 ;; buffers with these names will open sepearte windows (frames) in gui
@@ -473,35 +458,24 @@
 ;; colors/themes
 ;;
 ;; custom-theme only works with emacs24 or higher
-(when (>= emacs-major-version 24) 
-  (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-  ;;(load-theme 'zenburn t)
-  ;; (load-theme 'modus-operandi)
-  
-  ;;(load-theme 'adwaita t)
-  ;;(load-theme 'deeper-blue t)
-  ;;(load-theme 'dichromacy t)
-  ;;(load-theme 'leuven t)
-  ;;(load-theme 'light-blue t)
-  ;;(load-theme 'manoj-dark t)
-  (load-theme 'misterioso t)
-  ;;(load-theme 'tango t)
-  ;;(load-theme 'tango-dark t)
-  ;;(load-theme 'tsdh-dark t)
-  ;;(load-theme 'tsdh-light t)
-  ;;(load-theme 'wheatgrass t)
-  ;;(load-theme 'whiteboard t)
-  ;;(load-theme 'wombat t)
-  )
-;;
-;; older emacs need to load the color-theme (color NOT *custom*) package manually
-(when (<= emacs-major-version 23) 
-  (require 'color-theme)
-                                        ; lighter theme
-  (color-theme-aalto-light)
-  ;;(color-theme-aalto-gnome)
-  ;;(color-theme-aalto-gnome2) ; dark green
-  )
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+;;(load-theme 'zenburn t)
+;;(load-theme 'modus-operandi)
+;;(load-theme 'adwaita t)
+;;(load-theme 'deeper-blue t)
+;;(load-theme 'dichromacy t)
+;;(load-theme 'leuven t)
+;;(load-theme 'light-blue t)
+;;(load-theme 'manoj-dark t)
+(load-theme 'misterioso t)
+;;(load-theme 'tango t)
+;;(load-theme 'tango-dark t)
+;;(load-theme 'tsdh-dark t)
+;;(load-theme 'tsdh-light t)
+;;(load-theme 'wheatgrass t)
+;;(load-theme 'whiteboard t)
+;;(load-theme 'wombat t)
+
 ;;
 ;; red cursors are faster
 (set-cursor-color "#ff0000")
@@ -611,13 +585,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;
-;; avoid printing by mistake in osX with command-p 
-;;default: (global-set-key (kbd "S-p" ) 'ns-print-buffer)
-;;(global-unset-key (kbd "S-p" ))
-;;(global-set-key (kbd "S-p" ) 'shell)
-;;(global-unset-key "\S-p")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
 ;; keyboard prefixes and bindings
 ;;
 ;; prefix "C-c e" already exists, so don't need to define it
@@ -695,46 +662,27 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; emacs server
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; start emacs server
-;;(require 'server)
-;;(server-start)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sigh ...
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq gnus-default-nntp-server "news.eternal-september.org")
+;; (setq gnus-default-nntp-server "news.eternal-september.org")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; setup to print to franklin
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(setq lpr-switches '("-d lj4simx"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; custom-set-variables was added by Custom.
-;; If you edit it by hand, you could mess it up, so be careful.
-;; Your init file should contain only one such instance.
-;; If there is more than one, they won't work right.
+;;
+;; end of .emacs file
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(slime geiser geiser-guile quack which-key cider clojure-mode-extra-font-locking company yaml-mode web-mode use-package smartparens sesman rainbow-delimiters projectile parseedn markdown-mode magit launch graphql-mode graphql-doc graphql gnu-elpa-keyring-update flycheck cdlatex auctex adoc-mode)))
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+   '(yaml-mode which-key web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql flycheck epl dash quack geiser-kawa geiser-chez geiser-guile cider clojure-mode-extra-font-locking clojure-mode slime adoc-mode cdlatex auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; end of .emacs file
