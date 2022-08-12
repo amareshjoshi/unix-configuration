@@ -5,20 +5,19 @@
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;--(use-package dash)
-;;--(use-package epl)
-;;--(use-package fill-column-indicator)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; company (completion)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'company)
+(global-company-mode)
 
-;;
-;; graphical fill column indicator
-;; toggle with ``fci-mode''
-;;(require 'fill-column-indicator)
-
-;;--(use-package flycheck)
-;;--(use-package geiser)
-;;--(use-package inf-ruby)
-;;--(use-package magit)
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; flycheck
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'flycheck)
+(require 'flycheck-aspell)
+(require 'flycheck-guile)
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -282,7 +281,9 @@
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq geiser-active-implementations '(guile chez))
+(setq geiser-active-implementations '(guile chez kawa))
+(setq geiser-active-implementations '(guile))
+(setq geiser-guile-binary "guile") 
 (setq geiser-chez-binary "chez") 
 (require 'geiser)
 (require 'quack)

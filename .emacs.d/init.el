@@ -506,10 +506,11 @@
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'skr 'show-kill-ring)
 (defalias 'rfb 'rename-file-and-buffer)
+                                        ; scheme ide
 (defalias 'rg 'run-geiser)
+                                        ; clojure ide
 (defalias 'cji 'cider-jack-in)
-;; answer just y/n to to yes/no question prompts
-;;(defalias 'yes-or-no-p 'y-or-n-p)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -679,7 +680,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(yaml-mode which-key web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql flycheck epl dash quack geiser-kawa geiser-chez geiser-guile cider clojure-mode-extra-font-locking clojure-mode slime adoc-mode cdlatex auctex)))
+   '(flycheck-aspell flycheck-guile company yaml-mode which-key web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql flycheck quack geiser-kawa geiser-chez geiser-guile cider clojure-mode-extra-font-locking clojure-mode slime adoc-mode cdlatex auctex)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

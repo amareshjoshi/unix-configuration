@@ -11,7 +11,10 @@
                                         ; LaTeX ide
                       auctex
                       cdlatex
+                                        ; asciidoc
                       adoc-mode
+                                        ; completion
+                      company
                                         ; common lisp ide
                       slime
                                         ; clojure ide
@@ -22,27 +25,36 @@
                       geiser-guile
                       geiser-chez
                       quack
-                                        ; ---
-                      dash
-                      epl
+                                        ; flycheck
                       flycheck
+                      flycheck-aspell
+                      flycheck-guile
                                         ; graphql utilities
                       graphql
-                                        ;graphql documentation explorer
+                                        ; graphql documentation explorer
                       graphql-doc
                       graphql-mode
+                                        ; launch external programs
                       launch
+                                        ; git
                       magit
+                                        ; markdown
                       markdown-mode
+                                        ;
                       pkg-info
+                                        ; project management
                       projectile
+                                        ; matching colored delemiters
                       rainbow-delimiters
                                         ; smartparens replaces paredit
-                      smartparens 
+                      smartparens
+                                        ; package configurator
                       use-package
                                         ; web-mode replaces php-mode
                       web-mode
+                                        ; show options after a prefix key
                       which-key
+                                        ; yaml
                       yaml-mode))
 
 (dolist (p my-packages)
