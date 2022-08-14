@@ -13,7 +13,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; add my own elisp directory to the loadpath
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.config/emacs/lisp")
 ;;
 ;; if you get gpg errors this is because your version of emacs doesn't
 ;; have the latest gpg keys to fix:
