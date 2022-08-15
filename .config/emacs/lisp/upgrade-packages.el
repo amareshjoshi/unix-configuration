@@ -1,14 +1,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; ~/.emacs.d/lisp/load-packages.el
+;; ~/.emacs.d/lisp/upgrade-packages.el
 ;;
-;; ensures installed packages are the same on all platforms
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages '(
-                                        ; LaTeX ide
+                                        ; lsp
+                      lsp-mode
+                      typescript-mode
+					; javascript mode (maintained by Steve Yegge)
+                      js2-mode
+                                        ; LaTeX
                       auctex
                       cdlatex
                                         ; asciidoc

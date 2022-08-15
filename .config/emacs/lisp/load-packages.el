@@ -8,20 +8,61 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; lsp
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l") ;; or 'C-l' or  's-l'
+  :config
+  (lsp-enable-which-key-integration t))
+;;
+;; TS
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
+;;
+;; JS
+(use-package js2-mode
+  :hook (js2-mode . lsp-deferred)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; magit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit
   :ensure t
   :pin melpa-stable)
 
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; company (completion)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package company
+;;   :ensure t
+;;   :pin melpa-stable
+;;   :config
+;;   (global-company-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; company (completion)
+;; ivy, counsel, swiper (completion)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package company
+(use-package counsel
   :ensure t
   :pin melpa-stable
   :config
-  (global-company-mode))
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) "))
+
+
+
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flycheck
@@ -59,9 +100,7 @@
   (add-hook 'clojure-mode-hook #'menu-bar-mode))
 (use-package cider
   :defer t
-  :pin melpa-stable
-  :config
-  (menu-bar-mode t))
+  :pin melpa-stable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -75,7 +114,8 @@
   :init (which-key-mode)
   :diminish which-key-mode
   :config
-  (setq which-key-idle-delay 0.2))
+  (setq which-key-idle-delay 0.4))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; org mode
@@ -95,7 +135,7 @@
                                         ;  tikz ist keine drawing program
   (add-to-list 'org-latex-packages-alist '("" "tikz" t))
                                         ; double and 1.5 line spacing
-  (add-to-list 'org-latex-packages-alist '("" "setspace" t)) 
+  (add-to-list 'org-latex-packages-alist '("" "setspace" t))
                                         ;  creates dummy text
   (add-to-list 'org-latex-packages-alist '("" "blindtext" t))
                                         ;  math symbols
@@ -112,8 +152,6 @@
                                         ;  prevents indentation of first line
   (add-to-list 'org-latex-packages-alist '("" "parskip" t))
   )
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -184,7 +222,7 @@
 ;;
 ;; RefTeX
 ;;
-;; see: 
+;; see:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package reftex
   :defer t
@@ -229,7 +267,6 @@
                                         ; Enable Flyspell mode for markdown
   (add-hook 'markdown-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -250,7 +287,6 @@
   ;; enable flyspell mode
   (add-hook 'web-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -265,8 +301,9 @@
   (require 'smartparens-config)
   ;; turn on globally
   (smartparens-global-mode 1)
-  ;; maybe *too* strict 
+  ;; maybe *too* strict
   (smartparens-strict-mode 1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; rainbow delimiters
@@ -291,14 +328,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package projectile
   :defer t
-  :pin melpa-stable
-)
+  :pin melpa-stable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; scheme: just guile (for now)
 ;;
-;; install: quack, geiser, geiser-guile
+;; install: quack, geiser, geiser-{guile chez}
 ;;
 ;; name files *.scm
 ;; stick this in as needed:
@@ -310,17 +346,18 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package quack
-  :ensure t)
+  :ensure t
+  :pin melpa-stable)
+
 (use-package geiser
   :ensure t
   :pin melpa-stable
   :config
-  ;; (setq geiser-active-implementations '(guile chez kawa))
   (setq geiser-active-implementations '(guile))
-  (setq geiser-guile-binary "guile") 
-  (setq geiser-chez-binary "chez") 
-  (setq quack-default-program "guile")
-  )
+  ;;(setq geiser-active-implementations '(guile chez))
+  (setq geiser-guile-binary "guile")
+  (setq geiser-chez-binary "chez"))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; SLIME (common-lisp ide)

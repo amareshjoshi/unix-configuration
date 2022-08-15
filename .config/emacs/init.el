@@ -1,18 +1,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
 ;;
-;; .emacs file for Amaresh Joshi
+;; ~/.config/emacs/init.el
 ;;
-;; should work across platforms (linux,  mac and windows)
+;; should work across platforms (linux, mac and wsl (maybe ms windows))
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; elisp and packages
+;; paths and packages
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; add my own elisp directory to the loadpath
+;; add elisp directory to the loadpath
 (add-to-list 'load-path "~/.config/emacs/lisp")
 ;;
 ;; if you get gpg errors this is because your version of emacs doesn't
@@ -46,17 +45,442 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; initialize
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; startup settings
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message "the way is void...")
+(setq visible-bell t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; utf-8 encoding
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(set-language-environment "UTF-8") ;; also bound to: C-x RET l
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; mode line and display stuff
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq display-time-day-and-date t)
+;; (display-time)
+(line-number-mode t)
+(column-number-mode t)
+;; puts line numbers in all buffers
+(global-display-line-numbers-mode -1)
+(global-hl-line-mode -1)
+;; set the title bar to show file name if available, buffer name otherwise
+(setq frame-title-format '(buffer-file-name "%f" ("%b")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; spaces not tabs
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; force emacs to insert tabs instead of spaces
+(setq-default indent-tabs-mode -1)
+;; and convert tabs to spaces when saving files
+;; if indent-tabs-mode is off, untabify before saving
+;; see: https://www.emacswiki.org/emacs/UntabifyUponSave
+(add-hook 'write-file-hooks 
+          (lambda () (if (not indent-tabs-mode)
+                         (untabify (point-min) (point-max)))
+            nil ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; eshell stuff
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load "eshell-config.el")
 (setq eshell-highlight-prompt nil)
 ;;(setq eshell-highlight-prompt 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; platform specific stuff (linux, apple, ...)
+;;
+;; coloring
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-font-lock-mode t)
+;;
+;; and more coloring
+(setq font-lock-global-modes t)
+(setq font-lock-maximum-decoration t)
+
+;; also highlight parens
+(setq show-paren-delay 0
+      show-paren-style 'parenthesis)
+(show-paren-mode 1)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; but first get the right version of TeX
+;; themes
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(load-theme 'modus-vivendi t)
+;;(load-theme 'modus-operandi t)
+;;(load-theme 'adwaita t)
+;;(load-theme 'deeper-blue t)
+;;(load-theme 'dichromacy t)
+;;(load-theme 'leuven t)
+;;(load-theme 'light-blue t)
+;;(load-theme 'manoj-dark t)
+(load-theme 'misterioso t)
+;;(load-theme 'tango t)
+;;(load-theme 'tango-dark t)
+;;(load-theme 'tsdh-dark t)
+;;(load-theme 'tsdh-light t)
+;;(load-theme 'wheatgrass t)
+;;(load-theme 'whiteboard t)
+;;(load-theme 'wombat t)
+
+;;
+;; red cursors are faster
+(set-cursor-color "#ff0000")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; spell check options
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; aspell replaces ispell
+(setq-default ispell-program-name "aspell")
+;; Default dictionary. To change do M-x ispell-change-dictionary RET.
+(setq ispell-dictionary "english")
+;;
+;; turn on flyspell mode (shows errors as you type)
+(flyspell-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; aliases
+;;
+;; useful to shorten commands
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+(defalias 'vhc 'visit-humcore)
+(defalias 'qrr 'query-replace-regexp)
+(defalias 'skr 'show-kill-ring)
+(defalias 'rfb 'rename-file-and-buffer)
+(defalias 'plp 'package-list-packages)
+                                        ; scheme ide
+(defalias 'rg 'run-geiser)
+                                        ; clojure ide
+(defalias 'cji 'cider-jack-in)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; key bindings
+;;
+;; always use "kbd" to set keys (see Xah Emacs site)
+;;      (kbd "M-f") vs "\M-f"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; can use <fN> to define fuction keys
+;; on apple keyboard need to press "fn" to use function keys
+;; windows/apple-command key is super
+;;
+;; define a global or particular vkey map as follows:
+;;     (define-key global-map (kbd "M-.") 'set-mark-command)
+;;     (define-key text-mode-map (kbd "M-r") 'replace-regexp)
+;;
+;;
+
+;;
+;; better bindings for M-x
+(global-set-key (kbd "C-x C-m") 'execute-extended-command)
+(global-set-key (kbd "C-c C-m") 'execute-extended-command)
+
+
+;; C-o (default open-line) will be the prefix key for tmux
+(global-unset-key (kbd "C-o"))
+
+;;
+;; keybindings for windmove
+;; M-arrow_keys will move around windows
+(global-set-key (kbd "<M-up>") 'windmove-up)
+(global-set-key (kbd "<M-down>") 'windmove-down)
+(global-set-key (kbd "<M-left>") 'windmove-left)
+(global-set-key (kbd "<M-right>") 'windmove-right)
+
+;;
+(global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
+;;(global-set-key "\M-." 'set-mark-command)
+;;
+;; 
+(global-set-key (kbd "C-M-z") 'ispell-word)
+
+;;
+;; both C-/ and C-M-/ both don't work in some terminal emulators (gnome-terminal and foot)
+(global-set-key (kbd "C-M-u") 'undo)
+(global-set-key (kbd "C-x u")
+                (lambda ()
+                  (interactive)
+                  (message "Use C-M-u to undo.")))
+;;
+(global-set-key (kbd "M-r" ) 'replace-regexp)
+(global-set-key (kbd "M-s" ) 'replace-string)
+;;
+;; eshell and (r(ecursive))grep
+(global-set-key (kbd "<f2>" ) 'shell)
+(global-set-key (kbd "<f3>" ) 'eshell)
+(global-set-key (kbd "<f4>" ) 'term)
+;;
+;; used by recent file mode (recentf-mode 1) 
+(global-set-key (kbd "C-M-r" ) 'recentf-open-files)
+
+;;
+;;
+;; Windows Terminal (Preview) specific stuff
+;;
+;; unbind these to use as cut/paste in windows terminal
+(global-unset-key (kbd "C-M-c"))
+(global-unset-key (kbd "C-M-v"))
+;;
+;; because of a bug in C-M-z is treated as C-z
+;; as a (hopefully temporary) fix we'll unbind C-z from suspend-emacs
+;; and add another keybinding for ispell-word
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-M-y") 'ispell-word)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;
+;; keyboard prefixes and bindings
+;;
+;; prefix "C-c e" already exists, so don't need to define it
+(global-set-key (kbd "C-c e b") 'do-eval-buffer)
+(global-set-key (kbd "C-c e e") 'toggle-debug-on-error)
+(global-set-key (kbd "C-c e f") 'emacs-lisp-byte-compile-and-load)
+(global-set-key (kbd "C-c e r") 'eval-region)
+(global-set-key (kbd "C-c e s") 'scratch)
+;;
+;; markdown -> pdf
+(global-set-key (kbd "C-c e p") 'markdown-export-pandoc-pdf)
+;;
+;; run asscociated (external) application
+(global-set-key (kbd "C-c e l") 'launch-files-dired)
+
+;;
+;; define new prefix "C-h e" and its keybinding
+(define-prefix-command 'ctl-h-e-prefix)
+(global-set-key (kbd "C-h e") 'ctl-h-e-prefix)
+;;
+;; now add keys to this prefix-key map
+;;
+;; the old mapping for "C-h e"
+(define-key ctl-h-e-prefix (kbd "e") 'view-echo-area-messages)
+(define-key ctl-h-e-prefix (kbd "f") 'find-function)
+(define-key ctl-h-e-prefix (kbd "k") 'find-function-on-key)
+(define-key ctl-h-e-prefix (kbd "l") 'find-library)
+(define-key ctl-h-e-prefix (kbd "v") 'find-variable)
+(define-key ctl-h-e-prefix (kbd "V") 'apropos-value)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; indentation
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; set indentation for perl-mode
+(setq perl-indent-level 4)
+(setq perl-continued-statement-offset 0)
+(setq perl-continued-brace-offset 4)
+(setq perl-brace-offset -4)
+(setq perl-brace-imaginary-offset 0)
+(setq perl-label-offset -4)
+
+;;
+;;   set the indentation for C-mode
+(setq c-indent-level 4)
+(setq c-continued-statement-offset 4)
+(setq c-brace-offset -4)
+(setq c-argdecl-indent 8)
+
+;; set indentation for python
+(setq python-indent-offset 4)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; language specific packages and settings
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; the string called when compile is called
+(setq compile-command "make")
+;; python interpreter
+(setq python-shell-completion-native-disabled-interpreters '("python3"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; terminal vs gui, other
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(cond ((display-graphic-p)
+       ;; graphics stuff
+       (menu-bar-mode t)
+       ;; uses Unicode symbols for stuff like arrows, Greek letters 
+       (prettify-symbols-mode)
+       )
+      ;; terminal stuff
+      (t 
+       (menu-bar-mode -1)
+       )
+)
+;;
+;; set size dynamically
+;;
+;; for small displays make the window 2/3 (0.66) of 
+;; the dimensions of the screen.
+;; but for large (e.g. 4k) displays make the width
+;; 1/2 the width of the screen
+;;
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (if (display-graphic-p)
+      (let* (
+            ;;
+            ;; slightly smaller than the screen 
+            (OFFSET 75)
+            (HEIGHT (/ (- (display-pixel-height) OFFSET) (frame-char-height)))
+            ;;
+            ;; for really big displays use a relative size (2000)
+            (LARGE 1100)
+            (WIDTH  (if (< (display-pixel-height) LARGE)
+                        ;; not LARGE (laptop)
+                        (/ (/ (* (display-pixel-width) 2) 3) (frame-char-width))
+                      ;; LARGE (4k)
+                      (/ (/ (display-pixel-width) 2) (frame-char-width)))
+                    )
+
+            )
+        (progn
+          (add-to-list 'default-frame-alist 
+                       (cons 'height 40     ; HEIGHT
+                             ))
+          (add-to-list 'default-frame-alist 
+                       (cons 'width 100     ; WIDTH
+                             ))
+          ;;
+          ;; for now set font size based ONLY on pixel width for
+          ;; graphical environments.
+          ;; font for terminals will come from the terminal settings
+          (if (< (display-pixel-height) 1100)
+              ;; laptop or small screen (1050 or 1080)
+              (set-frame-font "Source Code Pro-15" t t)
+            ;; big screen (4k)
+            (set-frame-font "Source Code Pro-16" t t))
+          ))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; the problem is with a horizontal+vertical two monitor combo
+;; the pixel height and width are the maximum's from each monitor
+;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
+;;
+;; it may be possible to use (display-monitor-attributes-list)
+;; to better determine the ``best'' window size
+;; for now only set the window size if the width is NOT "too big"
+;;
+;; for mixed displays (width > 2000) use batch files with "emacs -g 200x64 ..."
+;;
+;; (if (< (display-pixel-width) 1920)
+;;     (set-frame-size-according-to-resolution)
+;; )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;
+;; set size
+(set-frame-size-according-to-resolution)
+;;
+;; set position
+(if (display-graphic-p)
+    (progn
+      (add-to-list 'default-frame-alist (cons 'top 50))
+      (add-to-list 'default-frame-alist (cons 'left 50))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; misc
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; enable the {up|down}case region commands
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+;; always split windows horizontally
+(setq split-height-threshold 80)
+(setq split-width-threshold nil)
+;;
+;; enable narrowing commands (C-x n n  and C-C n w (widen))
+(put 'narrow-to-region 'disabled nil)
+
+;;
+;; buffers with these names will open sepearte windows (frames) in gui
+(setq special-display-buffer-names
+      '("*Colors*" "*Faces*"))
+;;
+;;  make no backups
+(setq backup-inhibited t)
+(setq version-control ())
+(setq make-backup-files ())
+;;
+;; dired options
+(setq delete-by-moving-to-trash t)
+;;
+;; remember recent files (need to readup on this)
+(recentf-mode 1)
+;; displays recent files
+;; also remaped to C-M-r (see key section)
+(defalias 'rof 'recentf-open-files)
+
+;; Move customization variables to a separate file and load it
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(load custom-file 'noerror 'nomessage)
+
+;;
+;; Remember and restore the last cursor location of opened files
+(save-place-mode 1)
+
+;;
+;; remember mini-buffer history. navigate it with M-n M-p
+(setq history-length 25)
+(savehist-mode 1)
+
+;; set grep command and args
+;; gives an error in WSL
+;; (grep-apply-setting 'grep-command "grep --ignore-case --color -nH -e")
+
+;; fix cut and paste in X
+;; see http://emacswiki.org/emacs/CopyAndPaste
+(setq x-select-enable-primary t)
+(setq x-select-enable-clipboard t)
+;; Save whatever’s in the current (system) clipboard before
+;; replacing it with the Emacs’ text.
+;; https://github.com/dakrone/eos/blob/master/eos.org
+(setq save-interprogram-paste-before-kill t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; platform specific stuff (linux, apple, ...)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; TeX version
 (setenv "TEXBINPREFIX" "x86_64")
 (if (file-directory-p "/usr/local/texlive/2018")
     (setenv "TEXYEAR" "2018")
@@ -206,485 +630,16 @@
   (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
   )
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; startup settings
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; clean and quiet startup
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message "the way is void...")
-(setq visible-bell nil)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; utf-8 encoding
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(set-language-environment "UTF-8") ;; also bound to: C-x RET l
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(setq locale-coding-system 'utf-8)
-;; ;; backwards compatibility as default-buffer-file-coding-system
-;; ;; is deprecated in 23.2.
-;; (if (boundp 'buffer-file-coding-system)
-;;     (setq-default buffer-file-coding-system 'utf-8)
-;;   (setq default-buffer-file-coding-system 'utf-8))
-;; ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-;; (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-
-;; ;;
-;; ;; prevent shells from echoing their arguments (lines)
-;; (defun my-comint-init ()
-;;   (setq comint-process-echoes t))
-;; (add-hook 'comint-mode-hook 'my-comint-init)
-
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;;
-;; ;; turn on semantic mode (NEW, see docs)
-;; ;;
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (semantic-mode t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; terminal vs gui, other
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; get rid of scroll and tool bar
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(cond ((display-graphic-p)
-       ;; turn it on for GUI
-       (menu-bar-mode t)
-       ;;
-       ;; ruler mode
-       ;; doesn't work. needs to be turned on for each mode i think
-       ;;  (ruler-mode t)
-       ;;
-       ;; uses Unicode symbols for stuff like arrows, Greek letters 
-       (prettify-symbols-mode)
-       )
-      ;;
-      ;; terminal stuff
-      (t 
-       (menu-bar-mode -1)
-       ;; use mouse in terminals - nice but doesn't allow copying text
-       ;;(xterm-mouse-mode t)
-       )
-)
-;;
-;; set size dynamically
-;;
-;; for small displays make the window 2/3 (0.66) of 
-;; the dimensions of the screen.
-;; but for large (e.g. 4k) displays make the width
-;; 1/2 the width of the screen
-;;
-(defun set-frame-size-according-to-resolution ()
-  (interactive)
-  (if (display-graphic-p)
-      (let* (
-            ;;
-            ;; slightly smaller than the screen 
-            (OFFSET 75)
-            (HEIGHT (/ (- (display-pixel-height) OFFSET) (frame-char-height)))
-            ;;
-            ;; for really big displays use a relative size (2000)
-            (LARGE 1100)
-            (WIDTH  (if (< (display-pixel-height) LARGE)
-                        ;; not LARGE (laptop)
-                        (/ (/ (* (display-pixel-width) 2) 3) (frame-char-width))
-                      ;; LARGE (4k)
-                      (/ (/ (display-pixel-width) 2) (frame-char-width)))
-                    )
-
-            )
-        (progn
-          (add-to-list 'default-frame-alist 
-                       (cons 'height 40     ; HEIGHT
-                             ))
-          (add-to-list 'default-frame-alist 
-                       (cons 'width 100     ; WIDTH
-                             ))
-          ;;
-          ;; for now set font size based ONLY on pixel width for
-          ;; graphical environments.
-          ;; font for terminals will come from the terminal settings
-          (if (< (display-pixel-height) 1100)
-              ;; laptop or small screen (1050 or 1080)
-              (set-frame-font "Source Code Pro-15" t t)
-            ;; big screen (4k)
-            (set-frame-font "Source Code Pro-16" t t))
-          ))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; the problem is with a horizontal+vertical two monitor combo
-;; the pixel height and width are the maximum's from each monitor
-;; i.e. 1920x1080 + 1080x1920 gives the following: width = 3000, height = 1920
-;;
-;; it may be possible to use (display-monitor-attributes-list)
-;; to better determine the ``best'' window size
-;; for now only set the window size if the width is NOT "too big"
-;;
-;; for mixed displays (width > 2000) use batch files with "emacs -g 200x64 ..."
-;;
-;; (if (< (display-pixel-width) 1920)
-;;     (set-frame-size-according-to-resolution)
-;; )
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;
-;; set size
-(set-frame-size-according-to-resolution)
-;;
-;; set position
-(if (display-graphic-p)
-    (progn
-      (add-to-list 'default-frame-alist (cons 'top 50))
-      (add-to-list 'default-frame-alist (cons 'left 50))))
-
-;;
-;; enable the {up|down}case region commands
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-
-;;
-;; display time and date on modeline
-(setq display-time-day-and-date t)
-(display-time)
-
-;;
-;; turn on line and column number modes
-;; and line highlighting
-(setq line-number-mode t)
-(setq column-number-mode t)
-(global-hl-line-mode nil)
-
-;;
-;; always split windows horizontally
-(setq split-height-threshold 80)
-(setq split-width-threshold nil)
-
-;;
-;; force emacs to insert tabs instead of spaces
-(setq-default indent-tabs-mode nil)
-;; and convert tabs to spaces when saving files
-;; if indent-tabs-mode is off, untabify before saving
-;; see: https://www.emacswiki.org/emacs/UntabifyUponSave
-(add-hook 'write-file-hooks 
-          (lambda () (if (not indent-tabs-mode)
-                         (untabify (point-min) (point-max)))
-            nil ))
-;;
-;; display tab characters as caret-I
-;;(standard-display-ascii ?\t "^I")
-
-;;
-;; enable narrowing commands (C-x n n  and C-C n w (widen))
-(put 'narrow-to-region 'disabled nil)
-
-;;
-;; set the title bar to show file name if available, buffer name otherwise
-(setq frame-title-format '(buffer-file-name "%f" ("%b")))
-
-;; ;;
-;; ;; improves display performance, maybe ...
-;; ;; https://masteringemacs.org/article/improving-performance-emacs-display-engine
-;; (setq redisplay-dont-pause t)
-
-;;
-;; buffers with these names will open sepearte windows (frames) in gui
-(setq special-display-buffer-names
-      '("*Colors*" "*Faces*"))
-
-;;
-;;  make no backups
-(setq backup-inhibited t)
-(setq version-control ())
-(setq make-backup-files ())
-
-;;
-;; dired options
-(setq delete-by-moving-to-trash t)
-
-;;
-;; set grep command and args
-;; gives an error in WSL
-;; (grep-apply-setting 'grep-command "grep --ignore-case --color -nH -e")
-
-
-;;
-;; don't make #backups# if choose not to save a file
-;; also don't make 'dead' pointers if a session quits suddenly
-;;
-;; (doesn't work!)
-;;(setq auto-save-list-file-prefix nil) 
-
-;;
-;; fix cut and paste in X
-;; see http://emacswiki.org/emacs/CopyAndPaste
-(setq x-select-enable-primary t)
-(setq x-select-enable-clipboard t)
-;; Save whatever’s in the current (system) clipboard before
-;; replacing it with the Emacs’ text.
-;; https://github.com/dakrone/eos/blob/master/eos.org
-(setq save-interprogram-paste-before-kill t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; coloring
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-font-lock-mode t)
-;;
-;; and more coloring
-(setq font-lock-global-modes t)
-(setq font-lock-maximum-decoration t)
-
-;; also highlight parens
-(setq show-paren-delay 0
-      show-paren-style 'parenthesis)
-(show-paren-mode 1)
-
-;;
-;; colors/themes
-;;
-;; custom-theme only works with emacs24 or higher
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;(load-theme 'zenburn t)
-;;(load-theme 'modus-operandi)
-;;(load-theme 'adwaita t)
-;;(load-theme 'deeper-blue t)
-;;(load-theme 'dichromacy t)
-;;(load-theme 'leuven t)
-;;(load-theme 'light-blue t)
-;;(load-theme 'manoj-dark t)
-(load-theme 'misterioso t)
-;;(load-theme 'tango t)
-;;(load-theme 'tango-dark t)
-;;(load-theme 'tsdh-dark t)
-;;(load-theme 'tsdh-light t)
-;;(load-theme 'wheatgrass t)
-;;(load-theme 'whiteboard t)
-;;(load-theme 'wombat t)
-
-;;
-;; red cursors are faster
-(set-cursor-color "#ff0000")
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; spell check options
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; aspell replaces ispell
-(setq-default ispell-program-name "aspell")
-;; Default dictionary. To change do M-x ispell-change-dictionary RET.
-(setq ispell-dictionary "english")
-;;
-;; turn on flyspell mode (shows errors as you type)
-(flyspell-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; aliases
-;;
-;; useful to shorten commands
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-(defalias 'vhc 'visit-humcore)
-(defalias 'qrr 'query-replace-regexp)
-(defalias 'skr 'show-kill-ring)
-(defalias 'rfb 'rename-file-and-buffer)
-(defalias 'plp 'package-list-packages)
-                                        ; scheme ide
-(defalias 'rg 'run-geiser)
-                                        ; clojure ide
-(defalias 'cji 'cider-jack-in)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; key bindings
-;;
-;; always use "kbd" to set keys (see Xah Emacs site)
-;;      (kbd "M-f") vs "\M-f"
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; can use <fN> to define fuction keys
-;; on apple keyboard need to press "fn" to use function keys
-;; windows/apple-command key is super
-;;
-;; define a global or particular vkey map as follows:
-;;     (define-key global-map (kbd "M-.") 'set-mark-command)
-;;     (define-key text-mode-map (kbd "M-r") 'replace-regexp)
-;;
-;;
-
-;;
-;; better bindings for M-x
-(global-set-key (kbd "C-x C-m") 'execute-extended-command)
-(global-set-key (kbd "C-c C-m") 'execute-extended-command)
-
-
-;; C-o (default open-line) will be the prefix key for tmux
-(global-unset-key (kbd "C-o"))
-
-;;
-;; keybindings for windmove
-;; M-arrow_keys will move around windows
-(global-set-key (kbd "<M-up>") 'windmove-up)
-(global-set-key (kbd "<M-down>") 'windmove-down)
-(global-set-key (kbd "<M-left>") 'windmove-left)
-(global-set-key (kbd "<M-right>") 'windmove-right)
-
-;;
-(global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
-;;(global-set-key "\M-." 'set-mark-command)
-;;
-;; 
-(global-set-key (kbd "C-M-z") 'ispell-word)
-
-;;
-;; both C-/ and C-M-/ both don't work in some terminal emulators (gnome-terminal and foot)
-(global-set-key (kbd "C-M-u") 'undo)
-(global-set-key (kbd "C-x u")
-                (lambda ()
-                  (interactive)
-                  (message "Use C-M-u to undo.")))
-;;
-(global-set-key (kbd "M-r" ) 'replace-regexp)
-(global-set-key (kbd "M-s" ) 'replace-string)
-;;
-;; eshell and (r(ecursive))grep
-(global-set-key (kbd "<f2>" ) 'shell)
-(global-set-key (kbd "<f3>" ) 'eshell)
-(global-set-key (kbd "<f4>" ) 'term)
-
-;;
-;;
-;; Windows Terminal (Preview) specific stuff
-;;
-;; unbind these to use as cut/paste in windows terminal
-(global-unset-key (kbd "C-M-c"))
-(global-unset-key (kbd "C-M-v"))
-;;
-;; because of a bug in C-M-z is treated as C-z
-;; as a (hopefully temporary) fix we'll unbind C-z from suspend-emacs
-;; and add another keybinding for ispell-word
-(global-unset-key (kbd "C-z"))
-(global-set-key (kbd "C-M-y") 'ispell-word)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;
-;; keyboard prefixes and bindings
-;;
-;; prefix "C-c e" already exists, so don't need to define it
-(global-set-key (kbd "C-c e b") 'do-eval-buffer)
-(global-set-key (kbd "C-c e e") 'toggle-debug-on-error)
-(global-set-key (kbd "C-c e f") 'emacs-lisp-byte-compile-and-load)
-(global-set-key (kbd "C-c e r") 'eval-region)
-(global-set-key (kbd "C-c e s") 'scratch)
-;;
-;; markdown -> pdf
-(global-set-key (kbd "C-c e p") 'markdown-export-pandoc-pdf)
-;;
-;; run asscociated (external) application
-(global-set-key (kbd "C-c e l") 'launch-files-dired)
-
-;;
-;; define new prefix "C-h e" and its keybinding
-(define-prefix-command 'ctl-h-e-prefix)
-(global-set-key (kbd "C-h e") 'ctl-h-e-prefix)
-;;
-;; now add keys to this prefix-key map
-;;
-;; the old mapping for "C-h e"
-(define-key ctl-h-e-prefix (kbd "e") 'view-echo-area-messages)
-(define-key ctl-h-e-prefix (kbd "f") 'find-function)
-(define-key ctl-h-e-prefix (kbd "k") 'find-function-on-key)
-(define-key ctl-h-e-prefix (kbd "l") 'find-library)
-(define-key ctl-h-e-prefix (kbd "v") 'find-variable)
-(define-key ctl-h-e-prefix (kbd "V") 'apropos-value)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; indentation
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; set indentation for perl-mode
-(setq perl-indent-level 4)
-(setq perl-continued-statement-offset 0)
-(setq perl-continued-brace-offset 4)
-(setq perl-brace-offset -4)
-(setq perl-brace-imaginary-offset 0)
-(setq perl-label-offset -4)
-
-;;
-;;   set the indentation for C-mode
-(setq c-indent-level 4)
-(setq c-continued-statement-offset 4)
-(setq c-brace-offset -4)
-(setq c-argdecl-indent 8)
-
-;; set indentation for python
-(setq python-indent-offset 4)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; language specific packages and settings
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; the string called when compile is called
-(setq compile-command "make")
-
-;;
-;; python interpreter
-(setq python-shell-completion-native-disabled-interpreters '("python3"))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; unused or obsolete stuff.......
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; sigh ...
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (setq gnus-default-nntp-server "news.eternal-september.org")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; setup to print to franklin
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;(setq lpr-switches '("-d lj4simx"))
+;; (setq lpr-switches '("-d lj4simx"))
 
 ;;
 ;; end of .emacs file
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(flycheck-aspell flycheck-guile company yaml-mode which-key web-mode use-package smartparens rainbow-delimiters projectile markdown-mode magit launch graphql-mode graphql-doc graphql flycheck quack geiser-kawa geiser-chez geiser-guile cider clojure-mode-extra-font-locking clojure-mode slime adoc-mode cdlatex auctex)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
