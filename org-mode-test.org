@@ -1,0 +1,50 @@
+* Title
+
+# *bold*
+# /italic/
+# =code=
+# ~verbatim~
+
+# #+begin_src sql
+# #+end_src sql
+
+# #+begin_example
+# #+end_example
+
+Author: Amaresh R Joshi (joshia@msu.edu)\\
+Date: today
+
+
+** Introduction
+Lorem ipsum dolor sit amet consectetur adipiscing elit, urna consequat
+felis vehicula class ultricies mollis dictumst, aenean non a in donec
+nulla. 
+
+** Notes
+Vivamus integer non suscipit taciti mus etiam at primis tempor
+sagittis sit, euismod libero facilisi aptent elementum felis blandit
+cursus gravida sociis erat ante, eleifend lectus nullam dapibus netus
+feugiat curae curabitur est ad.
+
+** Steps
+Mollis pretium lorem primis senectus habitasse lectus scelerisque
+donec, ultricies tortor suspendisse adipiscing fusce morbi volutpat
+pellentesque, consectetur mi risus molestie curae malesuada
+cum.
+
+** Issues
+Lorem ipsum dolor sit amet consectetur adipiscing elit, urna consequat
+felis vehicula class ultricies mollis dictumst, aenean non a in donec
+nulla. 
+
+# *bold*
+# /italic/
+# =code=
+# ~verbatim~
+
+# #+begin_src sql
+# #+end_src sql
+
+# #+begin_example
+# #+end_example
+
