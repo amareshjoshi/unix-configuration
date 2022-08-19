@@ -115,30 +115,23 @@ if [[ "${macos}" ]]; then
     #
     # for some reason /opt/local/[s]bin is getting into the PATH
     # so set it explicitly
-    PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/sbin:/usr/sbin
-    #PATH=/opt/local/bin:/opt/local/sbin:${PATH}
-    #
-    # if GNU coreutils exists put it before BSD utils that come with MacOS
+    PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin
     if [[ -d /usr/local/opt/coreutils/libexec/gnubin ]]; then
-        PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+	COREUTILS=/usr/local/opt/coreutils/libexec/gnubin
+	PATH="${COREUTILS}:${PATH}"
     fi
-    # if [[ -d /opt/local/libexec/gnubin ]]; then
-    #     PATH=/opt/local/libexec/gnubin:${PATH}
-    # fi
-    #export MANPATH=/opt/local/share/man:${MANPATH}
-    #export JAVA_HOME=$(/usr/libexec/java_home -v 1.x)
     export JAVA_HOME=$(/usr/libexec/java_home)
-    export EMACS='/Applications/MacPorts/EmacsMac.app/Contents/MacOS/Emacs'
-    export EMACS_BIN="/Applications/MacPorts/EmacsMac.app/Contents/MacOS/bin"
+    export EMACS=emacs
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
     #
-    # switched to GNU guile
+    # Racket
     #
-    #if [[ -d RACKET_HOME=/opt/local/racket ]]; then
-    #    PATH=${RACKET_HOME}/bin:${PATH}
-    #fi
+    if [[ -d /usr/local/racket ]]; then
+	RACKET_HOME=/usr/local/racket
+	PATH=${RACKET_HOME}/bin:${PATH}
+    fi
     # for X11 (linux does it automatically)
     export DISPLAY=":0.0"
     #
@@ -174,12 +167,12 @@ if [[ "${linux}" ]]; then
     # lisp/scheme stuff
     #----------------------------------------------------------
     #
-    # switched to GNU guile
+    # Racket
     #
-    # used for locally installed racket
-    #if [[ -d RACKET_HOME=/usr/local/racket ]]; then
-    #    PATH=${RACKET_HOME}/bin:${PATH}
-    #fi
+    used for locally installed racket
+    if [[ -d RACKET_HOME=/usr/local/racket ]]; then
+       PATH=${RACKET_HOME}/bin:${PATH}
+    fi
     #
     if [[ -f /usr/bin/ssh-askpass ]]; then
         export SSH_ASKPASS=/usr/bin/ssh-askpass
