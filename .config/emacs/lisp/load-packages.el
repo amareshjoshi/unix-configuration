@@ -40,40 +40,49 @@
   :pin melpa-stable)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ;; company (completion)
+;; ;; company (completion inside buffers (text))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (use-package company
-;;   :ensure t
-;;   :pin melpa-stable
-;;   :config
-;;   (global-company-mode))
+(use-package company
+  :ensure t
+  :pin melpa-stable
+  :config
+  ;; turn on everywhere
+  (add-hook 'after-init-hook 'global-company-mode)
+  ;; only turn on for certain modes
+  ;; (add-hook 'scheme-mode-hook 'company-mode)
+  ;; No delay in showing suggestions.
+  (setq company-idle-delay 0)
+  ;; Show suggestions after entering one character.
+  (setq company-minimum-prefix-length 1)
+  (setq company-selection-wrap-around t)
+  ;; Use tab key to cycle through suggestions.
+  ;; ('tng' means 'tab and go')
+  (company-tng-configure-default)
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; ivy, counsel, swiper (completion)
+;; counsel, ivy, and swiper (completion for emacs commands)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package counsel
   :ensure t
   :pin melpa-stable
   :config
-  (ivy-mode 1)
+  (ivy-mode t)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) "))
 
-
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; flycheck
+;; flycheck check for errors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package flycheck
   :ensure t
   :pin melpa-stable
+  :init
+  (global-flycheck-mode t)
   :config
   (require 'flycheck-aspell)
   (require 'flycheck-guile)
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (require 'flycheck-clojure)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -125,8 +134,28 @@
   :defer t
   :pin melpa-stable
   :config
-  (define-key org-mode-map (kbd "C-c l") 'org-store-link)
-  (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c l") #'org-store-link)
+  (global-set-key (kbd "C-c a") #'org-agenda)
+  (global-set-key (kbd "C-c c") #'org-capture)
+  ;; we use M-<arrow> to move around windows
+  ;; so redefine to C-M-<arrow>
+  (define-key org-mode-map (kbd "M-<up>") nil)
+  (define-key org-mode-map (kbd "M-<down>") nil)
+  (define-key org-mode-map (kbd "M-<left>") nil)
+  (define-key org-mode-map (kbd "M-<right>") nil)
+  ;; now redefine
+  (define-key org-mode-map (kbd "C-M-<up>") 'org-metaup)
+  (define-key org-mode-map (kbd "C-M-<down>") 'org-metadown)
+  (define-key org-mode-map (kbd "C-M-<left>") 'org-metaleft)
+  (define-key org-mode-map (kbd "C-M-<right>") 'org-metaright)
+  ;;
+  ;; default export settings (these can be overridden in individual files by setting option to "t")
+					; no TOC (#+OPTIONS: toc:t)
+  (setq org-export-with-toc nil)
+					; disable TeX sub/super scripting (#+OPTIONS: ^:t)
+  (setq org-export-with-sub-superscripts nil)
+					; turn off automatic section numbering (#+OPTIONS: num:t)
+  (setq org-export-with-section-numbers nil)
   (setq org-log-done t)
   ;; enable flyspell mode for org
   (add-hook 'org-mode-hook 'flyspell-mode)
@@ -271,19 +300,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; web-mode (html, javascript, css, php)
-;; (replaces php-mode)
+;; php-mode needed for php
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package php-mode
+  :defer t
+  :pin melpa-stable
+  :config
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode)))
 (use-package web-mode
   :defer t
   :pin melpa-stable
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
   ;; php "inc"lude files
   (add-to-list 'auto-mode-alist '("\\.inc\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
   ;; enable flyspell mode
   (add-hook 'web-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -328,7 +361,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package projectile
   :defer t
-  :pin melpa-stable)
+  :pin melpa-stable
+  :config
+  (projectile-mode 1)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -345,18 +381,25 @@
 ;; -*- geiser-scheme-implementation: chicken -*-
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package quack
-  :ensure t
-  :pin melpa-stable)
-
+;;
+;; do we need quack??
+;; (use-package quack
+;;   :ensure t
+;;   :pin melpa-stable
+;;   :config
+;;   (custom-set-variables '(quack-global-menu-p nil))
+;;   (custom-set-variables '(quack-default-program "guile"))
+;;   ;; how to turn on for scheme files ONLY?
+;;   (add-hook 'scheme-mode-hook 'quack-mode-does-not-exist))
 (use-package geiser
   :ensure t
   :pin melpa-stable
   :config
-  (setq geiser-active-implementations '(guile))
-  ;;(setq geiser-active-implementations '(guile chez))
+  ;;(setq geiser-active-implementations '(guile))
+  (setq geiser-active-implementations '(guile chez racket))
   (setq geiser-guile-binary "guile")
-  (setq geiser-chez-binary "chez"))
+  (setq geiser-chez-binary "chez")
+  (setq geiser-racket-binary "racket"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -369,8 +412,7 @@
   :defer t
   :pin melpa-stable
   :config
-  (setq inferior-lisp-program "/usr/local/bin/sbcl")
-)
+  (setq inferior-lisp-program "/usr/local/bin/sbcl"))
 ;;
 ;; eof
 ;;

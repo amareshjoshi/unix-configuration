@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 # copy files to home
-# bash,emacs,tmux,zsh
-cp -rv .bash* ${HOME}/
-cp -rv .zsh* ${HOME}/
+cp -rv .zsh.d ${HOME}/
+cp -rv .zshrc ${HOME}/
 
 cp -v .tmux.conf ${HOME}/
 cp -v .gitconfig ${HOME}/

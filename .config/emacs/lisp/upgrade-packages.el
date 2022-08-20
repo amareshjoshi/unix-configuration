@@ -17,8 +17,10 @@
                       cdlatex
                                         ; asciidoc
                       adoc-mode
-                                        ; completion
+                                        ; completion inside text buffers
                       company
+                                        ; completion ifor emacs commands, file lookup, etc.
+                      counsel
                                         ; common lisp ide
                       slime
                                         ; clojure ide
@@ -28,11 +30,12 @@
                                         ; scheme ide
                       geiser-guile
                       geiser-chez
-                      quack
+                      geiser-racket
                                         ; flycheck
                       flycheck
                       flycheck-aspell
                       flycheck-guile
+		      flycheck-clojure
                                         ; graphql utilities
                       graphql
                                         ; graphql documentation explorer
@@ -54,8 +57,9 @@
                       smartparens
                                         ; package configurator
                       use-package
-                                        ; web-mode replaces php-mode
+                                        ; web-mode, php-mode
                       web-mode
+                      php-mode
                                         ; show options after a prefix key
                       which-key
                                         ; yaml

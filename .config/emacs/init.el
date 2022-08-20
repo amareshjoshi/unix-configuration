@@ -25,7 +25,7 @@
 ;; package setup
 (require 'package)
 ;;
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(;;("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa-stable" . "http://melpa.org/packages/")
                          ("orgmode" . "http://orgmode.org/elpa/")))
 (package-initialize)
@@ -54,7 +54,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq inhibit-startup-screen t)
-(setq initial-scratch-message "the way is void...")
+(setq initial-scratch-message "(car (cdr (cdr (cdr (quote (the way is void))))))")
 (setq visible-bell t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -129,16 +129,33 @@
 ;;
 ;; themes
 ;;
+;; more modus themes info:
+;; https://systemcrafters.net/emacs-from-scratch/the-modus-themes/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;(load-theme 'modus-vivendi t)
+;; modus-* themes seem to be buggy
+					; border: borderless, 3d, moody
+(setq modus-themes-mode-line '(accented borderless))
+					; region: accented, bg-only, no-extend
+(setq modus-themes-region '(accented bg-only))
+					; extra font options
+(setq modus-themes-bold-constructs t)
+(setq modus-themes-italic-constructs t)
+					; completion coloring: minimal, opinionated)
+(setq modus-themes-completions 'minimal)
+					; org customizarions
+(setq modus-themes-org-blocks 'gray-background)
+					;(setq modus-themes-org-blocks 'tinted-background)
+					; modus light
 ;;(load-theme 'modus-operandi t)
-;;(load-theme 'adwaita t)
+					; modus dark
+;;(load-theme 'modus-vivendi t)
+(load-theme 'adwaita t)
 ;;(load-theme 'deeper-blue t)
 ;;(load-theme 'dichromacy t)
 ;;(load-theme 'leuven t)
 ;;(load-theme 'light-blue t)
 ;;(load-theme 'manoj-dark t)
-(load-theme 'misterioso t)
+;;(load-theme 'misterioso t)
 ;;(load-theme 'tango t)
 ;;(load-theme 'tango-dark t)
 ;;(load-theme 'tsdh-dark t)
@@ -160,10 +177,14 @@
 ;; aspell replaces ispell
 (setq-default ispell-program-name "aspell")
 ;; Default dictionary. To change do M-x ispell-change-dictionary RET.
-(setq ispell-dictionary "english")
+(setq ispell-dictionary "en_US")
 ;;
-;; turn on flyspell mode (shows errors as you type)
-(flyspell-mode)
+;; turn on flyspell mode only for certain modes
+;; text mode hook will work for many modes
+;; - LaTeX
+;; - markdown
+;; - others?
+(add-hook 'text-mode-hook 'flyspell-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -172,6 +193,11 @@
 ;; useful to shorten commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+					; company manual completion
+(defalias 'cc 'company-complete)
+					; breakup long lines
+(defalias 'fr 'fill-region)
+(defalias 'mtt 'modus-themes-toggle)
 (defalias 'vhc 'visit-humcore)
 (defalias 'qrr 'query-replace-regexp)
 (defalias 'skr 'show-kill-ring)
@@ -236,6 +262,7 @@
 (global-set-key (kbd "M-s" ) 'replace-string)
 ;;
 ;; eshell and (r(ecursive))grep
+;; <f1> reserved for help (C-h)
 (global-set-key (kbd "<f2>" ) 'shell)
 (global-set-key (kbd "<f3>" ) 'eshell)
 (global-set-key (kbd "<f4>" ) 'term)
