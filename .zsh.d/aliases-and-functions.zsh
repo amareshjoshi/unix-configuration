@@ -7,7 +7,10 @@
 #--------------------------------------
 # alias h="fc -l"
 alias h=history
-alias e="emacs -nw"
+alias e="emacsclient -nw"
+alias eg="emacsclient -c"
+
+
 #
 # displays path one dir per line
 alias path='echo -e ${PATH//:/\\n}'

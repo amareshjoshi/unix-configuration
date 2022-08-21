@@ -409,10 +409,16 @@
           ;; font for terminals will come from the terminal settings
           (if (< (display-pixel-height) 1100)
               ;; laptop or small screen (1050 or 1080)
-              (set-frame-font "Source Code Pro-15" t t)
+	      ;; alternative
+	      ;; --- (add-to-list 'default-frame-alist '(font . "Source Code Pro-15"))
+              (set-face-attribute 'default t :font "Source Code Pro-15")
             ;; big screen (4k)
-            (set-frame-font "Source Code Pro-16" t t))
+	    ;; alternative
+	    ;; --- (add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
+            (set-face-attribute 'default t :font "Source Code Pro-16"))
           ))))
+    
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; the problem is with a horizontal+vertical two monitor combo

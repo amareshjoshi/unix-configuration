@@ -1,0 +1,11 @@
+* Common Configuration Files for Linux and Mac
+
+Configuration files for:
+
+- zsh
+- emacs
+- git
+- sway
+- tmux
+- i3
+
