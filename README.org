@@ -8,4 +8,3 @@ Configuration files for:
 - sway
 - tmux
 - i3
-
