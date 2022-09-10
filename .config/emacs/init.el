@@ -8,6 +8,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+;; personal info
+;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq user-full-name "Amaresh R Joshi"
+      user-mail-address "joshia@msu.edu")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; paths and packages
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -25,9 +33,14 @@
 ;; package setup
 (require 'package)
 ;;
-(setq package-archives '(;;("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://melpa.org/packages/")
-                         ("orgmode" . "http://orgmode.org/elpa/")))
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa-stable" . "http://melpa.org/packages/")))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-and-compile
+  (setq use-package-always-ensure t
+        use-package-expand-minimally t))
 (package-initialize)
 (load "upgrade-packages.el")
 (load "load-packages.el")
@@ -507,6 +520,30 @@
 ;; https://github.com/dakrone/eos/blob/master/eos.org
 (setq save-interprogram-paste-before-kill t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; org mode
+;;
+;; org-babel
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require ob-sh)
+(org-babel-do-load-languages
+ '  org-babel-load-languages
+    '((emacs-lisp . t)
+      (python . t)
+      (shell . t)
+      (scheme . t)
+      (lisp . t)
+      ;; Include other languages here...
+      ))
+					; Don't prompt before running code in org
+(setq org-confirm-babel-evaluate nil)
+					; font coloring in src blocks
+(setq org-src-fontify-natively t)
+					; tabs act like their src code language
+(setq org-src-tab-acts-natively t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; platform specific stuff (linux, apple, ...)
@@ -662,6 +699,15 @@
   ;;
   (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; emacs server
+;; do this at end so all configs are completed
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(unless (server-running-p)
+  (server-start))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

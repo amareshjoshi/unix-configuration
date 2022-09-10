@@ -5,6 +5,10 @@
 ;; ~/.emacs.d/lisp/load-packages.el
 ;;
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
+;;
+;; nice tutorial:
+;; https://ianyepan.github.io/posts/setting-up-use-package/
+;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,6 +17,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package lsp-mode
+  :ensure t
   :commands (lsp lsp-deferred)
   :init
   (setq lsp-keymap-prefix "C-c l") ;; or 'C-l' or  's-l'
@@ -21,6 +26,7 @@
 ;;
 ;; TS
 (use-package typescript-mode
+  :ensure t
   :mode "\\.ts\\'"
   :hook (typescript-mode . lsp-deferred)
   :config
@@ -28,6 +34,7 @@
 ;;
 ;; JS
 (use-package js2-mode
+  :ensure t
   :hook (js2-mode . lsp-deferred)
   :config
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
@@ -45,11 +52,11 @@
 (use-package company
   :ensure t
   :pin melpa-stable
-  :config
+  :hook 
   ;; turn on everywhere
-  (add-hook 'after-init-hook 'global-company-mode)
-  ;; only turn on for certain modes
-  ;; (add-hook 'scheme-mode-hook 'company-mode)
+  (after-init-hook . global-company-mode)
+  ;; (scheme-mode-hook . company-mode)
+  :config
   ;; No delay in showing suggestions.
   (setq company-idle-delay 0)
   ;; Show suggestions after entering one character.
@@ -61,20 +68,44 @@
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; counsel, ivy, and swiper (completion for emacs commands)
+;; vertico/consult
+;; replaces consel/ivy/swiper
+;;
+;; savehist - save completion history
+;; orderless - completion style
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package counsel
+(use-package vertico
   :ensure t
-  :pin melpa-stable
+  :init
+  (vertico-mode)
   :config
-  (ivy-mode 1)
-  ;; When non-nil, add recent files and/or bookmarks to ‘ivy-switch-buffer’.
-  ;; The value ‘recentf’ includes only recent files to the virtual
-  ;; buffers list, whereas the value ‘bookmarks’ does the same for
-  ;; bookmarks.  Any other non-nil value includes both.
+  ;; save completion history
+  (savehist-mode))
+;;
+;; Use the `orderless' completion style.
+(use-package orderless
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ;; counsel, ivy, and swiper (completion for emacs commands)
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package counsel
+;;   :ensure t
+;;   :pin melpa-stable
+;;   :config
+;;   (ivy-mode 1)
+;;   ;; When non-nil, add recent files and/or bookmarks to ‘ivy-switch-buffer’.
+;;   ;; The value ‘recentf’ includes only recent files to the virtual
+;;   ;; buffers list, whereas the value ‘bookmarks’ does the same for
+;;   ;; bookmarks.  Any other non-nil value includes both.
 
-  (setq ivy-use-virtual-buffers nil)
-  (setq ivy-count-format "(%d/%d) "))
+;;   (setq ivy-use-virtual-buffers nil)
+;;   (setq ivy-count-format "(%d/%d) "))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flycheck check for errors
@@ -101,19 +132,21 @@
 ;; https://clojure.org/guides/editors
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clojure-mode
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+  (clojure-mode-hook . cider-mode)
+  (clojure-mode-hook . subword-mode)
+  (clojure-mode-hook . smartparens-strict-mode)
+  (clojure-mode-hook . rainbow-delimiters-mode)
+  (clojure-mode-hook . aggressive-indent-mode)
+  (clojure-mode-hook . menu-bar-mode))
+
   :config
   (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
   (require 'clojure-mode-extra-font-locking)
-  (add-hook 'clojure-mode-hook #'cider-mode)
-  (add-hook 'clojure-mode-hook #'subword-mode)
-  (add-hook 'clojure-mode-hook #'smartparens-strict-mode)
-  (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'clojure-mode-hook #'aggressive-indent-mode)
-  (add-hook 'clojure-mode-hook #'menu-bar-mode))
 (use-package cider
-  :defer t
+  :ensure t
   :pin melpa-stable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -136,8 +169,10 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package org
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+  (org-mode-hook . flyspell-mode)
   :config
   (global-set-key (kbd "C-c l") #'org-store-link)
   (global-set-key (kbd "C-c a") #'org-agenda)
@@ -164,8 +199,6 @@
 					; turn off automatic section numbering (#+OPTIONS: num:t)
   (setq org-export-with-section-numbers nil)
   (setq org-log-done t)
-  ;; enable flyspell mode for org
-  (add-hook 'org-mode-hook 'flyspell-mode)
   ;; set the list of packages that will be used by LaTeX export
   (setq org-latex-packages-alist '())
                                         ;  tikz ist keine drawing program
@@ -199,7 +232,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package re-builder
-  :defer t
+  :ensure t
   :pin melpa-stable
   :config
   (setq reb-re-syntax 'string)
@@ -211,11 +244,20 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (use-package latex
-;;   :defer t
+;;   :ensure t
 ;;   :ensure auctex
 (use-package auctex
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+  (LaTeX-mode-hook . TeX-PDF-mode)
+					; lots of kbd shortcuts for latex math mode (see CDLatex documentation)
+  (LaTeX-mode-hook . turn-on-cdlatex)
+					;turn on tex-fold-mode by default
+  (LaTeX-mode-hook . TeX-fold-mode)
+					; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
+  (TeX-mode-hook . LaTeX-math-mode)
+  
   :config
   (add-to-list 'TeX-command-list
                   '(
@@ -251,16 +293,6 @@
 					; use pdflatex by default
   (setq TeX-PDF-mode t)
 					;turn on pdf-mode.  (how are these different?)
-  (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-					; lots of kbd shortcuts for latex environments
-					; and math mode (see CDLatex documentation)
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
-
-  (add-hook 'LaTeX-mode-hook
-            (lambda ()
-              (TeX-fold-mode 1)))         ;turn on tex-fold-mode by default
-					; LaTeX-math-mode http://www.gnu.org/s/auctex/manual/auctex/Mathematics.html
-  (add-hook 'TeX-mode-hook 'LaTeX-math-mode)
   ;;
   ;; system specific
   ;; mac
@@ -291,13 +323,15 @@
 ;; see:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package reftex
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+					; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
+  (TeX-mode-hook . turn-on-reftex)
+					; enable flyspell mode for TeX modes such as AUCTeX
+  (TeX-mode-hook . flyspell-mode)
+
   :config
-  ;; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
-  (add-hook 'TeX-mode-hook 'turn-on-reftex)
-  ;; enable flyspell mode for TeX modes such as AUCTeX
-  (add-hook 'TeX-mode-hook 'flyspell-mode)
   ;; make reftex and auctex play nice together
   (setq reftex-plug-into-AUCTeX t))
 
@@ -309,12 +343,12 @@
 ;; your operating system.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package launch
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+  (dired-mode . turn-on-launch-mode)
   :config
-  (global-launch-mode +1)
-  ;; If you only want to enable it for certain modes, add:
-  (add-hook 'dired-mode 'turn-on-launch-mode))
+  (global-launch-mode +1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -322,8 +356,10 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package markdown-mode
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+  (markdown-mode-hook . flyspell-mode))
   :config
   (autoload 'markdown-mode "markdown-mode"
     "Major mode for editing Markdown files" t)
@@ -331,7 +367,6 @@
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
                                         ; Enable Flyspell mode for markdown
-  (add-hook 'markdown-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -340,13 +375,15 @@
 ;; php-mode needed for php
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package php-mode
-  :defer t
+  :ensure t
   :pin melpa-stable
   :config
   (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode)))
 (use-package web-mode
-  :defer t
+  :ensure t
   :pin melpa-stable
+  :hook
+    (web-mode-hook . flyspell-mode))
   :config
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
@@ -354,8 +391,6 @@
   (add-to-list 'auto-mode-alist '("\\.inc\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.ctp\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-  ;; enable flyspell mode
-  (add-hook 'web-mode-hook 'flyspell-mode))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -382,8 +417,10 @@
 (use-package rainbow-delimiters
   :ensure t
   :pin melpa-stable
+  :hook
+  (prog-mode-hook . rainbow-delimiters-mode))
   :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (+ 1 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -423,11 +460,12 @@
 ;; (use-package quack
 ;;   :ensure t
 ;;   :pin melpa-stable
+;;   :hook
+;;   ;; how to turn on for scheme files ONLY?
+;;   (scheme-mode-hook . quack-mode-does-not-exist)
 ;;   :config
 ;;   (custom-set-variables '(quack-global-menu-p nil))
-;;   (custom-set-variables '(quack-default-program "guile"))
-;;   ;; how to turn on for scheme files ONLY?
-;;   (add-hook 'scheme-mode-hook 'quack-mode-does-not-exist))
+;;   (custom-set-variables '(quack-default-program "guile")))
 (use-package geiser
   :ensure t
   :pin melpa-stable
@@ -446,7 +484,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package slime
-  :defer t
+  :ensure t
   :pin melpa-stable
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl"))
