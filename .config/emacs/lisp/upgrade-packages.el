@@ -7,20 +7,51 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar my-packages '(
+                                        ; package configurator
+                      use-package
+                                        ; get info on packages
+                      pkg-info
                                         ; lsp
                       lsp-mode
                       typescript-mode
 					; javascript mode (maintained by Steve Yegge)
                       js2-mode
-                                        ; LaTeX
-                      auctex
-                      cdlatex
                                         ; asciidoc
                       adoc-mode
+                                        ; markdown
+                      markdown-mode
+                                        ; graphql utilities
+                      graphql
+                                        ; graphql documentation explorer
+                      graphql-doc
+                      graphql-mode
+                                        ; web-mode
+                      web-mode
+					; php-mode (need this in addition to web-mode)
+                      php-mode
+                                        ; yaml
+                      yaml-mode
+                                        ; matching colored delemiters
+                      rainbow-delimiters
+                                        ; smartparens (replaces paredit)
+                      smartparens
                                         ; completion inside text buffers
                       company
-                                        ; completion ifor emacs commands, file lookup, etc.
-                      counsel
+                                        ; completion for emacs commands, file lookup, etc.
+					; replaces counsel/ivy/swiper
+					; orderless completion style for vertico
+		      vertico
+		      orderless
+                                        ; show options after a prefix key
+                      which-key
+                                        ; flycheck
+                      flycheck
+                      flycheck-aspell
+                      flycheck-guile
+		      flycheck-clojure
+                                        ; LaTeX ide
+                      auctex
+                      cdlatex
                                         ; common lisp ide
                       slime
                                         ; clojure ide
@@ -31,39 +62,13 @@
                       geiser-guile
                       geiser-chez
                       geiser-racket
-                                        ; flycheck
-                      flycheck
-                      flycheck-aspell
-                      flycheck-guile
-		      flycheck-clojure
-                                        ; graphql utilities
-                      graphql
-                                        ; graphql documentation explorer
-                      graphql-doc
-                      graphql-mode
+                                        ; git ide
+                      magit
                                         ; launch external programs
                       launch
-                                        ; git
-                      magit
-                                        ; markdown
-                      markdown-mode
-                                        ;
-                      pkg-info
                                         ; project management
                       projectile
-                                        ; matching colored delemiters
-                      rainbow-delimiters
-                                        ; smartparens replaces paredit
-                      smartparens
-                                        ; package configurator
-                      use-package
-                                        ; web-mode, php-mode
-                      web-mode
-                      php-mode
-                                        ; show options after a prefix key
-                      which-key
-                                        ; yaml
-                      yaml-mode))
+		      ))
 
 (dolist (p my-packages)
   (unless (package-installed-p p)
