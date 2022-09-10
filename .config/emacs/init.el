@@ -25,7 +25,7 @@
 ;; package setup
 (require 'package)
 ;;
-(setq package-archives '(;;("gnu" . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa-stable" . "http://melpa.org/packages/")
                          ("orgmode" . "http://orgmode.org/elpa/")))
 (package-initialize)
@@ -359,7 +359,8 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
+;; this mode seems to have diappeared
+;;(scroll-bar-mode -1)
 (cond ((display-graphic-p)
        ;; graphics stuff
        (menu-bar-mode t)

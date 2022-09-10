@@ -169,7 +169,7 @@ if [[ "${linux}" ]]; then
     #
     # Racket
     #
-    used for locally installed racket
+    # used for locally installed racket
     if [[ -d RACKET_HOME=/usr/local/racket ]]; then
        PATH=${RACKET_HOME}/bin:${PATH}
     fi
