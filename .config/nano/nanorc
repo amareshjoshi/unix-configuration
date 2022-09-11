@@ -1,0 +1,196 @@
+## This is an example of a default syntax.  The default syntax is used for
+## files that do not match any other syntax.
+
+syntax default
+comment "#"
+
+# Spaces in front of tabs.
+color ,red " +	+"
+
+# Nano's release motto, then name plus version.
+color italic,lime "\<[Nn]ano [1-6]\.[0-9][-.[:alnum:]]* "[^"]+""
+color brightred "\<(GNU )?[Nn]ano [1-6]\.[0-9][-.[:alnum:]]*\>"
+
+# Dates
+color latte "\<[12][0-9]{3}\.(0[1-9]|1[012])\.(0[1-9]|[12][0-9]|3[01])\>"
+
+# Email addresses.
+color magenta "<[[:alnum:].%_+-]+@[[:alnum:].-]+\.[[:alpha:]]{2,}>"
+
+# URLs.
+color lightblue "\<https?://\S+\.\S+[^])>[:space:],.]"
+
+# Bracketed captions in certain config files.
+color brightgreen "^\[[^][]+\]$"
+
+# Comments.
+color cyan "^[[:blank:]]*#.*"
+
+# Control codes.
+color orange "[[:cntrl:]]"
+
+########################################################
+#
+########################################################
+## Syntax highlighting for Bourne shell scripts.
+
+syntax sh "(\.sh|(\.|/)(a|ba|c|da|k|mk|pdk|tc|z)sh(rc|_profile)?|/(etc/|\.)profile)$"
+header "^#!.*/((env[[:blank:]]+)?((a|ba|c|da|k|mk|pdk|tc|z)?sh)|busybox[[:blank:]]+sh|openrc-run|runscript)\>"
+header "-\*-.*shell-script.*-\*-"
+magic "(POSIX|Bourne-Again) shell script.*text"
+comment "#"
+
+linter dash -n
+
+# Function declarations.
+color brightgreen "^[A-Za-z0-9_-]+\(\)"
+
+# Keywords, symbols, and comparisons.
+color green "\<(break|case|continue|do|done|elif|else|esac|exit|fi|for|function|if|in|read|return|select|shift|then|time|until|while)\>"
+color green "\<(declare|eval|exec|export|let|local)\>"
+color green "[][{}():;|`$<>!=&\]"
+color green "-(eq|ne|gt|lt|ge|le|ef|ot|nt)\>"
+
+# Short and long options.
+color brightmagenta "[[:blank:]](-[A-Za-z]|--\<[A-Za-z-]+)\>"
+
+# Common commands.
+color brightblue "\<(awk|cat|cd|ch(grp|mod|own)|cp|cut|echo|env|grep|head|install|ln|make|mkdir|mv|popd|printf|pushd|rm|rmdir|sed|set|sort|tail|tar|touch|umask|unset)\>"
+color normal "[.-]tar\>"
+
+# Basic variable names (no braces).
+color brightred "\$([-@*#?$!0-9]|[[:alpha:]_][[:alnum:]_]*)"
+# More complicated variable names; handles braces and replacements and arrays.
+color brightred "\$\{[#!]?([-@*#?$!]|[0-9]+|[[:alpha:]_][[:alnum:]_]*)(\[([[:blank:]]*[[:alnum:]_]+[[:blank:]]*|@)\])?(([#%/]|:?[-=?+])[^}]*\}|\[|\})"
+
+# Comments.
+color cyan "(^|[[:blank:]])#.*"
+
+# Strings.
+color brightyellow ""([^"\]|\\.)*"|'([^'\]|\\.)*'"
+
+# Trailing whitespace.
+color ,green "[[:space:]]+$"
+
+########################################################
+#
+########################################################
+## Syntax highlighting for Markdown files.
+
+## Original authors:  Ryan Westlund and Benno Schulenberg
+## License:  GPL version 3 or newer
+
+syntax markdown "\.md$"
+comment "<!--|-->"
+
+# Quoted:
+color magenta "^[ 	]*>.*"
+
+# List-item markers:
+color brightmagenta "^(    |	)* ? ? ?(\*|\+|-|[1-9]+\.)( +|	)"
+
+# Emphasis and strong:
+color green "\*[^* 	][^*]*\*|_[^_ 	][^_]*_"
+color brightgreen "\*\*[^*]+\*\*|__[^_]+__"
+
+# Strikethrough:
+color red "~~[^~]+~~"
+
+# Line breaks:
+color ,blue "  $"
+
+# URLs and links:
+color brightblue "\[[^]]+\]\([^)]+\)"
+color brightmagenta "!?\[[^]]+\]"
+
+# Code snippet, indented code, and fenced code:
+color brightcyan "`[^`]+`"
+color brightcyan "^(    |	)+ *([^*+0-9> 	-]|[*+-]\S|[0-9][^.]).*"
+color brightcyan start="```" end="```$"
+
+# Headings and the underlining of headings:
+color brightyellow "^#.*"
+color brightyellow "^(=+|-+)$"
+
+# HTML tags and comments:
+color cyan "<[^>]+>"
+color cyan start="<!--" end="-->"
+
+########################################################
+#
+########################################################
+## Syntax highlighting for HTML.
+
+syntax html "\.html?$"
+magic "HTML document"
+comment "<!--|-->"
+
+formatter tidy -m -q
+
+# Tags:
+color cyan "<[[:alpha:]/!?][^>]*>"
+# Bold, italic, and underlined:
+color brightmagenta "</?[biu]>"
+
+# Named character references:
+color red "&[^;[:space:]]*;"
+
+# Attributes:
+color red "\<(abbr|accept(-charset)?|accesskey|action|alink|align|alt|archive|axis|background|bgcolor|border)="
+color red "\<(cell(padding|spacing)|char(off|set)?|checked|cite|class(id)?|compact|code(base|tag)?|cols(pan)?)="
+color red "\<(content(editable)?|contextmenu|coords|data|datetime|declare|defer|dir|disabled|enctype)="
+color red "\<(for|frame(border)?|headers|height|hidden|href(lang)?|hspace|http-equiv|id|ismap)="
+color red "\<(label|lang|link|longdesc|margin(height|width)|maxlength|media|method|multiple)="
+color red "\<(name|nohref|noresize|noshade|object|onclick|onfocus|onload|onmouseover|profile|readonly|rel|rev)="
+color red "\<(rows(pan)?|rules|scheme|scope|scrolling|selected|shape|size|span|src|standby|start|style|summary)="
+color red "\<(tabindex|target|text|title|type|usemap|valign|value(type)?|vlink|vspace|width|xmlns|xml:space)="
+
+# Strings:
+color green ""([^"\]|\\.)*""
+
+# Comments:
+color yellow start="<!--" end="-->"
+
+########################################################
+#
+########################################################
+## Syntax highlighting for nanorc files.
+
+syntax nanorc "[/.]nanorc(\.in)?$"
+comment "#"
+
+# Everything that does not get recolored is invalid
+color brightred ".*"
+
+# Color names
+color yellow "^[[:blank:]]*(i?color|set[[:blank:]]+((error|function|key|mini|number|prompt|scroller|selected|spotlight|status|stripe|title)color))[[:blank:]]+(bold,)?(italic,)?(((bright|light)?(white|black|red|blue|green|yellow|magenta|cyan))|normal|pink|purple|mauve|lagoon|mint|lime|peach|orange|latte|rosy|beet|plum|sea|sky|slate|teal|sage|brown|ocher|sand|tawny|brick|crimson|grey|gray|#[[:xdigit:]]{3})?(,(((light)?(white|black|red|blue|green|yellow|magenta|cyan))|normal|pink|purple|mauve|lagoon|mint|lime|peach|orange|latte|rosy|beet|plum|sea|sky|slate|teal|sage|brown|ocher|sand|tawny|brick|crimson|grey|gray|#[[:xdigit:]]{3}))?\>"
+
+# The arguments of two special commands
+color bold,purple "^[[:blank:]]*include[[:blank:]][^"]*([[:blank:]]|$)"
+color lime "^[[:blank:]]*extendsyntax[[:blank:]]+[[:alpha:]]+[[:blank:]]+(i?color|header|magic|comment|formatter|linter|tabgives)[[:blank:]]+.*"
+
+# The arguments of commands
+color brightgreen "^[[:blank:]]*(set|unset)[[:blank:]]+(afterends|allow_insecure_backup|atblanks|autoindent|backup|boldtext|bookstyle|breaklonglines|casesensitive|constantshow|cutfromcursor|emptyline|historylog|indicator|jumpyscrolling|linenumbers|locking|magic|minibar|mouse|multibuffer|noconvert|nohelp|nonewlines|positionlog|preserve|quickblank|rawsequences|rebinddelete|regexp|saveonexit|showcursor|smarthome|softwrap|stateflags|tabstospaces|trimblanks|unix|wordbounds|zap|zero)\>"
+color brightgreen "^[[:blank:]]*set[[:blank:]]+(backupdir|brackets|errorcolor|functioncolor|keycolor|matchbrackets|minicolor|numbercolor|operatingdir|promptcolor|punct|quotestr|scrollercolor|selectedcolor|speller|spotlightcolor|statuscolor|stripecolor|titlecolor|whitespace|wordchars)[[:blank:]]+"
+color brightgreen "^[[:blank:]]*set[[:blank:]]+(fill[[:blank:]]+-?[[:digit:]]+|(guidestripe|tabsize)[[:blank:]]+[1-9][0-9]*)\>"
+color brightgreen "^[[:blank:]]*bind[[:blank:]]+((\^([A-Za-z]|[]/@\^_`-]|Space)|([Ss][Hh]-)?[Mm]-[A-Za-z]|[Mm]-([][!"#$%&'()*+,./0-9:;<=>?@\^_`{|}~-]|Space))|F([1-9]|1[0-9]|2[0-4])|Ins|Del)[[:blank:]]+([a-z]+|".*")[[:blank:]]+(main|help|search|replace(with)?|yesno|gotoline|writeout|insert|execute|browser|whereisfile|gotodir|spell|linter|all)\>"
+color brightgreen "^[[:blank:]]*unbind[[:blank:]]+((\^([A-Za-z]|[]/@\^_`-]|Space)|([Ss][Hh]-)?[Mm]-[A-Za-z]|[Mm]-([][!"#$%&'()*+,./0-9:;<=>?@\^_`{|}~-]|Space))|F([1-9]|1[0-9]|2[0-4])|Ins|Del)[[:blank:]]+(main|help|search|replace(with)?|yesno|gotoline|writeout|insert|execute|browser|whereisfile|gotodir|spell|linter|all)\>"
+color brightgreen "^[[:blank:]]*extendsyntax[[:blank:]]+[[:alpha:]]+[[:blank:]]+"
+color brightgreen "^[[:blank:]]*(syntax[[:blank:]]+[^[:space:]]+|(formatter|linter)[[:blank:]]+.+)"
+
+# Strings
+color brightmagenta "[[:blank:]](start=)?".+""
+
+# Commands
+color green "^[[:blank:]]*((un)?(bind|set)|include|syntax|header|magic|comment|formatter|linter|tabgives|extendsyntax)\>"
+color magenta "^[[:blank:]]*i?color\>|[[:blank:]](start=|end=)"
+
+# Control codes
+color bold,pink "[[:cntrl:]]"
+
+# Comments
+color brightblue "^[[:blank:]]*#.*|[[:blank:]]#.{0,2}[^[:xdigit:]].*"
+color cyan "^[[:blank:]]*##.*"
+
+# Trailing whitespace
+color ,green "[[:space:]]+$"

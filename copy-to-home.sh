@@ -8,6 +8,7 @@ cp -v .tmux.conf ${HOME}/
 cp -v .gitconfig ${HOME}/
 
 cp -rv .config/emacs ${HOME}/.config/
+cp -rv .config/nano ${HOME}/.config/
 cp -rv .config/i3 ${HOME}/.config/
 cp -rv .config/i3status ${HOME}/.config/
 cp -rv .config/sway ${HOME}/.config/
