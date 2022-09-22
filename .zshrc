@@ -121,7 +121,8 @@ if [[ "${macos}" ]]; then
 	PATH="${COREUTILS}:${PATH}"
     fi
     export JAVA_HOME=$(/usr/libexec/java_home)
-    export EMACS=emacs
+    export EMACSNW="emacsclient -nw --alternate-editor=\"\""
+    export EMACS="emacsclient --no-wait --create-frame --alternate-editor=\"\""
     #----------------------------------------------------------
     # lisp/scheme stuff
     #----------------------------------------------------------
@@ -161,7 +162,8 @@ if [[ "${linux}" ]]; then
     if [[ -d /usr/local/java ]]; then
         # ln -s whatever version of java you want 1.6,7,8 to /usr/local/java
         export JAVA_HOME=/usr/local/java
-        export EMACS=emacs
+	export EMACSNW="emacsclient -nw --alternate-editor=\"\""
+	export EMACS="emacsclient --no-wait --create-frame --alternate-editor=\"\""
     fi
     #----------------------------------------------------------
     # lisp/scheme stuff
@@ -190,9 +192,9 @@ fi
 # for all...
 export ORGANIZATION="Michigan State University"
 export VISUAL=${EMACS}
-export EDITOR=${EMACS}
+export EDITOR=${EMACSNW}
 # hitory (fc -l) editor
-export FCEDIT=${EMACS}
+export FCEDIT=${EMACSNW}
 #
 # spelling program
 export SPELL=aspell

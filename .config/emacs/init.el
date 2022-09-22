@@ -33,8 +33,9 @@
 ;; package setup
 (require 'package)
 ;;
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://melpa.org/packages/")))
+;; ELPA and NonGNU ELPA are default in Emacs28
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -162,10 +163,10 @@
 ;;(load-theme 'modus-operandi t)
 					; modus dark
 ;;(load-theme 'modus-vivendi t)
-(load-theme 'adwaita t)
+;;(load-theme 'adwaita t)
 ;;(load-theme 'deeper-blue t)
 ;;(load-theme 'dichromacy t)
-;;(load-theme 'leuven t)
+(load-theme 'leuven t)
 ;;(load-theme 'light-blue t)
 ;;(load-theme 'manoj-dark t)
 ;;(load-theme 'misterioso t)
@@ -372,8 +373,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (tool-bar-mode -1)
-;; this mode seems to have diappeared
-;;(scroll-bar-mode -1)
+(scroll-bar-mode -1)
 (cond ((display-graphic-p)
        ;; graphics stuff
        (menu-bar-mode t)
@@ -525,10 +525,9 @@
 ;;
 ;; org mode
 ;;
-;; org-babel
+;; org-babel (built in)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require ob-sh)
 (org-babel-do-load-languages
  '  org-babel-load-languages
     '((emacs-lisp . t)
@@ -536,6 +535,7 @@
       (shell . t)
       (scheme . t)
       (lisp . t)
+      (clojure . t)
       ;; Include other languages here...
       ))
 					; Don't prompt before running code in org

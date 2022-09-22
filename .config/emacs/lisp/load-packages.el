@@ -44,14 +44,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit
   :ensure t
-  :pin melpa-stable)
+  :pin melpa)
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ;; company (completion inside buffers (text))
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package company
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook 
   ;; turn on everywhere
   (after-init-hook . global-company-mode)
@@ -96,7 +96,7 @@
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (use-package counsel
 ;;   :ensure t
-;;   :pin melpa-stable
+;;   :pin melpa
 ;;   :config
 ;;   (ivy-mode 1)
 ;;   ;; When non-nil, add recent files and/or bookmarks to ‘ivy-switch-buffer’.
@@ -112,7 +112,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package flycheck
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :init
   (global-flycheck-mode t)
   :config
@@ -133,7 +133,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clojure-mode
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (clojure-mode-hook . cider-mode)
   (clojure-mode-hook . subword-mode)
@@ -147,7 +147,7 @@
   (require 'clojure-mode-extra-font-locking)
 (use-package cider
   :ensure t
-  :pin melpa-stable)
+  :pin melpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -157,7 +157,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package which-key
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :init (which-key-mode)
   :diminish which-key-mode
   :config
@@ -170,7 +170,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package org
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (org-mode-hook . flyspell-mode)
   :config
@@ -179,15 +179,10 @@
   (global-set-key (kbd "C-c c") #'org-capture)
   ;; we use M-<arrow> to move around windows
   ;; so redefine to C-M-<arrow>
-  (define-key org-mode-map (kbd "M-<up>") nil)
-  (define-key org-mode-map (kbd "M-<down>") nil)
-  (define-key org-mode-map (kbd "M-<left>") nil)
-  (define-key org-mode-map (kbd "M-<right>") nil)
-  ;; now redefine
-  (define-key org-mode-map (kbd "C-M-<up>") 'org-metaup)
-  (define-key org-mode-map (kbd "C-M-<down>") 'org-metadown)
-  (define-key org-mode-map (kbd "C-M-<left>") 'org-metaleft)
-  (define-key org-mode-map (kbd "C-M-<right>") 'org-metaright)
+  (define-key org-mode-map (kbd "<C-M-up>") 'org-metaup)
+  (define-key org-mode-map (kbd "<C-M-down>") 'org-metadown)
+  (define-key org-mode-map (kbd "<C-M-left>") 'org-metaleft)
+  (define-key org-mode-map (kbd "<C-M-right>") 'org-metaright)
   (setq org-latex-pdf-process
 	(list "latexmk -pdf %f"))
   ;;
@@ -220,10 +215,16 @@
   (add-to-list 'org-latex-packages-alist '("" "color" t))
                                         ;  prevents indentation of first line
   (add-to-list 'org-latex-packages-alist '("" "parskip" t))
+					; fancy quotes
+  (add-to-list 'org-latex-packages-alist '("strict=true,english=american,style=american" "csquotes" t))
+					; fancy quotes
+  (add-to-list 'org-latex-packages-alist '("strict=true, english=american, style=american" "csquotes" t))
+					; glosses and numbered examples
+					; needs to be last or near the end
+  (add-to-list 'org-latex-packages-alist '("" "gb4e" t))
   (add-to-list 'org-latex-packages-alist
-	     '("backend=biber, bibstyle=authoryear, citestyle=authoryear, maxcitenames=3, url=false, maxbibnames=99" "biblatex" t))
+	       '("backend=biber, bibstyle=authoryear, citestyle=authoryear, maxcitenames=3, url=false, maxbibnames=99" "biblatex" t))
   )
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -233,7 +234,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package re-builder
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   (setq reb-re-syntax 'string)
   )
@@ -248,7 +249,7 @@
 ;;   :ensure auctex
 (use-package auctex
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (LaTeX-mode-hook . TeX-PDF-mode)
 					; lots of kbd shortcuts for latex math mode (see CDLatex documentation)
@@ -324,7 +325,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package reftex
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
 					; http://www.gnu.org/s/auctex/manual/reftex/reftex_5.html
   (TeX-mode-hook . turn-on-reftex)
@@ -344,7 +345,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package launch
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (dired-mode . turn-on-launch-mode)
   :config
@@ -357,7 +358,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package markdown-mode
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (markdown-mode-hook . flyspell-mode))
   :config
@@ -376,12 +377,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package php-mode
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode)))
 (use-package web-mode
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
     (web-mode-hook . flyspell-mode))
   :config
@@ -400,7 +401,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package smartparens
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   ;; good defaults
   (require 'smartparens-config)
@@ -416,7 +417,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package rainbow-delimiters
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :hook
   (prog-mode-hook . rainbow-delimiters-mode))
   :config
@@ -435,7 +436,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package projectile
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
@@ -459,7 +460,7 @@
 ;; do we need quack??
 ;; (use-package quack
 ;;   :ensure t
-;;   :pin melpa-stable
+;;   :pin melpa
 ;;   :hook
 ;;   ;; how to turn on for scheme files ONLY?
 ;;   (scheme-mode-hook . quack-mode-does-not-exist)
@@ -468,7 +469,7 @@
 ;;   (custom-set-variables '(quack-default-program "guile")))
 (use-package geiser
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   ;;(setq geiser-active-implementations '(guile))
   (setq geiser-active-implementations '(guile chez racket))
@@ -485,7 +486,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package slime
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :config
   (setq inferior-lisp-program "/usr/local/bin/sbcl"))
 ;;
