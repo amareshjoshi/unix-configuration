@@ -222,6 +222,18 @@ if [[ -d /usr/local/texlive/2021 ]]; then
         export TEXBINPREFIX=universal
     fi
 fi
+if [[ -d /usr/local/texlive/2022 ]]; then
+    export TEXYEAR=2021
+    if [[ "${osname}" = "darwin" ]]; then
+        export TEXBINPREFIX=universal
+    fi
+fi
+if [[ -d /usr/local/texlive/2023 ]]; then
+    export TEXYEAR=2021
+    if [[ "${osname}" = "darwin" ]]; then
+        export TEXBINPREFIX=universal
+    fi
+fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used
 if [[ -d /usr/local/texlive/${TEXYEAR} ]]; then
