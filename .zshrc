@@ -18,10 +18,11 @@
 #--------------------------------------
 # The following lines were added by compinstall
 #--------------------------------------
-zstyle :compinstall filename '/Users/joshia/.zshrc'
+zstyle :compinstall filename "${HOME}/.zshrc"
 
-autoload -Uz compinit
-compinit
+#
+# git prompt
+autoload -Uz compinit && compinit
 #--------------------------------------
 # End of lines added by compinstall
 #--------------------------------------
@@ -106,6 +107,8 @@ osname=$(tr '[A-Z]' '[a-z]' <<< $(uname -s))
 case $(uname -a) in
     *[Mm]icrosoft*)
         wsl=true
+	# special case for Windows TeXLive
+	osname=win32
         ;;
 esac
 
@@ -207,6 +210,9 @@ export ESHELL=${SHELL}
 #----------------------------------------------------------
 # set version
 export TEXBINPREFIX=x86_64
+if [[ "${osname}" = "darwin" ]]; then
+    export TEXBINPREFIX=universal
+fi
 if [[ -d /usr/local/texlive/2018 ]]; then
     export TEXYEAR=2018
 fi
@@ -218,21 +224,12 @@ if [[ -d /usr/local/texlive/2020 ]]; then
 fi
 if [[ -d /usr/local/texlive/2021 ]]; then
     export TEXYEAR=2021
-    if [[ "${osname}" = "darwin" ]]; then
-        export TEXBINPREFIX=universal
-    fi
 fi
 if [[ -d /usr/local/texlive/2022 ]]; then
-    export TEXYEAR=2021
-    if [[ "${osname}" = "darwin" ]]; then
-        export TEXBINPREFIX=universal
-    fi
+    export TEXYEAR=2022
 fi
 if [[ -d /usr/local/texlive/2023 ]]; then
-    export TEXYEAR=2021
-    if [[ "${osname}" = "darwin" ]]; then
-        export TEXBINPREFIX=universal
-    fi
+    export TEXYEAR=2023
 fi
 # if /usr/local install exists then use it
 # otherwise the distribution version will be used

@@ -268,16 +268,36 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 (cond ((display-graphic-p)
-       ;; graphics stuff
+					; graphics stuff
+					; menu bar
        (menu-bar-mode t)
-       ;; uses Unicode symbols for stuff like arrows, Greek letters 
+					; no scroll bar
+       (scroll-bar-mode -1)
+					; uses Unicode symbols for stuff like arrows, Greek letters 
        (prettify-symbols-mode)
        )
       ;; terminal stuff
-      (t 
+      (t
+					; menu bar in text terminals
        (menu-bar-mode -1)
+					; text menu colors
+					; use M-x list-face-display to view all faces
+       (set-face-attribute 'menu nil
+                    :inverse-video nil
+                    :background "darkslateblue"
+                    :foreground "gray"
+                    :bold t)
+       (set-face-attribute 'tty-menu-enabled-face nil
+                    :inverse-video nil
+                    ;;:background "darkslateblue"
+                    :foreground "white"
+                    :bold t)
+       (set-face-attribute 'tty-menu-disabled-face nil
+                    :inverse-video nil
+                    ;;:background "darkslateblue"
+                    :foreground "darkgray"
+                    :bold t)
        )
 )
 ;;
@@ -445,9 +465,20 @@
 ;; platform specific stuff (linux, apple, ...)
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;
 ;; TeX version
-(setenv "TEXBINPREFIX" "x86_64")
+(if (eq system-type 'gnu/linux)
+    (setenv "TEXBINPREFIX" "x86_64")
+  )
+(if (eq system-type 'darwin)
+    (setenv "TEXBINPREFIX" "universal")
+  )
+(if (string-match "-[Mm]icrosoft" operating-system-release)
+    ;; WSL: WSL1 has "-Microsoft", WSL2 has "-microsoft-standard"
+    (setenv "FOO" "win32")
+  )
+
 (if (file-directory-p "/usr/local/texlive/2018")
     (setenv "TEXYEAR" "2018")
   )
@@ -458,15 +489,13 @@
     (setenv "TEXYEAR" "2020")
   )
 (if (file-directory-p "/usr/local/texlive/2021")
-    ;; need to do 2 things
-    ;; (if ...) only does 1 expression
-    ;; progn is a way of doing multiple expressions in one
-    (progn (setenv "TEXYEAR" "2021")
-           (if (eq system-type 'darwin)
-               (setenv "TEXBINPREFIX" "universal")
-             )
-           
-           )
+    (setenv "TEXYEAR" "2021")
+  )
+(if (file-directory-p "/usr/local/texlive/2022")
+    (setenv "TEXYEAR" "2022")
+  )
+(if (file-directory-p "/usr/local/texlive/2023")
+    (setenv "TEXYEAR" "2023")
   )
 ;;
 ;; mac/apple/darwin
