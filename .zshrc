@@ -119,11 +119,14 @@ if [[ "${macos}" ]]; then
     # for some reason /opt/local/[s]bin is getting into the PATH
     # so set it explicitly
     PATH=/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/sbin:/usr/sbin
+    if [[ -d /usr/local/opt/openjdk/bin ]]; then
+	export JAVA_HOME=/usr/local/opt/openjdk
+	PATH="${JAVA_HOME}/bin:${PATH}"
+    fi
     if [[ -d /usr/local/opt/coreutils/libexec/gnubin ]]; then
 	COREUTILS=/usr/local/opt/coreutils/libexec/gnubin
 	PATH="${COREUTILS}:${PATH}"
     fi
-    export JAVA_HOME=$(/usr/libexec/java_home)
     export EMACSNW="emacsclient -nw --alternate-editor=\"\""
     export EMACS="emacsclient --no-wait --create-frame --alternate-editor=\"\""
     #----------------------------------------------------------
