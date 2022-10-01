@@ -211,6 +211,8 @@
 ;; useful to shorten commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
+					; set frame and font based on resolution
+(defalias 'sfr 'set-frame-size-according-to-resolution)
 					; safely kill emacs server
 (defalias 'sbke 'save-buffers-kill-emacs)
 					; company manual completion
@@ -364,17 +366,6 @@
 ;;     (set-frame-size-according-to-resolution)
 ;; )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;
-;; set size
-(set-frame-size-according-to-resolution)
-;;
-;; set position
-(if (display-graphic-p)
-    (progn
-      (add-to-list 'default-frame-alist (cons 'top 50))
-      (add-to-list 'default-frame-alist (cons 'left 50))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -624,6 +615,22 @@
   ;;
   (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; set frame, font and position
+;; do this at the end to make sure graphics is on
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; set size
+(set-frame-size-according-to-resolution)
+;;
+;; set position
+(if (display-graphic-p)
+    (progn
+      (add-to-list 'default-frame-alist (cons 'top 50))
+      (add-to-list 'default-frame-alist (cons 'left 50))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
