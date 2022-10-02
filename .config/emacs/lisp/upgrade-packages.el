@@ -29,6 +29,8 @@
                       web-mode
 					; php-mode (need this in addition to web-mode)
                       php-mode
+                                        ; scala
+                      scala-mode
                                         ; yaml
                       yaml-mode
                                         ; matching colored delemiters

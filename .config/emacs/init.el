@@ -227,6 +227,8 @@
 (defalias 'rg 'run-geiser)
                                         ; clojure ide
 (defalias 'cji 'cider-jack-in)
+					; set font size based on resolution
+(defalias 'sfr 'set-frame-size-according-to-resolution)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -341,12 +343,12 @@
           (if (< (display-pixel-height) 1100)
               ;; laptop or small screen (1050 or 1080)
 	      (progn ;; don't know which one of these is neede
-		(add-to-list 'default-frame-alist '(font . "Source Code Pro-15"))
-		(set-face-attribute 'default t :font "Source Code Pro-15"))
+		;;(add-to-list 'default-frame-alist '(font . "Source Code Pro-13"))
+		(set-face-attribute 'default nil :font "Source Code Pro-14"))
             ;; big screen (4k)
 	    (progn ;; don't know which one of these is neede
-	      (add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
-	      (set-face-attribute 'default t :font "Source Code Pro-16")))
+	      ;;(add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
+	      (set-face-attribute 'default nil :font "Source Code Pro-16")))
           ))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -364,17 +366,6 @@
 ;;     (set-frame-size-according-to-resolution)
 ;; )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;
-;; set size
-(set-frame-size-according-to-resolution)
-;;
-;; set position
-(if (display-graphic-p)
-    (progn
-      (add-to-list 'default-frame-alist (cons 'top 50))
-      (add-to-list 'default-frame-alist (cons 'left 50))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -623,6 +614,21 @@
   ;; cygwin
   ;;
   (setq scheme-program-name "/usr/local/bin/no-racket-for-cygwin")
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; do last to ensure graphic has started
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; set size
+;;
+;; set position
+(if (display-graphic-p)
+    (progn
+      (set-frame-size-according-to-resolution)
+      (add-to-list 'default-frame-alist (cons 'top 50))
+      (add-to-list 'default-frame-alist (cons 'left 50))
+      )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

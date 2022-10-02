@@ -40,6 +40,13 @@
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; scala
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package scala-mode
+  :interpreter
+  ("scala" . scala-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; magit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit
@@ -263,7 +270,7 @@
   (add-to-list 'TeX-command-list
                   '(
 					; label
-		    "latexmx"
+		    "latexMK"
 					; shell command
 		    "latexmk -pdf %t"
 					; lisp function that runs the command
@@ -275,9 +282,11 @@
 					; menu entry
 		    :help "Run latexmk")
                   t)
-  (setq TeX-command-default "latexmk")
+  (setq TeX-command-default "latexMK")
 					; enable parsing on save
   (setq TeX-auto-save t)
+					; use luatex instead of latex
+  (setq TeX-engine 'luatex)
 					; use xetex instead of latex
   ;;(setq TeX-engine 'xetex)
 					; enable parsing on load
