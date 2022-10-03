@@ -29,6 +29,9 @@
                       web-mode
 					; php-mode (need this in addition to web-mode)
                       php-mode
+                                        ; lua
+                      lua-mode
+                      luarocks
                                         ; scala
                       scala-mode
                                         ; yaml

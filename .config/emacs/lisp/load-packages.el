@@ -47,6 +47,22 @@
   ("scala" . scala-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; lua
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package lua-mode
+  :interpreter
+  ("lua" . lua-mode)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+  ;;
+  ;; need to define some lua mode specific keybindings
+  ;; e.g. lua-send-current-line
+  ;; the only one that comes builtin is send-buffer (C-c C-l)
+  (define-key lua-mode-map (kbd "C-c C-e") 'lua-send-current-line)
+  (define-key lua-mode-map (kbd "C-c C-r") 'lua-send-region)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; magit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package magit
