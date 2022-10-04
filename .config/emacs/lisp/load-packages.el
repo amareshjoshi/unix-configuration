@@ -302,9 +302,11 @@
 					; enable parsing on save
   (setq TeX-auto-save t)
 					; use luatex instead of latex
-  (setq TeX-engine 'luatex)
+  (TeX-engine-set 'luatex)
+  ;;(setq TeX-engine 'luatex)
 					; use xetex instead of latex
-  ;;(setq TeX-engine 'xetex)
+  ;;(TeX-engine-set 'xetex)
+  ;;;;(setq TeX-engine 'xetex)
 					; enable parsing on load
   (setq TeX-parse-self t)
 					; If non-nil, then query the user

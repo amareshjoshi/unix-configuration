@@ -185,6 +185,11 @@
 ;;
 ;; red cursors are faster
 (set-cursor-color "#ff0000")
+;;
+;; slightly darker background
+;; beige #ffe7ba
+;;(set-background-color "linen")
+(set-background-color "lavender")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -346,7 +351,7 @@
               ;; laptop or small screen (1050 or 1080)
 	      (progn ;; don't know which one of these is neede
 		;;(add-to-list 'default-frame-alist '(font . "Source Code Pro-13"))
-		(set-face-attribute 'default nil :font "Source Code Pro-14"))
+		(set-face-attribute 'default nil :font "Source Code Pro-15"))
             ;; big screen (4k)
 	    (progn ;; don't know which one of these is neede
 	      ;;(add-to-list 'default-frame-alist '(font . "Source Code Pro-16"))
