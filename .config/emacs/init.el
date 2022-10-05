@@ -170,7 +170,7 @@
 ;;(load-theme 'adwaita t)
 ;;(load-theme 'deeper-blue t)
 ;;(load-theme 'dichromacy t)
-(load-theme 'leuven t)
+;;;;;;;;;;;;(load-theme 'leuven t)
 ;;(load-theme 'light-blue t)
 ;;(load-theme 'manoj-dark t)
 ;;(load-theme 'misterioso t)
@@ -188,8 +188,9 @@
 ;;
 ;; slightly darker background
 ;; beige #ffe7ba
-;;(set-background-color "linen")
-(set-background-color "lavender")
+(set-background-color "linen")
+;;(set-background-color "beige")
+;;(set-background-color "lavender")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

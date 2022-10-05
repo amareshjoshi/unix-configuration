@@ -36,6 +36,8 @@ source ${HOME}/.zsh.d/aliases-and-functions.zsh
 #
 # command history
 setopt APPEND_HISTORY
+# disable Apple medelling (see /etc/zshrc_Apple_Terminal)
+SHELL_SESSION_HISTORY=0
 HISTFILE=${HOME}/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
