@@ -127,6 +127,17 @@
 (setq eshell-highlight-prompt nil)
 ;;(setq eshell-highlight-prompt 1)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; emacs repl (ielm)
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+					; turn on smartparens for ielm
+(defun my-ielm-mode-hook ()
+      (turn-on-eldoc-mode)
+      (and (featurep 'smartparens) (smartparens-mode 1)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; coloring
@@ -170,7 +181,6 @@
 ;;(load-theme 'adwaita t)
 ;;(load-theme 'deeper-blue t)
 ;;(load-theme 'dichromacy t)
-;;;;;;;;;;;;(load-theme 'leuven t)
 ;;(load-theme 'light-blue t)
 ;;(load-theme 'manoj-dark t)
 ;;(load-theme 'misterioso t)
@@ -183,14 +193,23 @@
 ;;(load-theme 'wombat t)
 
 ;;
-;; red cursors are faster
-(set-cursor-color "#ff0000")
-;;
-;; slightly darker background
-;; beige #ffe7ba
-(set-background-color "linen")
-;;(set-background-color "beige")
-;;(set-background-color "lavender")
+;; set colors
+(defun set-colors()
+  (interactive)
+  ;; nice light theme
+  ;; leave OFF for now
+  ;;(load-theme 'leuven t)
+
+  ;;
+  ;; red cursors are faster
+  (set-cursor-color "#ff0000")
+  ;;
+  ;; slightly darker background
+  ;; beige #ffe7ba
+  (set-background-color "linen")
+  ;;(set-background-color "beige")
+  ;;(set-background-color "lavender")
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -219,6 +238,8 @@
 ;;
 					; set frame and font based on resolution
 (defalias 'sfr 'set-frame-size-according-to-resolution)
+					; set theme and colors
+(defalias 'scl 'set-colors)
 					; safely kill emacs server
 (defalias 'sbke 'save-buffers-kill-emacs)
 					; company manual completion
