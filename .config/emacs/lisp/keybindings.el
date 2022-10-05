@@ -45,8 +45,12 @@
 (global-set-key (kbd "M-h") 'global-hl-line-mode) ; toggle global line highlight mode
 ;;(global-set-key "\M-." 'set-mark-command)
 ;;
-;; 
+;; spelling and dictionary
+					; default binding is M-$
 (global-set-key (kbd "C-M-z") 'ispell-word)
+					; dictionary lookup
+(global-set-key (kbd "M-#") 'dictionary-lookup-definition)
+
 
 ;;
 ;; both C-/ and C-M-/ both don't work in some terminal emulators (gnome-terminal and foot)
