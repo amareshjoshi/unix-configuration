@@ -2,7 +2,7 @@
 ;;
 ;; load packages
 ;;
-;; ~/.emacs.d/lisp/load-packages.el
+;; ~/.config/emacs/lisp/load-packages.el
 ;;
 ;; for more info on (use-package) see: https://github.com/jwiegley/use-package
 ;;
