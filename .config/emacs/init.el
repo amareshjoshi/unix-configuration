@@ -62,7 +62,8 @@
 (load "msucommons.el")
 
 ;;
-;; do set graphical window stuuf at the end
+;; graphical window functions
+(load "window-setup.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -584,11 +585,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; do last to ensure graphic has started
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; graphical window functions
-(load "window-setup.el")
-
-;;
 (if (display-graphic-p)
     (progn
 					; set size

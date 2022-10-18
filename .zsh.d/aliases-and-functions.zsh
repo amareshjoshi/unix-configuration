@@ -7,8 +7,8 @@
 #--------------------------------------
 # alias h="fc -l"
 alias h=history
-alias e="emacsclient -nw --alternate-editor=\"\""
-alias eg="emacsclient --no-wait --create-frame --alternate-editor=\"\""
+alias e=e.command
+alias eg=eg.command
 
 
 #
