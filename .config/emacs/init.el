@@ -160,11 +160,16 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; themes
+;; themes and colors
 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; set simple color
+(set-colors)
+
 ;; more modus themes info:
 ;; https://systemcrafters.net/emacs-from-scratch/the-modus-themes/
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
 ;; modus-* themes seem to be buggy
 					; border: borderless, 3d, moody
 (setq modus-themes-mode-line '(accented borderless))
@@ -572,19 +577,6 @@
 ;; do this at the end to make sure graphics is on
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; set size
-(set-frame-size-according-to-resolution)
-;;
-;; set position
-(if (display-graphic-p)
-    (progn
-      (add-to-list 'default-frame-alist (cons 'top 50))
-      (add-to-list 'default-frame-alist (cons 'left 50))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; do last to ensure graphic has started
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (if (display-graphic-p)
     (progn
 					; set size
@@ -592,8 +584,6 @@
 					; set position
       (add-to-list 'default-frame-alist (cons 'top 50))
       (add-to-list 'default-frame-alist (cons 'left 50))
-					; set colors
-      (set-colors)
       )
   )
 
